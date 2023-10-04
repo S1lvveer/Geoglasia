@@ -1,0 +1,3 @@
+Notes:
+- Passwords will probably be hashed with SHA256, firstly MD5 for testing (easily reversable, so we can test whether it works)
+- 
