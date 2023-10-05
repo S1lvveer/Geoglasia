@@ -31,11 +31,14 @@ body {
 }
 
 main {
+    position: relative;
+    top: calc(4rem);
+
     display: flex;
     justify-content: center;
     align-items: center;
 
-    min-height: 100vh;
+    min-height: calc(100vh - 8rem - 100px);
     width: 100%;
     background-color: var(--main-color);
 }
@@ -49,7 +52,7 @@ header {
     justify-content: space-between;
     align-items: center;
 
-    position: fixed;
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
 
@@ -60,6 +63,8 @@ header {
     border-radius: 500px;
 
     background-color: var(--main-color-s);
+
+    z-index: 3;
 }
 
 
@@ -92,7 +97,7 @@ div.nav-links {
 }
 
 .logo-container {
-    flex: 0 0 clamp(100px, 20vw, 200px);
+    flex: 0 0 clamp(6em, 20vw, 12em);
     justify-content: center;
 
     position: relative;
@@ -113,6 +118,12 @@ div.nav-links {
     position: relative;
     display: inline-block;
     padding: 0px 20px;
+}
+
+.nav-links .logintext {
+    margin-right: auto;
+    margin-left: 1em;
+    font-weight: 500;
 }
 
 
