@@ -1,3 +1,6 @@
 Notes:
 - Passwords will probably be hashed with SHA256, firstly MD5 for testing (easily reversable, so we can test whether it works)
+- https://huemint.com/website-1/#palette=e5e9ed-00186c-d89387
 - 
+
+SILVER: cards, css, html, js (do the shit right)
