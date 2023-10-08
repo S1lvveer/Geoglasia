@@ -6,6 +6,9 @@ Notes:
 SILVER: cards, css, html, js (do the shit right)
 
 
+NOTE: My home.html css is mostly optimized. The rest I haven't changed that much since I followed a tutorial
+      https://www.youtube.com/watch?v=1H-vSHVOxoU - this is the tutorial I followed
+
 CSS explanation:
 - :root {} - root element of the page. 
   I only use this to store variables by putting "--variable-name" in there. Later on this can be used as a parameter by using "var(--variable-name)"
