@@ -6,17 +6,17 @@
 }
 
 :root {
-    --main-color: rgb(86, 177, 78);
+    --main-color: rgb(166, 225, 157);
     /* --main-color-s: rgb(55, 94, 46); */
-    --main-color-s: rgba(0,0,0, 0.35);
+    --main-color-s: rgba(49, 49, 49, 0.35);
 
     --category-hovered: rgb(145, 255, 172);
 
     --button-color: rgb(93, 255, 133);
     --button-color-hovered: rgba(82, 255, 105, 0.8);
 
-    --formbox-color: plum;
-    --formbox-color-s: rgba(230, 132, 255);
+    --formbox-color: rgb(240, 154, 206);
+    --formbox-color-s: rgb(224, 139, 190);
 }
 
 body {
