@@ -32,13 +32,13 @@ body {
 
 main {
     position: relative;
-    top: calc(4rem);
+    top: 4rem;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    min-height: calc(100vh - 8rem - 100px);
+    height: calc(100vh - 8rem - 100px); /* the height i calculated that it needs to be, to fill up the rest of the screen below the navigation bar */
     width: 100%;
     background-color: var(--main-color);
 }
@@ -177,7 +177,7 @@ div.nav-links {
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s; /* all properties, animate for 0.3 seconds, ease it out, 0 second delay */
 }
 .cta:hover {
     background-color: var(--button-color-hovered);

@@ -4,3 +4,76 @@ Notes:
 - 
 
 SILVER: cards, css, html, js (do the shit right)
+
+
+CSS explanation:
+- :root {} - root element of the page. 
+  I only use this to store variables by putting "--variable-name" in there. Later on this can be used as a parameter by using "var(--variable-name)"
+
+- margin - margines zewnętrzny (dla mnie)
+- padding - margines wewnętrzny (dla mnie)
+
+- units such as px, %, vh [1% of view height], vw [1% of view width],  em [font size of the element], rem [font size of root element]
+  ex. "height: 300vh" on the body - makes the body scrollable equal to 3x the height of your browser's container
+
+- position: relative & absolute
+  relative acts like a normal element, if you do for example "top: 50%" it will go down by 50% WITHIN the parent element
+  absolute acts like it doesn't exist (doesn't affect any layout whatsoever). if you do "top: 50%" it will go down by 50% from the top of your browser
+
+  BUT, if a "position: absolute" element is within a "position: relative" element, it will be relative to the parent!
+  But it will still be invisible towards the layout. I use this for the ".logo" thing to get bigger than the whole bar, but not mess it up when it comes to layout. 
+  I use a hidden ".logo-container" to take up the space instead (within the flexbox), so elements dont go inside the globe due to "position: absolute"
+
+- z-index - like layers in a photo editor, if it's bigger, it goes above all smaller z-indexes
+  ex. an element with "z-index: 5;" appears above an element with "z-index: 2;"
+
+- clamp(min_value, desired_value, max_value)
+  for example, if used on width, it is equal to doing: "min-width: min_value;  width: desired_value;  max-width: max_value;"
+
+- calc()
+  used for making calculations in css,
+  for example "calc(100vh - 8rem - 100px);" calculates 100% of the view height, removes 8 x fontsize, and 100 pixels
+
+- selectors like ".nav-links a .icon"
+  that example: all ".icon" elements inside of "a" which are inside of ".nav-links"
+
+- ::before and ::after
+  selectors that create a "text node" right after / right before the element. Requires a "content: ''; " style property to appear.
+  This is technically supposed to be used for text, for example if you have "efg", doing "::after { content: 'hijk' }", it would look like "efghijk" together.
+  However, css designers usually use this for underlines by setting "content" to " '' " (empty text), moving it all the way down, adding a height and background color.
+  ^ I did this on line 152-170 in the css where you find " /* Underline animations on hover! */ " 
+
+- transition
+  All property changes ex. "width: 100%" --> "width: 50%" follow the transition, which makes them get animated.
+  In the parameters, you can specify what properties you want animated (ex. "transition: width 2s, height 3s")
+  There are so called "easing functions" that let you follow a different curve. (ex. "ease", "linear")
+
+  Example: https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+
+  /*         property name | duration | easing function | delay */
+  transition: margin-right       4s       ease-in-out      1s;
+  (I added spaces so it's more readable)
+
+  ^ Look in the style.css commits at line 180, I commented one transition thing
+
+- selectors such as :hover, :has (has doesn't work in all browsers D:)
+  :hover {} makes the changes happen upon hovering,
+  :has(something) makes the changes happen to whatever meets that criteria (ex. "element:has(.icon)" happens for all of "element" that has a class of .icon)
+
+- "input:focus ~ label, 
+  input:valid ~ label {}"
+
+  To be honest, I don't understand the "~" all that well. Just copied it off a tutorial.
+  input:focus and input:valid are just things you can use on an input (focus is if the label is currently clicked on, and valid is whether it meets the criteria [ex. minlength, maxlength])
+  
+  https://stackoverflow.com/questions/10782054/what-does-the-tilde-squiggle-twiddle-css-selector-mean
+  Apparently, the "~" object does this
+  ".element_a ~ .element_b {}" looks for:
+  1. an .element_b object
+  2. which is under the same parent as .element_a [so it's a sibling]
+  3. and appears after .element_a
+
+  Other example:
+  ".check:checked ~ .content" matches all ".content" elements that are siblings (are under the same parent) of ".check:checked" (the currently checked object) and appear after it.
+
+  
