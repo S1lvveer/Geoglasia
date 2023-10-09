@@ -20,7 +20,7 @@
                 <ion-icon class="icon" name="help-circle-outline"></ion-icon>
                 About us
             </a>
-            <a href="home.html">
+            <a href="home.php">
                 <ion-icon class="icon" name="home-outline"></ion-icon>
                 Home
             </a>
@@ -37,7 +37,7 @@
 
         <div class="nav-links">
             <!-- <a href="login.html">User</a> -->
-            <a href="login.html" class="logintext">
+            <a href="login.php" class="logintext">
                 <ion-icon name="person-circle-outline" class="icon"></ion-icon>
                 Login
             </a>
