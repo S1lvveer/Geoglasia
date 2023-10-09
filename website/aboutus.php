@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geoglasia - Home</title>
+    <title>Geoglasia - About Us</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -53,8 +53,17 @@
 
     <!-- Home items -->
     <main>
-        <div class="map">
-
+        <!-- I will complete the style.css soon! Just need the updated version first -->
+        <div class="aboutus">
+            <h1>Geoglasia! [Will complete style soon, just need updated version]</h1>
+            <h3>Your one-stop destination for travel around Asia! <br>
+            > Currently supports travel in Asian countries such as:
+            </h3>
+            <ul>
+                <li>South Korea</li>
+                <li>Japan</li>
+                <li>China</li>
+            </ul>
         </div>
     </main>
 
