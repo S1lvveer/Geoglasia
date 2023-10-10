@@ -5,7 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geoglasia - Login</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <?php
+        // Also link the equivalent "name.css" to this file!
+        $fileName = basename(__FILE__, '.php');
+
+        if (file_exists("css/$fileName.css")) {
+            echo "<link rel='stylesheet' href='css/$fileName.css'>";
+        }
+    ?>
 </head>
 <body>
     <header>

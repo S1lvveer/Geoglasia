@@ -5,7 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geoglasia - Home</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <?php
+        // Also link the equivalent "name.css" to this file!
+        $fileName = basename(__FILE__, '.php');
+
+        if (file_exists("css/$fileName.css")) {
+            echo "<link rel='stylesheet' href='css/$fileName.css'>";
+        }
+    ?>
 </head>
 <body>
     <?php
@@ -16,7 +24,7 @@
         # will deal with this later!
     }
     ?>
-
+    
     <!-- Top navigation bar! -->
     <header>
         <nav class="nav-links">
@@ -36,6 +44,40 @@
 
         <div class="logo-container">
             <img src="../assets/globe.svg" alt="logo" class="logo">
+
+            <!-- Spinning "Globasia" around the logo [hide in editor]-->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">>
+                <!-- Create text 1 & 2 on the outside -->
+                <text>
+                    <textPath href="#circle-path">Geoglasia</textPath>
+                    <animateTransform
+                    attributeName="transform"
+                    attributeType="XML"
+                    type="rotate"
+                    from="0 100 100"
+                    to="360 100 100"
+                    dur="10s"
+                    repeatCount="indefinite"
+                    />
+                </text>
+
+                <text>
+                    <textPath href="#circle-path">Geoglasia</textPath>
+                    <animateTransform
+                    attributeName="transform"
+                    attributeType="XML"
+                    type="rotate"
+                    from="180 100 100"
+                    to="540 100 100"
+                    dur="10s"
+                    repeatCount="indefinite"
+                    />
+                </text>
+
+                <!-- Define the path for the circle on the outside -->
+                <path id="circle-path" d="M 100,180 A 80,80 0 0,1 20,100" fill="transparent" />
+
+            </svg>
         </div>
         
 

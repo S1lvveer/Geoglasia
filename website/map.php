@@ -7,7 +7,15 @@
     <!-- This is the map file! Very important! -->
     <!-- TODO: Big SVG map covering a majority of the screen, highlightable and clickable, markers placed in supported countries -->
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <?php
+        // Also link the equivalent "name.css" to this file!
+        $fileName = basename(__FILE__, '.php');
+
+        if (file_exists("css/$fileName.css")) {
+            echo "<link rel='stylesheet' href='css/$fileName.css'>";
+        }
+    ?>
 </head>
 <body>
     <?php

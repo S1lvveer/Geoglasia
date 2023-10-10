@@ -5,7 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geoglasia - About Us</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <?php
+        // Also link the equivalent "name.css" to this file!
+        $fileName = basename(__FILE__, '.php');
+
+        if (file_exists("css/$fileName.css")) {
+            echo "<link rel='stylesheet' href='css/$fileName.css'>";
+        }
+    ?>
 </head>
 <body>
     <?php
@@ -53,17 +61,32 @@
 
     <!-- Home items -->
     <main>
-        <!-- I will complete the style.css soon! Just need the updated version first -->
         <div class="aboutus">
-            <h1>Geoglasia! [Will complete style soon, just need updated version]</h1>
-            <h3>Your one-stop destination for travel around Asia! <br>
-            > Currently supports travel in Asian countries such as:
-            </h3>
-            <ul>
-                <li>South Korea</li>
-                <li>Japan</li>
-                <li>China</li>
-            </ul>
+            <h1>
+                GEOGLASIA
+            </h1>
+
+            <h3>Your one-stop destination for travel around East Asia!</h3>
+            <p>> Currently supports travel in Asian countries such as:</p>
+
+            <div class="country-grid">
+                <p data-country="SK">South Korea</p>
+                <p>Japan</p>
+                <p>China</p>
+                <p>Taiwan</p>
+                <p>Vietnam</p>
+                <p>Cambodia</p>
+                <p>Thailand</p>
+                <p>Laos</p>
+                <p>Cambodia</p>
+                <p>Bangladesh</p>
+                <p>Bhutan</p>
+                <p>Malaysia</p>
+                <p>Singapore</p>
+                <p>Mongolia</p>
+                <p>Nepal</p>
+                <p>India</p>
+            </div>
         </div>
     </main>
 
