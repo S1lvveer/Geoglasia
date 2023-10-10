@@ -18,8 +18,8 @@
     --button-color: rgb(93, 255, 133);
     --button-color-hovered: rgba(82, 255, 105, 0.8);
 
-    --formbox-color: rgb(240, 154, 206);
-    --formbox-color-s: rgb(224, 139, 190);
+    --formbox-color: rgb(227, 168, 243);
+    --formbox-color-s: rgb(208, 151, 224);
 }
 
 body {
@@ -188,6 +188,15 @@ div.nav-links {
 /* CSS for the Login screen! [login.html] */
 /* -------------------------------------- */
 
+@keyframes expand {
+    0% {
+        transform: scale(60%);
+    }
+    100% {
+        transform: scale(100%);
+    }
+}
+
 .form-box {
     position: relative;
     width: 400px;
@@ -200,6 +209,8 @@ div.nav-links {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    animation: expand 0.3s;
 }
 
 .form-box h2 {
@@ -221,6 +232,7 @@ div.nav-links {
     transform: translateY(-50%);
     color: #fff;
     font-size: 1em;
+    font-weight: bold;
 
     pointer-events: none;
     transition: 0.5s ease;

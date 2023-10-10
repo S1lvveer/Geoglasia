@@ -36,6 +36,12 @@
         </div>
     </header>
     <main>
+    <?php
+    $db = new mysqli('localhost', 'root', '', 'project_PAI');
+    if ($db->connect_errno) {
+        echo "ziemniaki - connection failed: " . $db->connect_error;
+    }
+    ?>
         <!-- The login form! [User is not logged in. Otherwise, redirect to settings/home] -->
 
         <!-- TODO - add a tab switch between login and register -->
@@ -66,9 +72,20 @@
 
                 <div class="register">
                     <p>Don't have an account? <a href="#"> Register now!</a></p>
+                    <!-- 
+                        Should we make another site called register.php
+                        or try to work our way around login? 
+                        cookies? 
+                    -->
                 </div>
             </form>
         </div>
+<?php
+    //function used to check user data in DB
+    function check(){
+        //some code to check if there's user like that lol
+    }
+?>
     </main>
 
     <script src="login.js"></script>
