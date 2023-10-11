@@ -5,7 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geoglasia - Login</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <?php
+        // Also link the equivalent "name.css" to this file!
+        $fileName = basename(__FILE__, '.php');
+
+        if (file_exists("css/$fileName.css")) {
+            echo "<link rel='stylesheet' href='css/$fileName.css'>";
+        }
+    ?>
 </head>
 <body>
     <header>
@@ -19,6 +27,15 @@
                 Home
             </a>
             <a href="#">
+            <a href="aboutus.php">
+                <ion-icon class="icon" name="help-circle-outline"></ion-icon>
+                About us
+            </a>
+            <a href="home.php">
+                <ion-icon class="icon" name="home-outline"></ion-icon>
+                Home
+            </a>
+            <a href="map.php">
                 <ion-icon class="icon" name="earth-outline"></ion-icon>
                 Map
             </a>
@@ -30,24 +47,24 @@
         
 
         <div class="nav-links">
-            <a href="login.html">User</a>
+            <a href="login.php">User</a>
             
             <button class="cta">Contact</button>
         </div>
     </header>
+
     <main>
-    <?php
-    $db = new mysqli('localhost', 'root', '', 'project_PAI');
-    if ($db->connect_errno) {
-        echo "ziemniaki - connection failed: " . $db->connect_error;
-    }
-    ?>
-        <!-- The login form! [User is not logged in. Otherwise, redirect to settings/home] -->
+        <?php
+        @$db = new mysqli('localhost', 'root', '', 'project_pai');
+        if ($db->connect_errno) {
+            echo "ziemniaki - connection failed: " . $db->connect_error;
+        }
+        ?>
 
         <!-- TODO - add a tab switch between login and register -->
-
         <div class="form-box">
-            <form method="POST">
+
+            <form method="POST" action="home.php">
                 <h2>Login</h2>
 
                 <div class="inputbox">
@@ -76,9 +93,12 @@
                         Should we make another site called register.php
                         or try to work our way around login? 
                         cookies? 
+
+                        ^ I'll expand this form box to switch between login and register with a slider of some sorts
                     -->
                 </div>
             </form>
+            
         </div>
 <?php
     //function used to check user data in DB

@@ -20,6 +20,8 @@
 
     --formbox-color: rgb(227, 168, 243);
     --formbox-color-s: rgb(208, 151, 224);
+    --formbox-color: #D89DE1;
+    --formbox-color-s: #d787e4;
 }
 
 body {
@@ -47,6 +49,8 @@ main {
 /* CSS for the Navbar! [home.html] */
 /* ------------------------------- */
 
+
+
 header {
     display: flex;
     justify-content: space-between;
@@ -56,7 +60,7 @@ header {
     left: 50%;
     transform: translateX(-50%);
 
-    margin-top: 4rem;
+    margin-top: 4.5rem;
     padding: 10px 2%;
     width: clamp(100px, 80%, 100rem);
     /* max-width: 100rem; */
@@ -113,6 +117,26 @@ div.nav-links {
 
     cursor: pointer;
 }
+.logo-container svg {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: auto;
+
+    width: 133%;
+
+    z-index: 5;
+}
+.logo-container svg text {
+    font-family: 'Montserrat', sans-serif;
+    fill: white;
+    font-weight: 800;
+
+    paint-order: stroke;
+    stroke: #394240;
+    stroke-width: 2px;
+}
+
 
 .nav-links a {
     position: relative;
@@ -184,6 +208,7 @@ div.nav-links {
 }
 
 
+
 /* -------------------------------------- */
 /* CSS for the Login screen! [login.html] */
 /* -------------------------------------- */
@@ -211,6 +236,15 @@ div.nav-links {
     align-items: center;
 
     animation: expand 0.3s;
+}
+
+@keyframes expand {
+    0% {
+        transform: scale(60%);
+    }
+    100% {
+        transform: scale(100%);
+    }
 }
 
 .form-box h2 {

@@ -3,28 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geoglasia - Home</title>
+    <title>Geoglasia - Map</title>
+    <!-- This is the map file! Very important! -->
+    <!-- TODO: Big SVG map covering a majority of the screen, highlightable and clickable, markers placed in supported countries -->
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <?php
+        // Also link the equivalent "name.css" to this file!
+        $fileName = basename(__FILE__, '.php');
+
+        if (file_exists("css/$fileName.css")) {
+            echo "<link rel='stylesheet' href='css/$fileName.css'>";
+        }
+    ?>
 </head>
 <body>
+    <?php
+    # Start up the session & check whether the user is logged in.
+    session_start();
+    
+    if ( isset($_SESSION['Authenticated']) ) {
+        # will deal with this later!
+    }
+    ?>
+
     <!-- Top navigation bar! -->
     <header>
         <nav class="nav-links">
-        <!-- <ul>
-            <li><a href="home.html">About us</a></li>
-            <li><a href="home.html">Home</a></li>
-            <li><a href="home.html">Map</a></li>
-        </ul> -->
-            <a href="#">
+            <a href="aboutus.php">
                 <ion-icon class="icon" name="help-circle-outline"></ion-icon>
                 About us
             </a>
-            <a href="home.html">
+            <a href="home.php">
                 <ion-icon class="icon" name="home-outline"></ion-icon>
                 Home
             </a>
-            <a href="#">
+            <a href="map.php">
                 <ion-icon class="icon" name="earth-outline"></ion-icon>
                 Map
             </a>
@@ -37,7 +51,7 @@
 
         <div class="nav-links">
             <!-- <a href="login.html">User</a> -->
-            <a href="login.html" class="logintext">
+            <a href="login.php" class="logintext">
                 <ion-icon name="person-circle-outline" class="icon"></ion-icon>
                 Login
             </a>
@@ -49,18 +63,12 @@
 
     <!-- Home items -->
     <main>
-        
+        <div class="map">
+            
+        </div>
     </main>
 
 
-    <!--
-        possible stuff to add to actual site lol
-        <section class="home-wrapper">
-        <div class="card" style="display: block; width: 250px; height: 150px; background-color: aliceblue; border-radius: 25px;">
-
-        </div>
-    </section>
-    -->
     
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
