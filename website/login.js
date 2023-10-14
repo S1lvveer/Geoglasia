@@ -27,3 +27,17 @@ submit.addEventListener("click", (e) => {
     inputs[1].type = "password";
     show_icon.name = "eye-outline";
 })
+
+function form_visibility(which){
+    let form_login = document.getElementById("form-login");
+    let form_register = document.getElementById("form-register");
+
+    if(which === 'login'){ // Use '===' for strict equality comparison
+        form_login.style.display = "block";
+        form_register.style.display = "none";
+
+    } else if(which === 'register') {
+        form_login.style.display = "none";
+        form_register.style.display = "block";
+    }
+}

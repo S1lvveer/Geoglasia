@@ -120,6 +120,7 @@
                 <!-- TODO - add a tab switch between login and register -->
                 <!-- Redirects to login.php, but if the login is successful, code above should redirect you to home.php -->
 
+                <section id="form-login">
                 <div class="form-box">
                     <!-- Login -->
                     <form method="POST" action="login.php"> 
@@ -148,11 +149,13 @@
                         <input type="submit" name="submit-login" id="submit-login" value="Log in!">
 
                         <div class="register">
-                            <p>Don't have an account? <a href="#"> Register now!</a></p>
+                        <p>Don't have an account? <a href="#" onclick="form_visibility('register')"> Register now!</a></p>
                         </div>
                     </form>
                 </div>
+                </section>
 
+                <section id="form-register" style="display:none">
                 <div class="form-box">
                     <!-- Register -->
                     <form method="POST" action="login.php">
@@ -164,8 +167,14 @@
                         </div>
 
                         <input type="submit" name="submit-register" id="submit-register" value="Register">
+
+                        <div class="register">
+                        <p>Already have an account? <a href="#" onclick="form_visibility('login')"> Log in!</a></p>
+                        </div>
+
                     </form>
                 </div>
+                </section>
             </div>
         </div>
 
