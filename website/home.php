@@ -99,18 +99,33 @@
         <div class="map">
 
         </div>
-    </main>
 
-
-    <!--
-        possible stuff to add to actual site lol
         <section class="home-wrapper">
-        <div class="card" style="display: block; width: 250px; height: 150px; background-color: aliceblue; border-radius: 25px;">
+        
+        <section class="home-cards">
+        <div class="card">
+            <div class="img-sect">img of country outline</div>
 
+            <h3>Japan</h3>
+            <ul>
+                <li>Tokyo</li>
+                <li>Kyoto</li>
+            </ul>
+            
+            <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+            laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+            <!--
+                place p at the end
+            -->
         </div>
+        </section>
+        
     </section>
-    -->
-    
+    </main>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

@@ -28,11 +28,12 @@ submit.addEventListener("click", (e) => {
     show_icon.name = "eye-outline";
 })
 
+//function that switches between login and register
 function form_visibility(which){
     let form_login = document.getElementById("form-login");
     let form_register = document.getElementById("form-register");
 
-    if(which === 'login'){ // Use '===' for strict equality comparison
+    if(which === 'login'){
         form_login.style.display = "block";
         form_register.style.display = "none";
 

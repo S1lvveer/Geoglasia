@@ -229,3 +229,33 @@ div.nav-links {
 .cta:hover {
     background-color: var(--button-color-hovered);
 }
+
+.home-cards{
+    display: grid;
+}
+.card{
+    width: 300px;
+    height: 600px;
+    background-color: #59a570;
+    border-radius: 25px;
+    padding: 4%;
+}
+.card h3{
+    text-align: center;
+}
+.card p{
+    text-align: justify;
+    background-color: #fff;
+
+    padding: 2%;
+    border-radius: 10px;
+    justify-self: end;
+}
+
+.img-sect{
+    background-color: white;
+    height: 170px;
+    margin-bottom: 2%;
+    padding: 2%;
+    border-radius: 25px;
+}
