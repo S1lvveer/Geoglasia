@@ -19,7 +19,7 @@ show_button.addEventListener("click", () => {
         
 })
 
-let submit = document.querySelector("form button");
+let submit = document.querySelector("form #submit");
 submit.addEventListener("click", (e) => {
     e.preventDefault();
 

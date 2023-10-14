@@ -14,6 +14,8 @@
             echo "<link rel='stylesheet' href='css/$fileName.css'>";
         }
     ?>
+
+    <link rel="icon" href="../assets/globe.svg">
 </head>
 <body>
     <?php
@@ -56,7 +58,7 @@
                     type="rotate"
                     from="0 100 100"
                     to="360 100 100"
-                    dur="10s"
+                    dur="20s"
                     repeatCount="indefinite"
                     />
                 </text>
@@ -69,14 +71,13 @@
                     type="rotate"
                     from="180 100 100"
                     to="540 100 100"
-                    dur="10s"
+                    dur="20s"
                     repeatCount="indefinite"
                     />
                 </text>
 
                 <!-- Define the path for the circle on the outside -->
                 <path id="circle-path" d="M 100,180 A 80,80 0 0,1 20,100" fill="transparent" />
-
             </svg>
         </div>
         

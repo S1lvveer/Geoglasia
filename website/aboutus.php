@@ -71,21 +71,21 @@
 
             <div class="country-grid">
                 <p data-country="SK">South Korea</p>
-                <p>Japan</p>
-                <p>China</p>
-                <p>Taiwan</p>
-                <p>Vietnam</p>
-                <p>Cambodia</p>
-                <p>Thailand</p>
-                <p>Laos</p>
-                <p>Cambodia</p>
-                <p>Bangladesh</p>
-                <p>Bhutan</p>
-                <p>Malaysia</p>
-                <p>Singapore</p>
-                <p>Mongolia</p>
-                <p>Nepal</p>
-                <p>India</p>
+                <p data-country="JP">Japan</p>
+                <p data-country="CN">China</p>
+                <p data-country="TW">Taiwan</p>
+                <p data-country="VN">Vietnam</p>
+                <p data-country="KH">Cambodia</p>
+                <p data-country="TH">Thailand</p>
+                <p data-country="LA">Laos</p>
+                <p data-country="BD">Bangladesh</p>
+                <p data-country="BT">Bhutan</p>
+                <p data-country="MY">Malaysia</p>
+                <p data-country="SG">Singapore</p>
+                <p data-country="MN">Mongolia</p>
+                <p data-country="NP">Nepal</p>
+                <p data-country="IN">India</p>
+                <p data-country="MN">Myanmar</p>
             </div>
         </div>
     </main>
