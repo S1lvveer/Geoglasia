@@ -13,7 +13,12 @@
         if (file_exists("css/$fileName.css")) {
             echo "<link rel='stylesheet' href='css/$fileName.css'>";
         }
+
+
+        session_start();
     ?>
+
+    <link rel="icon" href="../assets/globe.svg">
 </head>
 <body>
     <header>
@@ -50,24 +55,50 @@
             <div class="warnings">
             <?php
                 require_once("require/database.php");
+                require_once("require/utility.php");
 
                 // Login form [ Log in & store cookie ]
                 if (isset($_POST['submit-login'])) {
+                    $login = $_POST['login'];
+                    $password = $_POST['password-login'];
 
+                    $sql = "SELECT * FROM users WHERE login = '$login'";
+                    $result = $db->query($sql);
+                    $user = $result->fetch_assoc();
+                    if ($user) {
+                        // Function to hash the given password and compare it to the one saved in the database
+                        if (password_verify($password, $user['password'])) {
+                            // Redirect to home! Logged in!
+
+                            // TODO set cookie
+                            echo "<div class='warning success'> Successfully logged in! Redirecting... </div>";
+                            
+                            redirect_in(2, "home.php");
+                        } else {
+                            echo "<div class='warning'> Password does not match. </div>";
+                        }
+                    } else {
+                        echo "<div class='warning'> Username does not exist. </div>";
+                    }
                 }
+
+
 
                 // Register form [ Error check, create user, log in & store cookie ]
                 if (isset($_POST['submit-register'])) {
-                    $username = $_POST["login"];
-                    $password = $_POST["password"];
-                    $email = 0;
+                    $login = $_POST['username'];
+                    $password = $_POST['password-register'];
+                    $email = $_POST['email'];
+                    $name = $_POST['firstname'];
+                    $surname = $_POST['lastname'];
+                    $dob = $_POST['dob'];
 
                     $password_hashed = password_hash($password, PASSWORD_DEFAULT); // This is apparently a safe way to do it
 
                     // Server sided checks!
                     $errors = array();
 
-                    if (empty($username) OR empty($email) OR empty($password)) {
+                    if (empty($login) OR empty($email) OR empty($password)) {
                         array_push($errors, "All fields are required.");
                     }
                     /*if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -77,17 +108,17 @@
                     // Is email taken?
                     $sql = "SELECT * FROM users WHERE email = '$email'";
                     $is_taken = $db->query($sql);
-                    $rows = $db->num_rows();
+                    $rows = $is_taken->num_rows;
                     if ($rows > 0) {
-                        array_push($errors, "Email address already in use.");
+                        array_push($errors, "Email address is already in use.");
                     }
 
                     // Is username taken?
                     $sql = "SELECT * FROM users WHERE login = '$login'";
                     $is_taken = $db->query($sql);
-                    $rows = $db->num_rows();
+                    $rows = $is_taken->num_rows;
                     if ($rows > 0) {
-                        array_push($errors, "Email address already in use.");
+                        array_push($errors, "Username is already in use.");
                     }
 
 
@@ -95,21 +126,21 @@
                     // Count and display all errors!
                     if (count($errors) > 0) {
                         foreach ($errors as $error) {
-                            echo "$error <br>"; // TODO also make cool display
+                            echo "<div class='warning'> $error </div>"; // TODO make it a cooler alert display
                         }
                     } else {
                     // Create a new user!
-                        $sql = "INSERT INTO users(login, email, password) VALUES( ?, ?, ? )";
+                        $sql = "INSERT INTO users(login, email, password, name, surname, dob) VALUES( ?, ?, ?, ?, ?, ? )";
                         $stmt = $db->prepare($sql);
 
                         if (!$stmt) {
                             die("Something went wrong whilst preparing statement.");
                         }
 
-                        $stmt->bind_param("sss", $username, $email, $password_hashed);
+                        $stmt->bind_param("ssssss", $login, $email, $password_hashed, $name, $surname, $dob);
                         $stmt->execute();
 
-                        echo "Successfully registered!"; // TODO make cool display & redirect to home.php like 3 seconds after
+                        echo "Successfully registered!"; // TODO make cool display & redirect to home.php like 3 seconds after (& log in automatically, some sites just make you log in even though you just registered)
                     }
                     
                 }
@@ -117,7 +148,6 @@
             </div>
 
             <div class="forms">
-                <!-- TODO - add a tab switch between login and register -->
                 <!-- Redirects to login.php, but if the login is successful, code above should redirect you to home.php -->
 
                 <section id="form-login">
@@ -134,11 +164,11 @@
                         </div>
 
                         <div class="form-input">
-                            <a href="#" id="showpassword"> <ion-icon name="eye-outline" id="showpassword-icon"></ion-icon> </a>
+                            <a href="#" onclick="password_visibility(this);"> <ion-icon name="eye-outline"></ion-icon> </a>
                             <ion-icon name="lock-closed-outline"></ion-icon>
 
-                            <input type="password" name="password" id="password" required>
-                            <label for="password">Password</label>
+                            <input type="password" name="password-login" id="password-login" class="pass" required>
+                            <label for="password-login">Password</label>
                         </div>
 
                         <div class="remember">
@@ -149,7 +179,7 @@
                         <input type="submit" name="submit-login" id="submit-login" value="Log in!">
 
                         <div class="register">
-                        <p>Don't have an account? <a href="#" onclick="form_visibility('register')"> Register now!</a></p>
+                            <p>Don't have an account? <a href="#" onclick="form_visibility('register')"> Register now!</a></p>
                         </div>
                     </form>
                 </div>
@@ -162,14 +192,43 @@
                         <h2>Register</h2>
 
                         <div class="form-input">
+                            <ion-icon name="person-outline"></ion-icon>
                             <input type="text" name="username" id="username" minlength="1" maxlength="20" required>
                             <label for="username">Username</label> 
+                        </div>
+
+                        <div class="form-input">
+                            <input type="text" name="firstname" id="firstname" minlength="1" maxlength="50" required>
+                            <label for="firstname">First name</label>
+                        </div>
+
+                        <div class="form-input">
+                            <input type="text" name="lastname" id="lastname" minlength="1" maxlength="50" required>
+                            <label for="lastname">Last name</label>
+                        </div>
+
+                        <div class="form-input">
+                            <ion-icon name="mail-outline"></ion-icon>
+                            <input type="email" name="email" id="email" required>
+                            <label for="email">Email</label>
+                        </div>
+
+                        <div class="form-input">
+                            <a href="#" onclick="password_visibility(this);"> <ion-icon name="eye-outline"></ion-icon> </a>
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+
+                            <input type="password" name="password-register" id="password-register" class="pass" required>
+                            <label for="password-register">Password</label>
+                        </div>
+
+                        <div class="form-input">
+                            <input type="date" name="dob" id="dob" required>
                         </div>
 
                         <input type="submit" name="submit-register" id="submit-register" value="Register">
 
                         <div class="register">
-                        <p>Already have an account? <a href="#" onclick="form_visibility('login')"> Log in!</a></p>
+                            <p>Already have an account? <a href="#" onclick="form_visibility('login')"> Log in!</a></p>
                         </div>
 
                     </form>
@@ -180,7 +239,9 @@
 
     </main>
 
+
     <script src="login.js"></script>
+    <script src="main.js"></script>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

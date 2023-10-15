@@ -14,6 +14,8 @@
             echo "<link rel='stylesheet' href='css/$fileName.css'>";
         }
     ?>
+
+    <link rel="icon" href="../assets/globe.svg">
 </head>
 <body>
     <?php
@@ -90,15 +92,7 @@
         </div>
     </main>
 
-
-    <!--
-        possible stuff to add to actual site lol
-        <section class="home-wrapper">
-        <div class="card" style="display: block; width: 250px; height: 150px; background-color: aliceblue; border-radius: 25px;">
-
-        </div>
-    </section>
-    -->
+    <script src="main.js"></script>
     
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

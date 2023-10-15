@@ -20,6 +20,8 @@
 
     --warning-color: rgba(252, 255, 89, 0.808);
     --warning-color-s: rgba(224, 194, 113, 0.781);
+    --success-color: rgba(135, 255, 131, 0.808);
+    --success-color-s: rgba(116, 201, 113, 0.808);
 
     --formbox-color: rgb(227, 168, 243);
     --formbox-color-s: rgb(208, 151, 224);
@@ -229,6 +231,8 @@ div.nav-links {
 .cta:hover {
     background-color: var(--button-color-hovered);
 }
+
+
 
 .home-cards{
     display: grid;
