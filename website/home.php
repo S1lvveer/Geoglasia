@@ -22,8 +22,17 @@
     # Start up the session & check whether the user is logged in.
     session_start();
     
-    if ( isset($_SESSION['Authenticated']) ) {
-        # will deal with this later!
+    require_once("require/database.php");
+
+    $user = null;
+    if ( isset($_COOKIE['user_id']) ) {
+        $userid = $_COOKIE['user_id'];
+
+        // Find user and save it to the $user variable
+        $sql = "SELECT * FROM users WHERE user_id = $userid";
+        $result = $db->query($sql);
+
+        $user = $result->fetch_assoc();
     }
     ?>
     
@@ -83,11 +92,27 @@
         
 
         <div class="nav-links">
-            <!-- <a href="login.html">User</a> -->
-            <a href="login.php" class="logintext">
-                <ion-icon name="person-circle-outline" class="icon"></ion-icon>
-                Login
-            </a>
+            
+            <?php
+            // Display login when not logged in, display username & button to user settings if you are
+
+            if ($user) {
+                $username = $user['login'];
+                echo 
+                "<h3>
+                <ion-icon name='person-circle-outline' class='icon'></ion-icon>
+                > Howdy, <span class='greeting'>$username!</span>
+                </h3>";
+            } else { 
+            ?>
+                <a href="login.php" class="logintext">
+                    <ion-icon name="person-circle-outline" class="icon"></ion-icon>
+                    Login
+                </a>
+            <?php 
+            } 
+            ?>
+
             <a href="#">User</a>
             
             <button class="cta">Contact</button>
@@ -96,29 +121,29 @@
 
     <!-- Home items -->
     <main>
-        <div class="map">
+        
+    <div class="map">
 
-        </div>
+    </div>
 
         <section class="home-wrapper">
-        
-        <section class="home-cards">
-        <div class="card">
-            <div class="img-sect">img of country outline</div>
+            <section class="home-cards">
 
-            <h3>Japan</h3>
-            <ul>
-                <li>Tokyo</li>
-                <li>Kyoto</li>
-            </ul>
-            
-            <p class="description">
-            Lorem ipsum dolor sit amet, consx efgsadfgsadfsgdfgga commodo consequat. Lorem ipsum dolor sit amet, consx efgsadfgsadfsgdfgga commodo consequat. Lorem ipsum dolor sit amet, consx efgsadfgsadfsgdfgga commodo consequat.
-            </p>
-        </div>
+            <div class="card">
+                <div class="img-sect">img of country outline</div>
+
+                <h3>Japan</h3>
+                <ul>
+                    <li>Tokyo</li>
+                    <li>Kyoto</li>
+                </ul>
+                
+                <p class="description">
+                Lorem ipsum dolor sit amet, consx efgsadfgsadfsgdfgga commodo consequat. Lorem ipsum dolor sit amet, consx efgsadfgsadfsgdfgga commodo consequat. Lorem ipsum dolor sit amet, consx efgsadfgsadfsgdfgga commodo consequat.
+                </p>
+            </div>
+            </section>
         </section>
-        
-    </section>
     </main>
 
     <script src="main.js"></script>

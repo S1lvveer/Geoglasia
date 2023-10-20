@@ -168,15 +168,24 @@ div.nav-links {
     display: inline-block;
     padding: 0px 20px;
 }
-
 .nav-links .logintext {
+    position: relative;
     margin-right: auto;
-    margin-left: 1em;
+    margin-left: 1.5em;
     font-weight: 500;
+    color: white;
+}
+.nav-links h3 {
+    position: relative;
+    margin-right: auto;
+    margin-left: 1.5em;
+    color: white;
+}
+.greeting {
+    color: var(--category-hovered);
 }
 
-
-.nav-links a .icon {
+.nav-links .icon {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -184,7 +193,7 @@ div.nav-links {
 
     font-size: 1.5em;
 }
-.nav-links a:has(.icon) {
+.nav-links :has(.icon) {
     top: 0.5em; /* Center out the text + icon (offset by half)*/
 }
 

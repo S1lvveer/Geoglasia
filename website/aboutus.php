@@ -22,8 +22,17 @@
     # Start up the session & check whether the user is logged in.
     session_start();
     
-    if ( isset($_SESSION['Authenticated']) ) {
-        # will deal with this later!
+    require_once("require/database.php");
+
+    $user = null;
+    if ( isset($_COOKIE['user_id']) ) {
+        $userid = $_COOKIE['user_id'];
+
+        // Find user and save it to the $user variable
+        $sql = "SELECT * FROM users WHERE user_id = $userid";
+        $result = $db->query($sql);
+
+        $user = $result->fetch_assoc();
     }
     ?>
 
@@ -50,11 +59,26 @@
         
 
         <div class="nav-links">
-            <!-- <a href="login.html">User</a> -->
-            <a href="login.php" class="logintext">
-                <ion-icon name="person-circle-outline" class="icon"></ion-icon>
-                Login
-            </a>
+            <?php
+            // Display login when not logged in, display username & button to user settings if you are
+
+            if ($user) {
+                $username = $user['login'];
+                echo 
+                "<h3>
+                <ion-icon name='person-circle-outline' class='icon'></ion-icon>
+                > Howdy, <span class='greeting'>$username!</span>
+                </h3>";
+            } else { 
+            ?>
+                <a href="login.php" class="logintext">
+                    <ion-icon name="person-circle-outline" class="icon"></ion-icon>
+                    Login
+                </a>
+            <?php 
+            } 
+            ?>
+
             <a href="#">User</a>
             
             <button class="cta">Contact</button>

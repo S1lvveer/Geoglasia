@@ -13,14 +13,29 @@
         if (file_exists("css/$fileName.css")) {
             echo "<link rel='stylesheet' href='css/$fileName.css'>";
         }
-
-
-        session_start();
     ?>
 
     <link rel="icon" href="../assets/globe.svg">
 </head>
 <body>
+    <?php
+    # Start up the session & check whether the user is logged in.
+    session_start();
+    
+    require_once("require/database.php");
+
+    $user = null;
+    if ( isset($_COOKIE['user_id']) ) {
+        $userid = $_COOKIE['user_id'];
+
+        // Find user and save it to the $user variable
+        $sql = "SELECT * FROM users WHERE user_id = $userid";
+        $result = $db->query($sql);
+
+        $user = $result->fetch_assoc();
+    }
+
+    ?>
     <header>
         <nav class="nav-links">
             <a href="aboutus.php">
@@ -54,7 +69,6 @@
         <div class="loginandregister">
             <div class="warnings">
             <?php
-                require_once("require/database.php");
                 require_once("require/utility.php");
 
                 // Login form [ Log in & store cookie ]
@@ -70,7 +84,10 @@
                         if (password_verify($password, $user['password'])) {
                             // Redirect to home! Logged in!
 
-                            // TODO set cookie
+                            // TODO set cookie!
+                            // setcookie(name, value, expire, path, domain, secure, httponly);
+                            setcookie('user_id', $user['user_id'], time() + 86400*2, '/');
+
                             echo "<div class='warning success'> Successfully logged in! Redirecting... </div>";
                             
                             redirect_in(2, "home.php");
@@ -140,7 +157,8 @@
                         $stmt->bind_param("ssssss", $login, $email, $password_hashed, $name, $surname, $dob);
                         $stmt->execute();
 
-                        echo "Successfully registered!"; // TODO make cool display & redirect to home.php like 3 seconds after (& log in automatically, some sites just make you log in even though you just registered)
+                        echo "<div class='warning success'>Successfully registered! Redirecting...</div>"; // TODO make it log in automatically as well
+                        redirect_in(2, "home.php");
                     }
                     
                 }
