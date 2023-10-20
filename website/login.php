@@ -60,7 +60,7 @@
         <div class="nav-links">
             <a href="login.php">User</a>
             
-            <button class="cta">Contact</button>
+            <button class="cta">See offers</button>
         </div>
     </header>
 
@@ -168,8 +168,7 @@
             <div class="forms">
                 <!-- Redirects to login.php, but if the login is successful, code above should redirect you to home.php -->
 
-                <section id="form-login">
-                <div class="form-box">
+                <div class="form-box" id="form-login">
                     <!-- Login -->
                     <form method="POST" action="login.php"> 
                         <h2>Login</h2>
@@ -201,10 +200,8 @@
                         </div>
                     </form>
                 </div>
-                </section>
 
-                <section id="form-register" style="display:none">
-                <div class="form-box">
+                <div class="form-box" id="form-register" style="display:none">
                     <!-- Register -->
                     <form method="POST" action="login.php">
                         <h2>Register</h2>
@@ -215,14 +212,16 @@
                             <label for="username">Username</label> 
                         </div>
 
-                        <div class="form-input">
-                            <input type="text" name="firstname" id="firstname" minlength="1" maxlength="50" required>
-                            <label for="firstname">First name</label>
-                        </div>
-
-                        <div class="form-input">
-                            <input type="text" name="lastname" id="lastname" minlength="1" maxlength="50" required>
-                            <label for="lastname">Last name</label>
+                        <div class="double-input">
+                            <div class="form-input">
+                                <input type="text" name="firstname" id="firstname" minlength="1" maxlength="50" required>
+                                <label for="firstname">First name</label>
+                            </div>
+                            
+                            <div class="form-input">
+                                <input type="text" name="lastname" id="lastname" minlength="1" maxlength="50" required>
+                                <label for="lastname">Last name</label>
+                            </div>
                         </div>
 
                         <div class="form-input">
@@ -241,6 +240,7 @@
 
                         <div class="form-input">
                             <input type="date" name="dob" id="dob" required>
+                            <label for="dob">Birth date</label>
                         </div>
 
                         <input type="submit" name="submit-register" id="submit-register" value="Register">
@@ -251,7 +251,6 @@
 
                     </form>
                 </div>
-                </section>
             </div>
         </div>
 

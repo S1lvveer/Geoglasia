@@ -1,14 +1,19 @@
 /* CSS for "aboutus.php" - automatically linked in <head> php code */
 
 .aboutus {
+    position: absolute;
+    top: 25%;
+
     text-align: center;
     color: white;
 
-    background-color: var(--main-color-s);
+    /* background-color: var(--main-color-s); */
     width: 50em;
 
     border-radius: 50px;
-    box-shadow: 0px 0px 50px rgba(0,0,0, 0.3);
+    /* box-shadow: 0px 0px 50px rgba(0,0,0, 0.3); */
+
+    z-index: 5;
 }
 
 .aboutus h3 {
@@ -31,3 +36,43 @@
     font-weight: bold;
     color: white;
 }
+
+/* ----- */
+/* Curve */
+
+.curve {
+    position: absolute;
+    height: calc(25% + 34em); /* I randomly calculated this to always fit the screen. Don't ask me about it :( */
+    width: 100%;
+    top: 25%;
+
+    border-top-left-radius: 50% 100%;
+    border-top-right-radius: 50% 100%;
+
+    background-color: rgb(145, 199, 134);
+    /* background-color: var(--main-color-s); */
+
+    z-index: 1;
+}
+
+
+/* .curve {
+    position: absolute;
+    height: 30em;
+    width: 60em;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+
+    background-color: rgb(116, 201, 113);
+    border-radius: 60em;
+}
+
+.curve::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 50%;
+    background-color: var(--success-color-s);
+} */

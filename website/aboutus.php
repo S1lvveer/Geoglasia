@@ -81,7 +81,7 @@
 
             <a href="#">User</a>
             
-            <button class="cta">Contact</button>
+            <button class="cta">See offers</button>
         </div>
     </header>
 
@@ -94,6 +94,8 @@
 
             <h3>Your one-stop destination for travel around East Asia!</h3>
             <p>> Currently supports travel in Asian countries such as:</p>
+
+            <br>
 
             <div class="country-grid">
                 <p data-country="SK">South Korea</p>
@@ -113,6 +115,10 @@
                 <p data-country="IN">India</p>
                 <p data-country="MN">Myanmar</p>
             </div>
+        </div>
+
+        <div class="curve">
+
         </div>
     </main>
 

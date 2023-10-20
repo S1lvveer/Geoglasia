@@ -16,14 +16,26 @@ function password_visibility(element) {
 }
 
 
-//function that switches between login and register
+// function that switches between login and register
 function form_visibility(which){
     if(which === 'login'){
-        form_login.style.display = "block";
+        form_login.style.display = "flex";
         form_register.style.display = "none";
 
     } else if(which === 'register') {
         form_login.style.display = "none";
-        form_register.style.display = "block";
+        form_register.style.display = "flex";
     }
 }
+
+
+// constantly check each input for a character, if it has a character, add "has-character" class
+const inputs = document.querySelectorAll("input");
+inputs.forEach(input => {
+        input.addEventListener("input", () => {
+            if (input.value.length > 0)
+                input.classList.add("has-character");
+            else
+                input.classList.remove("has-character");
+        })
+});

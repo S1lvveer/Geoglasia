@@ -100,12 +100,23 @@
     width: 310px;
     border-bottom: 2px solid #fff;
 }
+.double-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 310px;
+    margin: 30px 0;
+}
+.double-input .form-input {
+    width: 150px;
+}
+
 .form-input label {
     position: absolute;
     top: 50%;
     left: 5px;
     transform: translateY(-50%);
-    color: #fff;
+    color: ghostwhite;
     font-size: 1em;
     font-weight: bold;
 
@@ -113,9 +124,27 @@
     transition: 0.5s ease;
 }
 
-/* animation for the text to go up */
+/* animation for the text to go up & change color */
+
+
+input:valid.has-character ~ label,
+input:valid:focus ~ label {
+    color: lightgreen;
+}
+
+input:invalid.has-character ~ label,
+input:invalid:focus ~ label {
+    color: rgb(255, 74, 74);
+}
+
+/* Hacky way to detect whether a character is typed in an input, using javascript I add this class. */
+input.has-character ~ label,
 input:focus ~ label,
 input:valid ~ label {
+    top: 0px;
+}
+
+input[type='date'] ~ label {
     top: 0px;
 }
 

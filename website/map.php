@@ -83,7 +83,7 @@
 
             <a href="#">User</a>
             
-            <button class="cta">Contact</button>
+            <button class="cta">See offers</button>
         </div>
     </header>
 
