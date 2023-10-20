@@ -247,13 +247,12 @@ div.nav-links {
 .card h3{
     text-align: center;
 }
-.card p{
+.description{
     text-align: justify;
-    background-color: #fff;
 
     padding: 2%;
     border-radius: 10px;
-    justify-self: end;
+    max-height: 50px;
 }
 
 .img-sect{
