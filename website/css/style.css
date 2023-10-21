@@ -9,8 +9,8 @@
 }
 
 :root {
+    /* Colors */
     --main-color: rgb(166, 225, 157);
-    /* --main-color-s: rgb(55, 94, 46); */
     --main-color-s: rgba(49, 49, 49, 0.35);
 
     --category-hovered: rgb(145, 255, 172);
@@ -27,6 +27,9 @@
     --formbox-color-s: rgb(208, 151, 224);
     --formbox-color: #D89DE1;
     --formbox-color-s: #d787e4;
+
+    /* Variables [sizes, etc] */
+    --header-height: calc(5rem + 20px + 9rem); /* the height i calculated that it needs to be, to fill up the rest of the screen below the navigation bar */
 }
 
 body {
@@ -34,18 +37,21 @@ body {
     padding: 0px;
     background-color: var(--main-color);
 
-    height: 300vh;
+    height: 100vh;
+    --body-height: 100vh;
 }
 
 main {
-    position: relative;
-    top: 4rem;
+    position: absolute;
+    top: var(--header-height);
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    height: calc(100vh - 8rem - 100px); /* the height i calculated that it needs to be, to fill up the rest of the screen below the navigation bar */
+    /* height: calc(100vh - 8rem - 100px); the height i calculated that it needs to be, to fill up the rest of the screen below the navigation bar */
+    height: calc( var(--body-height) - var(--header-height) );
+    --main-height: calc( var(--body-height) - var(--header-height) );
     width: 100%;
     background-color: var(--main-color);
 }

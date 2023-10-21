@@ -23,17 +23,8 @@
     session_start();
     
     require_once("require/database.php");
-
-    $user = null;
-    if ( isset($_COOKIE['user_id']) ) {
-        $userid = $_COOKIE['user_id'];
-
-        // Find user and save it to the $user variable
-        $sql = "SELECT * FROM users WHERE user_id = $userid";
-        $result = $db->query($sql);
-
-        $user = $result->fetch_assoc();
-    }
+    $user = getUser();
+    
     ?>
     
     <!-- Top navigation bar! -->
@@ -122,9 +113,10 @@
     <!-- Home items -->
     <main>
         
-    <div class="map">
-
-    </div>
+        <div class="map">
+            <div class="map-bg"></div>
+            
+        </div>
 
         <section class="home-wrapper">
             <section class="home-cards">

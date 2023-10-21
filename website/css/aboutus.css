@@ -2,7 +2,7 @@
 
 .aboutus {
     position: absolute;
-    top: 25%;
+    top: 0;
 
     text-align: center;
     color: white;
@@ -27,14 +27,26 @@
     height: 18em;
 
     display: grid;
-    gap: 10px;
+    gap: 100px 10px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr
 }
 
 .country-grid p {
+    position: relative;
     font-weight: bold;
     color: white;
+}
+
+/* The country outlines */
+.country-grid p svg {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -6em);
+
+    fill: rgb(198, 235, 63);
+    /* background-color: rgba(255,255,255,0.5); */
 }
 
 /* ----- */
@@ -42,9 +54,11 @@
 
 .curve {
     position: absolute;
-    height: calc(25% + 34em); /* I randomly calculated this to always fit the screen. Don't ask me about it :( */
+
+    /* height: calc(4em + 800px); I randomly calculated this to always fit the screen. Don't ask me about it :( */
+    height: clamp(calc(4em + 800px), 100%, 100%); 
     width: 100%;
-    top: 25%;
+    top: 0;
 
     border-top-left-radius: 50% 100%;
     border-top-right-radius: 50% 100%;

@@ -109,6 +109,7 @@
 }
 .double-input .form-input {
     width: 150px;
+    margin: 0;
 }
 
 .form-input label {

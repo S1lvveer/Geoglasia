@@ -23,17 +23,7 @@
     session_start();
     
     require_once("require/database.php");
-
-    $user = null;
-    if ( isset($_COOKIE['user_id']) ) {
-        $userid = $_COOKIE['user_id'];
-
-        // Find user and save it to the $user variable
-        $sql = "SELECT * FROM users WHERE user_id = $userid";
-        $result = $db->query($sql);
-
-        $user = $result->fetch_assoc();
-    }
+    $user = getUser();
 
     ?>
     <header>
@@ -71,6 +61,34 @@
             <?php
                 require_once("require/utility.php");
 
+                // Function to generate a session token
+                function createToken($userid) {
+                    // Parameters I use for hashing
+                    $time = time();
+                    $random = bin2hex(random_bytes(16));
+
+                    $token = hash('sha256', $userid . $time . $random);
+                    return $token;
+                }
+
+                // Function to log in and create session
+                function login($user) {
+                    global $db;
+
+                    $userid = $user['user_id'];
+
+                    $token = createToken($userid);
+                    $expires_at = time() + 86400*2; // 2 days
+
+                    // Set the cookie to the session token!
+                    setcookie('login_token', $token, $expires_at, '/'); // setcookie(name, value, expire, path, domain, secure, httponly);
+
+                    // Create a session in the database! (for the server to know)
+                    $session_sql = "INSERT INTO sessions(token, user_id, expires_at) VALUES ('$token', $userid, $expires_at);";
+                    $db->query($session_sql);
+                }
+
+                
                 // Login form [ Log in & store cookie ]
                 if (isset($_POST['submit-login'])) {
                     $login = $_POST['login'];
@@ -83,10 +101,7 @@
                         // Function to hash the given password and compare it to the one saved in the database
                         if (password_verify($password, $user['password'])) {
                             // Redirect to home! Logged in!
-
-                            // TODO set cookie!
-                            // setcookie(name, value, expire, path, domain, secure, httponly);
-                            setcookie('user_id', $user['user_id'], time() + 86400*2, '/');
+                            login($user);
 
                             echo "<div class='warning success'> Successfully logged in! Redirecting... </div>";
                             
@@ -118,9 +133,13 @@
                     if (empty($login) OR empty($email) OR empty($password)) {
                         array_push($errors, "All fields are required.");
                     }
-                    /*if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                         array_push($errors, "Email is invalid.");
-                    }*/
+                    }
+                    
+                    if (strlen($login) > 30) {
+                        array_push($errors, "Username exceeds 30 characters.");
+                    }
                     
                     // Is email taken?
                     $sql = "SELECT * FROM users WHERE email = '$email'";
@@ -157,8 +176,20 @@
                         $stmt->bind_param("ssssss", $login, $email, $password_hashed, $name, $surname, $dob);
                         $stmt->execute();
 
-                        echo "<div class='warning success'>Successfully registered! Redirecting...</div>"; // TODO make it log in automatically as well
-                        redirect_in(2, "home.php");
+                        // Automatically log in after registering!
+                        $last_id = $stmt->insert_id;
+                        $sql = "SELECT * FROM users WHERE user_id = $last_id";
+                        $result = $db->query($sql);
+                        $user = $result->fetch_assoc();
+                        if ($user) {
+                            login($user);
+
+                            echo "<div class='warning success'>Successfully registered! Redirecting...</div>"; // TODO make it log in automatically as well
+                            redirect_in(2, "home.php");
+                        } else {
+                            echo "<div class='warning'>Something went wrong. Failed to log in after register.</div>";
+                        }
+
                     }
                     
                 }
@@ -184,7 +215,7 @@
                             <a href="#" onclick="password_visibility(this);"> <ion-icon name="eye-outline"></ion-icon> </a>
                             <ion-icon name="lock-closed-outline"></ion-icon>
 
-                            <input type="password" name="password-login" id="password-login" class="pass" required>
+                            <input type="password" name="password-login" id="password-login" class="pass" minlength="3" maxlength="255" required>
                             <label for="password-login">Password</label>
                         </div>
 
@@ -234,7 +265,7 @@
                             <a href="#" onclick="password_visibility(this);"> <ion-icon name="eye-outline"></ion-icon> </a>
                             <ion-icon name="lock-closed-outline"></ion-icon>
 
-                            <input type="password" name="password-register" id="password-register" class="pass" required>
+                            <input type="password" name="password-register" id="password-register" class="pass" minlength="3" maxlength="255" required>
                             <label for="password-register">Password</label>
                         </div>
 

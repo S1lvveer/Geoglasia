@@ -23,17 +23,8 @@
     session_start();
     
     require_once("require/database.php");
-
-    $user = null;
-    if ( isset($_COOKIE['user_id']) ) {
-        $userid = $_COOKIE['user_id'];
-
-        // Find user and save it to the $user variable
-        $sql = "SELECT * FROM users WHERE user_id = $userid";
-        $result = $db->query($sql);
-
-        $user = $result->fetch_assoc();
-    }
+    $user = getUser();
+    
     ?>
 
     <!-- Top navigation bar! -->
@@ -95,10 +86,10 @@
             <h3>Your one-stop destination for travel around East Asia!</h3>
             <p>> Currently supports travel in Asian countries such as:</p>
 
-            <br>
+            <br> <br> <br>
 
             <div class="country-grid">
-                <p data-country="SK">South Korea</p>
+                <p data-country="KR">South Korea</p>
                 <p data-country="JP">Japan</p>
                 <p data-country="CN">China</p>
                 <p data-country="TW">Taiwan</p>
@@ -117,11 +108,10 @@
             </div>
         </div>
 
-        <div class="curve">
-
-        </div>
+        <div class="curve"></div>
     </main>
 
+    <script src="display-countries.js"></script>
     <script src="main.js"></script>
     
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
