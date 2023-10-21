@@ -119,22 +119,29 @@
         </div>
 
         <section class="home-wrapper">
-            <section class="home-cards">
+<?php
+
+    // for(int i = 1; i <= 16; i++){
+    // I'm gonna show cards using php lmao
+    // }
+?>
+
+        <section class="home-cards">
 
             <div class="card">
                 <div class="img-sect">img of country outline</div>
 
-                <h3>Japan</h3>
+                <h3></h3>
                 <ul>
-                    <li>Tokyo</li>
-                    <li>Kyoto</li>
                 </ul>
                 
                 <p class="description">
-                Lorem ipsum dolor sit amet, consx efgsadfgsadfsgdfgga commodo consequat. Lorem ipsum dolor sit amet, consx efgsadfgsadfsgdfgga commodo consequat. Lorem ipsum dolor sit amet, consx efgsadfgsadfsgdfgga commodo consequat.
                 </p>
             </div>
-            </section>
+        </section>
+
+
+            
         </section>
     </main>
 
