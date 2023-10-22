@@ -1,5 +1,14 @@
 /* CSS for "aboutus.php" - automatically linked in <head> php code */
 
+@keyframes fromDown {
+    0% {
+        transform: translateY(100%) scale(50%);
+    }
+    100% {
+        transform: translateY(0%) scale(100%);
+    }
+}
+
 .aboutus {
     position: absolute;
     top: 0;
@@ -7,13 +16,13 @@
     text-align: center;
     color: white;
 
-    /* background-color: var(--main-color-s); */
     width: 50em;
-
     border-radius: 50px;
     /* box-shadow: 0px 0px 50px rgba(0,0,0, 0.3); */
 
     z-index: 5;
+
+    animation: fromDown 0.5s;
 }
 
 .aboutus h3 {

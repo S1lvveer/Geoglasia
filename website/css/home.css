@@ -1,7 +1,8 @@
 /* CSS for "home.php" - automatically linked in <head> php code */
 
 .map {
-    position: relative;
+    position: absolute;
+    top: 0;
     height: 20em;
     width: 20em;
     z-index: 1;

@@ -63,11 +63,11 @@ main {
 /* Media queries */
 /* ------------- */
 
-@media (max-width: 800px) {
-    p {
-        font-size: 8px;
+/* @media (max-width: 800px) {
+    header {
+        transform: scale(75%);
     }
-}
+} */
 
 /* ------------------------------- */
 /* CSS for the Navbar! [home.html] */
@@ -113,18 +113,22 @@ header {
     height: 4rem;
     text-align: right;
     text-wrap: nowrap;
+
+    display: flex;
+    align-items: center;
 }
 .page-name .name {
     position: absolute;
     right: 0;
-    margin-bottom: 0;
+    margin: 0;
     margin-right: 10px;
 
     color: white;
     font-weight: 900;
+    font-size: 1.8rem;
     -webkit-text-stroke: 2px rgba(54, 94, 38, 0.25);
 
-    background: linear-gradient(0deg, var(--page-name-bg), rgba(255,255,255,0));
+    background: linear-gradient(rgba(255,255,255,0), rgba(88, 226, 130, 0.5), rgba(255,255,255,0));
     border-radius: 10px;
 
     user-select: none;
