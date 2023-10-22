@@ -19,18 +19,18 @@
 </head>
 <body>
     <?php
-    # Start up the session & check whether the user is logged in.
+    // Start up the session & check whether the user is logged in.
     session_start();
 
     require_once("require/utility.php");
     require_once("require/database.php");
     $user = getUser();
     
-    # Create the header.
+    // Create the header!
     require_once("components/header.php");
 
-    # Only load the page if the user is an admin.
-    if ($user && $user['is_admin'] || true) { # remove || true once we only want admins to view this
+    // Only load the page if the user is an admin.
+    if ($user && $user['is_admin'] ) { # remove || true once we only want admins to view this, or add "|| true" if you want the statement to always go thru
     ?>
 
 
@@ -39,15 +39,17 @@
         
     </main>
 
-    <script src="main.js"></script>
-    
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
     <?php
     } else {
         echo "<div class='db-error-alert'> ERROR: You are not permitted to view this page. </div>";
     };
     ?>
+
+    <script src="main.js"></script>
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    
 </body>
 </html>

@@ -22,47 +22,14 @@
     # Start up the session & check whether the user is logged in.
     session_start();
     
+    require_once("require/utility.php");
     require_once("require/database.php");
     $user = getUser();
+    
+    // Create the header!
+    require_once("components/header.php");
 
     ?>
-    <header>
-        <nav class="nav-links">
-            <a href="aboutus.php">
-                <ion-icon class="icon" name="help-circle-outline"></ion-icon>
-                About us
-            </a>
-            <a href="home.php">
-                <ion-icon class="icon" name="home-outline"></ion-icon>
-                Home
-            </a>
-            <a href="map.php">
-                <ion-icon class="icon" name="earth-outline"></ion-icon>
-                Map
-            </a>
-
-            <!-- The name of the current page, ex. "The Admin Panel" -->
-            <div class="page-name">
-                <h1 class="name">
-                    <?php
-                    require_once("require/utility.php");
-                    echo get_page_text($fileName);
-                    ?>
-                </h1>
-            </div>
-        </nav>
-
-        <div class="logo-container">
-            <img src="../assets/globe.svg" alt="logo" class="logo">
-        </div>
-        
-
-        <div class="nav-links">
-            <a href="login.php">User</a>
-            
-            <button class="cta">See offers</button>
-        </div>
-    </header>
 
     <main>
 
@@ -229,10 +196,10 @@
                             <label for="password-login">Password</label>
                         </div>
 
-                        <div class="remember">
+                        <!-- <div class="remember">
                             <input type="checkbox" name="rememberme" id="rememberme">
                             <label for="rememberme">Remember me!</label>
-                        </div>
+                        </div> -->
                         
                         <input type="submit" name="submit-login" id="submit-login" value="Log in!">
 
