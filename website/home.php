@@ -16,6 +16,10 @@
     ?>
 
     <link rel="icon" href="../assets/globe.svg">
+
+   <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
 </head>
 <body>
     <?php
@@ -127,37 +131,71 @@
             <div class="map-bg"></div>
             
         </div>
-
-        <section class="home-wrapper">
+    
+        <!-- infinite swiper -->
+        <div class="swiper mySwiper home-cards">
+            <div class="swiper-wrapper">
 <?php
+    $countriesQuery = 'SELECT countries.country_name, countries.country_desc FROM countries';
+    $placesQuery = 'SELECT places.city FROM places';
 
-    // for(int i = 1; i <= 16; i++){
-    // I'm gonna show cards using php lmao
-    // }
+    $countryResult = $db->query($countriesQuery);
+
+    while ($row = $countryResult->fetch_assoc()) {
+        printf("
+        <div class='swiper-slide card'>
+            <div class='img-sect'>img of country outline</div>
+    
+            <h3>%s</h3>
+            <ul></ul>
+        
+            <div class='description'>%s</div>
+        </div>", $row['country_name'], $row['country_desc']);
+    }
+
+    $countryResult->free_result();
+
+    // If you want to display data from the "places" table as well, use a similar approach with the $placesQuery.
 ?>
-
-        <section class="home-cards">
-
-            <div class="card">
-                <div class="img-sect">img of country outline</div>
-
-                <h3></h3>
-                <ul>
-                </ul>
-                
-                <p class="description">
-                </p>
-            </div>
-        </section>
-
-
-            
-        </section>
+        </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        
     </main>
 
     <script src="main.js"></script>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1,
+    spaceBetween: 10,
+    loop: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      768: {
+        slidesPerView: 4,
+        spaceBetween: 40,
+      },
+      1024: {
+        slidesPerView: 5,
+        spaceBetween: 50,
+      },
+    },
+  });
+</script>
 </body>
 </html>

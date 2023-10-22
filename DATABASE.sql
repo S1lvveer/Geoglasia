@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 22 Paź 2023, 01:07
+-- Czas generowania: 22 Paź 2023, 16:05
 -- Wersja serwera: 10.4.27-MariaDB
 -- Wersja PHP: 8.2.0
 
@@ -176,8 +176,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `login`, `email`, `password`, `name`, `surname`, `dob`, `is_admin`) VALUES
-(1, 'banana', 'baba@gmail.com', '$2y$10$dt2TPPMcR2nEzLkQUWswgezEeglkBC9I7EeZvN8iYnqM2dK6Sh.aa', 'jack', 'appleson', '0000-00-00', NULL),
-(2, 'admin', 'admin@gmail.com', '$2y$10$gBGsV23TaWxLonyYGyJLdexmvBFFZZrMVvJcF.F54Nu4Dfpfoi1Ni', 'jack', 'apple', '0000-00-00', NULL),
+(1, 'banana', 'baba@gmail.com', '$2y$10$dt2TPPMcR2nEzLkQUWswgezEeglkBC9I7EeZvN8iYnqM2dK6Sh.aa', 'jack', 'appleson', '0000-00-00', 1),
+(2, 'admin', 'admin@gmail.com', '$2y$10$gBGsV23TaWxLonyYGyJLdexmvBFFZZrMVvJcF.F54Nu4Dfpfoi1Ni', 'jack', 'apple', '0000-00-00', 1),
 (3, 'testaccount1', 'ggg@gmail.com', '$2y$10$KxJP5oIr943PTSkB1YiLq.55SFaXnQnYoxJOMw7mGRhl.fWBMGTpa', 'ggg', 'gaygg', '2023-10-25', NULL),
 (4, 'abd', 'b@g', '$2y$10$vISnnENoDPyEswuO1zwkMuoCknmgBf4yWqeRQCLsA99fB9MWquF5O', 'ads', 'dbadbsd', '2023-10-21', NULL),
 (5, 'apple', 'apple@gmail.com', '$2y$10$8LIQ0yq5sA4aBSJPM9RdXelqKrLBiZ7fMlmr.nHrTupU9ER66DJ7q', 'x', 'x', '2023-10-05', NULL),
