@@ -304,10 +304,12 @@ div.nav-links {
 
 .home-cards{
     width: 300px;
-}
-.card{
     background-color: #59a570;
     border-radius: 25px;
+}
+.card{
+    
+    
     padding: 3%;
 }
 .card h3{

@@ -87,7 +87,7 @@
 <!-- Initialize Swiper -->
 <script>
   var swiper = new Swiper(".mySwiper", {
-    spaceBetween: 50,
+    spaceBetween: 20,
     centeredSlides: true,
     loop: true,
     keyboard: {
