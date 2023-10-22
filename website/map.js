@@ -136,7 +136,7 @@ fetch("../assets/asiaLow.svg")
             // If zoomed in, scale in, else, scale out
             const oldScale = currentScale;
             currentScale += event.deltaY > 0 ? -zoomSpeed : zoomSpeed;
-            currentScale = clamp(currentScale, 1, 5);
+            currentScale = clamp(currentScale, 1, 6);
 
             let bounds = svg_container.getBoundingClientRect();
             mousePos.x = event.clientX - bounds.x;
