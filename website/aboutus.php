@@ -42,6 +42,16 @@
                 <ion-icon class="icon" name="earth-outline"></ion-icon>
                 Map
             </a>
+
+            <!-- The name of the current page, ex. "The Admin Panel" -->
+            <div class="page-name">
+                <h1 class="name">
+                    <?php
+                    require_once("require/utility.php");
+                    echo get_page_text($fileName);
+                    ?>
+                </h1>
+            </div>
         </nav>
 
         <div class="logo-container">
