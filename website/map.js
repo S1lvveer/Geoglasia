@@ -1,4 +1,4 @@
-const mapEl = document.querySelector(".map");
+const map = document.querySelector(".map");
 
 // Handle the SVG by setting its' viewbox to the boundingbox of all the paths.
 function setViewBox(svg) {
@@ -11,7 +11,7 @@ function setViewBox(svg) {
 
     paths.forEach(path => {
         let bounds = path.getBBox();
-        console.log(bounds);
+        //console.log(bounds);
         minX = Math.min(minX, bounds.x);
         minY = Math.min(minY, bounds.y);
         maxX = Math.max(maxX, bounds.x + bounds.width);
@@ -33,9 +33,31 @@ function childAdded(mutationList) {
 }
 
 const observer = new MutationObserver(childAdded)
-observer.observe(mapEl, {childList: true, subtree: true});
+observer.observe(map, {childList: true, subtree: true});
 
-// Fetch low quality asian country map
+// All country codes that we're using!
+const countryCodes = {
+    "KR": "South Korea",
+    "JP": "Japan",
+    "CN": "China",
+    "TW": "Taiwan",
+    "VN": "Vietnam",
+    "KH": "Cambodia",
+    "TH": "Thailand",
+    "LA": "Laos",
+    "BD": "Bangladesh",
+    "BT": "Bhutan",
+    "MY": "Malaysia",
+    "SG": "Singapore",
+    "MN": "Mongolia",
+    "NP": "Nepal",
+    "IN": "India",
+    "MM": "Myanmar",
+};
+
+
+
+// Generate the map!
 fetch("../assets/asiaLow.svg")
     .then(response => response.text())
     .then(svgText => {
@@ -51,12 +73,48 @@ fetch("../assets/asiaLow.svg")
 
         let paths = doc.querySelectorAll("path");
         paths.forEach(path => {
-            svg.appendChild(path.cloneNode(true));
+            let cloned = path.cloneNode(true);
+
+            // Check if the path is one that we're providing!
+            let code = path.id;
+            if (countryCodes[code]) {
+                cloned.classList.add("valid-country");
+            }
+
+            svg.appendChild(cloned);
         })
 
+        map.appendChild(svg);
+    })
+    .then(() => { // Do something with all valid countries
+        const hovertext = document.querySelector(".hovered-text");
 
-        mapEl.appendChild(svg);
+        // Listen to hovered elements & update the country display
+        let countries = map.querySelectorAll(".land");
+        countries.forEach(country => {
+            let code = country.id;
+            let name = country.getAttribute("title");
+            let is_valid = country.classList.contains("valid-country");
+
+            country.addEventListener("mouseover", e => {
+                hovertext.textContent = name;
+                if (is_valid) {
+                    hovertext.classList.add("valid");
+                } else {
+                    hovertext.classList.remove("valid");
+                }
+            })
+            country.addEventListener("mouseleave", e => {
+                if (hovertext.textContent == name) {
+                    hovertext.textContent = "NONE";
+                    hovertext.classList.remove("valid");
+                }
+            })
+        })
+        
     })
     .catch(error => {
         console.error("Error loading the SVG file:", error);
     })
+
+

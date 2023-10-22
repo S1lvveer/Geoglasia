@@ -36,7 +36,12 @@
     <!-- Home items -->
     <main>
         <div class="map">
-            <div class="map-bg"></div>
+            <div class="map-bg">
+                <div class="hover-info">
+                    <h3>Country:</h3>
+                    <h3 class="hovered-text">NONE</h3>
+                </div>
+            </div>
             
             
         </div>

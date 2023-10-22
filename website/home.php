@@ -39,6 +39,7 @@
     <main>
         
         <div class="map">
+            
             <div class="map-bg"></div>
             
         </div>
@@ -46,30 +47,31 @@
         <!-- infinite swiper -->
         <div class="swiper mySwiper home-cards">
             <div class="swiper-wrapper">
-            <?php
-                $countriesQuery = 'SELECT countries.country_name, countries.country_desc FROM countries';
-                $placesQuery = 'SELECT places.city FROM places';
+                <?php
+                    $countriesQuery = 'SELECT countries.country_name, countries.country_desc FROM countries';
+                    $placesQuery = 'SELECT places.city FROM places';
 
-                $countryResult = $db->query($countriesQuery);
+                    $countryResult = $db->query($countriesQuery);
 
-                while ($row = $countryResult->fetch_assoc()) {
-                    printf("
-                    <div class='swiper-slide card'>
-                        <div class='img-sect'>img of country outline</div>
-                
-                        <h3>%s</h3>
-                        <ul></ul>
+                    while ($row = $countryResult->fetch_assoc()) {
+                        printf("
+                        <div class='swiper-slide card'>
+                            <div class='img-sect'>img of country outline</div>
                     
-                        <div class='description'>%s</div>
-                    </div>", $row['country_name'], $row['country_desc']);
-                }
+                            <h3>%s</h3>
+                            <ul></ul>
+                        
+                            <div class='description'>%s</div>
+                        </div>", $row['country_name'], $row['country_desc']);
+                    }
 
-                $countryResult->free_result();
+                    $countryResult->free_result();
 
-                // If you want to display data from the "places" table as well, use a similar approach with the $placesQuery.
-            ?>
+                    // If you want to display data from the "places" table as well, use a similar approach with the $placesQuery.
+                ?>
             </div>
         </div>
+
         <div class="swiper-pagination"></div>
         </div>
         

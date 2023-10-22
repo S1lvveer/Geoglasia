@@ -17,8 +17,46 @@
 
     --map-fill: rgb(173, 230, 185);
     --map-highlight: rgb(92, 168, 76);
+    --map-invalid-fill: lightgray;
+    --map-invalid-highlight: rgb(150,150,150);
 
     animation: popin 0.3s ease-out;
+}
+
+/* Valid and invalid countries */
+.hovered-text {
+    color: var(--map-invalid-highlight);
+}
+.hovered-text.valid {
+    color: var(--map-highlight);
+}
+
+
+.map-bg {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% + 5em);
+    height: calc(100% + 5em);
+    background-color: lightskyblue;
+    border-radius: 5em;
+    z-index: 1
+}
+
+.hover-info {
+    position: absolute;
+    right: 2.5em;
+    top: 2.5em;
+
+    text-align: right;
+    color: white;
+    
+    z-index: 5;
+}
+
+.hover-info > * {
+    margin: 0;
 }
 
 .map svg {
@@ -26,7 +64,7 @@
     top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90%;
+    width: calc(90%);
     height: calc(90% + 5em);
     z-index: 100;
 
@@ -34,23 +72,27 @@
     stroke: black;
     stroke-opacity: 0.5;
     stroke-width: 0.5;
+
+    transform-origin: 0 0;
+    transition: transform 0.3s;
 }
 
 /* .land - svg > path */
+.land {
+    fill: var(--map-invalid-fill);
+    stroke-opacity: 0.2;
+}
+.land.valid-country {
+    fill: var(--map-fill);
+    stroke-opacity: 0.5;
+}
 .land:hover {
+    fill: var(--map-invalid-highlight);
+
+    transition: 0.5s
+}
+.land.valid-country:hover {
     fill: var(--map-highlight);
 
-    transition: 0.2s;
-}
-
-.map-bg {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: calc(100% + 5em);
-    background-color: lightskyblue;
-    border-radius: 5em;
-    z-index: 1
+    transition: 0.5s;
 }
