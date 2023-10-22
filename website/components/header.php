@@ -41,6 +41,16 @@
                 <ion-icon name='person-circle-outline' class='icon'></ion-icon>
                 > Howdy, <span class='greeting'>$username!</span>
                 </h3>";
+
+                if ($user['is_admin']) {
+                    echo "<a href='admin.php'>
+                    Admin Panel
+                    </a>";
+                }
+
+                echo "<a href='logout.php'>
+                Logout
+                </a>";
             } else { 
             ?>
                 <a href="login.php" class="logintext">
@@ -51,7 +61,7 @@
             } 
             ?>
 
-            <a href="#">User</a>
+            <!-- <a href="#">User</a> -->
             
             <button class="cta">See offers</button>
         </div>
