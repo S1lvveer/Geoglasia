@@ -24,8 +24,8 @@
     --success-color: rgba(135, 255, 131, 0.808);
     --success-color-s: rgba(116, 201, 113, 0.808);
 
-    --formbox-color: rgb(227, 168, 243);
-    --formbox-color-s: rgb(208, 151, 224);
+    /* --formbox-color: rgb(227, 168, 243);
+    --formbox-color-s: rgb(208, 151, 224); */
     --formbox-color: #D89DE1;
     --formbox-color-s: #d787e4;
 
@@ -57,6 +57,16 @@ main {
     --main-height: calc( var(--body-height) - var(--header-height) );
     width: 100%;
     background-color: var(--main-color);
+}
+
+/* ------------- */
+/* Media queries */
+/* ------------- */
+
+@media (max-width: 800px) {
+    p {
+        font-size: 8px;
+    }
 }
 
 /* ------------------------------- */
