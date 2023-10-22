@@ -17,8 +17,8 @@
 
     <link rel="icon" href="../assets/globe.svg">
 
-   <!-- Link Swiper's CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
 </head>
 <body>
@@ -46,30 +46,30 @@
         <!-- infinite swiper -->
         <div class="swiper mySwiper home-cards">
             <div class="swiper-wrapper">
-<?php
-    $countriesQuery = 'SELECT countries.country_name, countries.country_desc FROM countries';
-    $placesQuery = 'SELECT places.city FROM places';
+            <?php
+                $countriesQuery = 'SELECT countries.country_name, countries.country_desc FROM countries';
+                $placesQuery = 'SELECT places.city FROM places';
 
-    $countryResult = $db->query($countriesQuery);
+                $countryResult = $db->query($countriesQuery);
 
-    while ($row = $countryResult->fetch_assoc()) {
-        printf("
-        <div class='swiper-slide card'>
-            <div class='img-sect'>img of country outline</div>
-    
-            <h3>%s</h3>
-            <ul></ul>
-        
-            <div class='description'>%s</div>
-        </div>", $row['country_name'], $row['country_desc']);
-    }
+                while ($row = $countryResult->fetch_assoc()) {
+                    printf("
+                    <div class='swiper-slide card'>
+                        <div class='img-sect'>img of country outline</div>
+                
+                        <h3>%s</h3>
+                        <ul></ul>
+                    
+                        <div class='description'>%s</div>
+                    </div>", $row['country_name'], $row['country_desc']);
+                }
 
-    $countryResult->free_result();
+                $countryResult->free_result();
 
-    // If you want to display data from the "places" table as well, use a similar approach with the $placesQuery.
-?>
+                // If you want to display data from the "places" table as well, use a similar approach with the $placesQuery.
+            ?>
+            </div>
         </div>
-        <br><br>
         <div class="swiper-pagination"></div>
         </div>
         
@@ -82,30 +82,30 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <!-- Initialize Swiper -->
-<script>
-  var swiper = new Swiper(".mySwiper", {
-    spaceBetween: 20,
-    centeredSlides: true,
-    loop: true,
-    keyboard: {
-        enabled: true,
-      },
-    autoplay: {
-      delay: 6500,
-      disableOnInteraction: false,
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-  });
-</script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 20,
+            centeredSlides: true,
+            loop: true,
+            keyboard: {
+                enabled: true,
+            },
+            autoplay: {
+            delay: 6500,
+            disableOnInteraction: false,
+            },
+            pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+            },
+            navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
 </body>
 </html>

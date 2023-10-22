@@ -1,5 +1,56 @@
 /* CSS for "map.php" - automatically linked in <head> php code */
 
+@keyframes popin {
+    0% {
+        transform: translateY(-100%) scale(50%);
+    }
+    100% {
+        transform: translateY(0%) scale(100%);
+    }
+}
+
 .map {
-    
+    position: absolute;
+    top: 0;
+    width: 60%;
+    height: 60%;
+
+    --map-fill: rgb(173, 230, 185);
+    --map-highlight: rgb(92, 168, 76);
+
+    animation: popin 0.3s ease-out;
+}
+
+.map svg {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: calc(90% + 5em);
+    z-index: 100;
+
+    fill: var(--map-fill);
+    stroke: black;
+    stroke-opacity: 0.5;
+    stroke-width: 0.5;
+}
+
+/* .land - svg > path */
+.land:hover {
+    fill: var(--map-highlight);
+
+    transition: 0.2s;
+}
+
+.map-bg {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: calc(100% + 5em);
+    background-color: lightskyblue;
+    border-radius: 5em;
+    z-index: 1
 }

@@ -38,9 +38,11 @@
         <div class="map">
             <div class="map-bg"></div>
             
+            
         </div>
     </main>
 
+    <script src="map.js"></script>
     <script src="main.js"></script>
     
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

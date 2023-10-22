@@ -62,25 +62,3 @@ fetch("../assets/asiaLow.svg")
     .catch(error => {
         console.error("Error loading the SVG file:", error);
     })
-
-
-
-
-
-// document.addEventListener("DOMContentLoaded", () => {
-//     const countrySVGs = document.querySelectorAll('.country-grid p object');
-
-//     countrySVGs.forEach(object => {
-//         let countryId = object.parentElement.getAttribute('data-country');
-
-//         let svg = object.contentDocument.querySelector("svg g");
-//         let paths = svg.querySelectorAll('path');
-//         console.log(svg);
-//         paths.forEach(path => {
-//             console.log(path.getAttribute('id'), countryId)
-//             if (path.getAttribute('id') != countryId) {
-//                 path.remove();
-//             }
-//         })
-//     })
-// })
