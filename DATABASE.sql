@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 22 Paź 2023, 16:05
+-- Czas generowania: 22 Paź 2023, 20:18
 -- Wersja serwera: 10.4.27-MariaDB
 -- Wersja PHP: 8.2.0
 
@@ -125,13 +125,23 @@ INSERT INTO `places` (`place_id`, `country_id`, `city`, `city_desc`) VALUES
 (35, 9, 'Sylhet', 'Sylhet is a city in the northeastern part of Bangladesh, famous for its picturesque tea gardens, rolling hills, and numerous waterfalls. Explore the Sylhet tea estates, visit Ratnodweep, and take a journey to Jaflong, a scenic area along the border with India.'),
 (36, 9, 'Rajshahi', 'Located in the northwest of Bangladesh, Rajshahi is known for its silk industry and archaeological sites. Explore the historic Varendra Research Museum, visit the Paharpur Vihara (a UNESCO World Heritage Site), and take in the beauty of the Padma River.'),
 (37, 10, 'Thimphu', 'Thimphu is the capital and largest city of Bhutan. It\'s a blend of modernity and tradition, where you can visit iconic sites like Tashichho Dzong, the National Memorial Chorten, and the Giant Buddha Dordenma statue. Explore the vibrant local markets, and get a sense of Bhutan\'s unique cultural heritage.'),
-(38, 10, 'Paro', 'Paro is a picturesque town and the location of Bhutan\'s only international airport. It\'s surrounded by lush valleys and is famous for the stunning Taktsang Monastery, also known as the \'Tiger\'s Nest.\' You can also visit the Rinpung Dzong, National Museum, and the town\'s unique architecture.'),
-(39, 10, 'Punakha', 'Punakha, the former capital of Bhutan, is known for its beautiful Punakha Dzong, a fortress at the confluence of two rivers. The city offers a glimpse into Bhutan\'s history and culture. Don\'t miss the suspension bridge and the scenic countryside.'),
-(40, 10, 'Bumthang Valley', 'Bumthang Valley is a group of towns in central Bhutan, often considered the spiritual heart of the country. Explore the ancient monasteries, including Jambay Lhakhang and Kurje Lhakhang. Bumthang is also known for its beautiful landscapes and fertile valleys.'),
-(41, 11, 'Kuala Lumpur', 'The capital and largest city of Malaysia, Kuala Lumpur is a bustling metropolis with a striking skyline. Visit the iconic Petronas Twin Towers, explore the Batu Caves, and experience the blend of cultures in areas like Chinatown and Little India. The city is also known for its vibrant street food scene.'),
-(42, 11, 'George Town, Penang', 'Located on Penang Island, George Town is a UNESCO World Heritage Site renowned for its well-preserved colonial architecture and multicultural heritage. Explore the historic streets, visit clan houses, and savor the diverse cuisine, which includes Peranakan and Indian dishes.'),
-(43, 11, 'Malacca', 'Malacca is another UNESCO World Heritage Site, known for its rich history as a trading port. Explore the historic district with its Dutch and Portuguese colonial buildings, visit St. Paul\'s Hill and A Famosa fortress, and take a river cruise to discover the city\'s charm.'),
-(44, 11, 'Ipoh', 'Ipoh is a city in Peninsular Malaysia known for its colonial-era architecture and culinary scene. Explore the charming old town, visit Kek Lok Tong Cave Temple, and enjoy the city\'s famous white coffee. Ipoh also offers access to the stunning Kek Lok Tong limestone cave.');
+(38, 11, 'Kuala Lumpur', 'The capital and largest city of Malaysia, Kuala Lumpur is a bustling metropolis with a striking skyline. Visit the iconic Petronas Twin Towers, explore the Batu Caves, and experience the blend of cultures in areas like Chinatown and Little India. The city is also known for its vibrant street food scene.'),
+(39, 11, 'George Town, Penang', 'Located on Penang Island, George Town is a UNESCO World Heritage Site renowned for its well-preserved colonial architecture and multicultural heritage. Explore the historic streets, visit clan houses, and savor the diverse cuisine, which includes Peranakan and Indian dishes.'),
+(40, 11, 'Malacca', 'Malacca is another UNESCO World Heritage Site, known for its rich history as a trading port. Explore the historic district with its Dutch and Portuguese colonial buildings, visit St. Paul\'s Hill and A Famosa fortress, and take a river cruise to discover the city\'s charm.'),
+(41, 11, 'Ipoh', 'Ipoh is a city in Peninsular Malaysia known for its colonial-era architecture and culinary scene. Explore the charming old town, visit Kek Lok Tong Cave Temple, and enjoy the city\'s famous white coffee. Ipoh also offers access to the stunning Kek Lok Tong limestone cave.'),
+(42, 12, 'Marina Bay', 'Marina Bay is the epitome of modern Singapore, with its iconic skyline, impressive architecture, and futuristic attractions. Visit the Marina Bay Sands resort, the Gardens by the Bay, and the ArtScience Museum. Enjoy the stunning views from the Singapore Flyer, and watch the nightly light and water show at the Marina Bay Sands Skypark.'),
+(43, 13, 'Ulaanbaatar', 'As the capital and largest city of Mongolia, Ulaanbaatar is the country\'s political, cultural, and economic center. Visit the Gandantegchinlen Monastery, the National Museum of Mongolia, and the Zaisan Memorial for panoramic views. The city offers a blend of modernity and traditional Mongolian culture.'),
+(44, 13, 'Tsetserleg', 'The administrative center of Arkhangai Province and a gateway to the natural beauty of the region. Visit the picturesque Zayaiin Gegeenii Monastery, explore the Tsenkher Hot Springs, and enjoy horseback riding in the surrounding countryside.'),
+(45, 13, 'Khovd', 'A city in western Mongolia, known for its ethnic diversity and unique cultural heritage. Explore the Museum of Khovd, visit the Maazan Salaa rock paintings, and learn about the history and customs of the local ethnic groups, including Kazakh and Tuvan communities.'),
+(46, 14, 'Kathmandu', 'As the capital and largest city of Nepal, Kathmandu is a cultural and historical hub. Explore the Kathmandu Durbar Square, Swayambhunath Stupa (also known as the Monkey Temple), and the Pashupatinath Temple. The city offers a unique blend of Hindu and Buddhist traditions'),
+(47, 14, 'Pokhara', 'A picturesque city nestled in the foothills of the Annapurna and Dhaulagiri mountain ranges. It\'s a gateway to some of Nepal\'s most beautiful treks, such as the Annapurna Circuit. Visit Phewa Lake, Devi\'s Fall, and the International Mountain Museum'),
+(48, 14, 'Bhaktapur', 'One of the three ancient cities in the Kathmandu Valley and is a UNESCO World Heritage Site. Explore the well-preserved Bhaktapur Durbar Square, Nyatapola Temple, and the 55-Window Palace. The city is famous for its rich architecture and centuries-old culture'),
+(49, 15, 'Delhi', 'The capital of India, is a city of contrasts, with a mix of ancient history and modernity. Explore historic sites like the Red Fort, Humayun\'s Tomb, and Qutub Minar. Visit the bustling streets of Old Delhi, experience the grand architecture of New Delhi, and enjoy the city\'s diverse cuisine.'),
+(50, 15, 'Jaipur', 'The capital of Rajasthan, is known as the \'Pink City\' due to its distinctive pink sandstone buildings. Explore the City Palace, the Hawa Mahal (Palace of the Winds), and the magnificent Amber Fort. Jaipur offers a rich cultural experience, including traditional music, dance, and crafts.'),
+(51, 15, 'Varanasi', 'Located on the banks of the sacred Ganges River, is one of the oldest continuously inhabited cities in the world. Visit the ghats, where people gather for religious ceremonies and rituals. Explore the narrow winding streets of the old city and experience the spiritual and cultural traditions of India'),
+(52, 16, 'Bagan', 'Famous for its thousands of ancient temples and pagodas, making it one of the most significant archaeological sites in Southeast Asia. Explore the temples, enjoy hot air balloon rides over the plains, and take in the breathtaking sunsets and sunrises.'),
+(53, 16, 'Mandalay', 'Myanmar\'s cultural and religious center. Visit the Mahamuni Buddha Temple, explore the Kuthodaw Pagoda with its \'world\'s largest book,\' and climb Mandalay Hill for panoramic views of the city. The city is known for its traditional arts and crafts'),
+(54, 16, 'Bagan', 'Famous for its thousands of ancient temples and pagodas, making it one of the most significant archaeological sites in Southeast Asia. Explore the temples, enjoy hot air balloon rides over the plains, and take in the breathtaking sunsets and sunrises.');
 
 -- --------------------------------------------------------
 
@@ -151,6 +161,7 @@ CREATE TABLE `sessions` (
 
 INSERT INTO `sessions` (`token`, `user_id`, `expires_at`) VALUES
 ('0413ddcf23b63c790c5b4132be4724c4ab91fcddb150d8d44de0d6a719eab079', 9, 1698087251),
+('6e9e3c0cebcf6e00c22ffa0ac2560636c648b527a9a96cd202400834de4d735b', 1, 1698169337),
 ('79271cabe5c3528963222bd9c165f85bd3ad364ef8b1755e0d7eee008a9641b7', 1, 1698094040),
 ('9a182a3eadc8311a2f613bb8a34d2c97b4d8eaee4b8c9c7ada8e6db9df589e70', 1, 1698086206);
 
@@ -254,7 +265,7 @@ ALTER TABLE `booking`
 -- AUTO_INCREMENT dla tabeli `places`
 --
 ALTER TABLE `places`
-  MODIFY `place_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `place_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT dla tabeli `users`
