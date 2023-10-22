@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 22 Paź 2023, 20:18
+-- Czas generowania: 23 Paź 2023, 00:18
 -- Wersja serwera: 10.4.27-MariaDB
 -- Wersja PHP: 8.2.0
 
@@ -161,7 +161,6 @@ CREATE TABLE `sessions` (
 
 INSERT INTO `sessions` (`token`, `user_id`, `expires_at`) VALUES
 ('0413ddcf23b63c790c5b4132be4724c4ab91fcddb150d8d44de0d6a719eab079', 9, 1698087251),
-('6e9e3c0cebcf6e00c22ffa0ac2560636c648b527a9a96cd202400834de4d735b', 1, 1698169337),
 ('79271cabe5c3528963222bd9c165f85bd3ad364ef8b1755e0d7eee008a9641b7', 1, 1698094040),
 ('9a182a3eadc8311a2f613bb8a34d2c97b4d8eaee4b8c9c7ada8e6db9df589e70', 1, 1698086206);
 

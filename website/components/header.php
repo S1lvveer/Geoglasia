@@ -107,6 +107,6 @@
 
             <!-- <a href="#">User</a> -->
             
-            <button class="cta">See offers</button>
+            <a href="alloffers.php"><button class="cta">See offers</button></a>
         </div>
     </header>

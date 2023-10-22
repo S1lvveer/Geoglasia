@@ -7,7 +7,8 @@ $pagedescs = [
     "aboutus" => "<span> > About Us < </span>",
     "admin" => "The <span> > Admin Panel < </span>",
     "login" => "<span> > Login </span> & <span> Register < </span>",
-    "map" => "The <span> > Map < </span>"
+    "map" => "The <span> > Map < </span>",
+    "alloffers" => "<span> > See offers < </span>"
 ];
 function get_page_text($fileName) {
     global $pagedescs;

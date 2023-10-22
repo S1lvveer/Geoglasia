@@ -1,0 +1,10 @@
+.UserStats, .BookingStats{
+    padding-inline: 1%;
+}
+
+table, tr, th, td {
+    background-color: #59a570;
+    border: 2px solid black;
+    border-collapse: collapse;
+    padding: 1.5%;
+}

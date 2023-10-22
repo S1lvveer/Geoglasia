@@ -36,7 +36,35 @@
 
     <!-- Home items -->
     <main>
-        
+        <section class="UserStats">
+            <table>
+                <tr>
+                    <th>login</th>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Date of Birth</th>
+                </tr>
+                <tr>
+    <?php
+        $userQuery = "SELECT  FROM"
+   ?>
+                </tr>
+            </table>
+        </section>
+
+        <section class="BookingStats">
+            <table>
+                <tr>
+                    <th>Country</th>
+                    <th>City</th>
+                    <th>User</th>
+                    <th>Date of booking</th>
+                    <th>Reservation start</th>
+                    <th>Reservation end</th>    
+                </tr>
+            </table>
+        </section>
     </main>
 
     <?php
