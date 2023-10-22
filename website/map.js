@@ -118,64 +118,75 @@ fetch("../assets/asiaLow.svg")
             })
         })
 
-        
-
-        // Zooming effect on the map
+        // MAP MANIPULATION BELOW
         let currentScale = 1;
-        const zoomSpeed = 0.1;
 
-        map.addEventListener("wheel", e => {
-            e.preventDefault();
-            
+        let translate = {scale: currentScale, translateX: 0, translateY: 0};
+        let startPos = {x: 0, y: 0};
+        let offset = {x: 0, y: 0};
+        let mousePos = {x: 0, y: 0};
+
+        let isPanning = false;
+
+        // Zooming in/out effect
+        const zoomSpeed = 0.2;
+        function zoom(event) {
+            event.preventDefault();
+
             // If zoomed in, scale in, else, scale out
-            currentScale += e.deltaY > 0 ? -zoomSpeed : zoomSpeed;
+            const oldScale = currentScale;
+            currentScale += event.deltaY > 0 ? -zoomSpeed : zoomSpeed;
             currentScale = clamp(currentScale, 1, 5);
 
-            let bBox = svg_container.getBoundingClientRect();
-            x = (e.clientX - bBox.left);
-            y = (e.clientY - bBox.top);
+            let bounds = svg_container.getBoundingClientRect();
+            mousePos.x = event.clientX - bounds.x;
+            mousePos.y = event.clientY - bounds.y;
 
-            mapSVG.style.transform = `scale(${currentScale})`;
-            mapSVG.style.transformOrigin = `${x}px ${y}px`;
+            translate.scale = currentScale;
 
-            //console.log(currentScale);
-        })
-
-        
+            const contentMousePosX = (mousePos.x - translate.translateX);
+            const contentMousePosY = (mousePos.y - translate.translateY);
+            translate.translateX = mousePos.x - (contentMousePosX * (currentScale / oldScale));
+            translate.translateY = mousePos.y - (contentMousePosY * (currentScale / oldScale));
+            
+            update();
+        }
 
         // Dragging/panning effect on the map
-        let isPanning = false;
-        let start = {x: 0, y: 0};
-        let offset = {x: 0, y: 0}; // current position on map
-
-        map.addEventListener("ondrag", e => {
-            // disable other things that happen whilst dragging
-            e.preventDefault();
-        })
-        map.addEventListener("mousedown", e => {
+        function mousedown(event) {
             isPanning = true;
-            start.x = e.clientX - offset.x;
-            start.y = e.clientY - offset.y;
+            startPos.x = event.clientX;
+            startPos.y = event.clientY;
+            offset.x = translate.translateX;
+            offset.y = translate.translateY;
+        }
+        function mouseup(event) {
+            isPanning = false
+        }
+        function mousemove(event) {
+            if (!isPanning) return;
 
-        })
-        map.addEventListener("mouseup", e => {
-            isPanning = false;
-        })
-        map.addEventListener("mousemove", e => {
-            if (!isPanning)
-                return;
+            mousePos.x = event.clientX;
+            mousePos.y = event.clientY;
+            
+            translate.translateX = offset.x + (mousePos.x - startPos.x);
+            translate.translateY = offset.y + (mousePos.y - startPos.y);
 
-            console.log("moving");
-
-            let x = e.clientX - start.x;
-            let y = e.clientY - start.y;
-
-            offset.x = x;
-            offset.y = y;
-
-            mapSVG.style.transform = `translate(${x}px, ${y}px) scale(${currentScale})`;
-        })
+            update();
+        } 
         
+
+        // Update the position!
+        function update() {
+            const matrix = `matrix(${translate.scale},0,0,${translate.scale},${translate.translateX},${translate.translateY})`;
+            mapSVG.style.transform = matrix;
+        }
+        
+        map.addEventListener("wheel", zoom);
+        map.addEventListener("mousedown", mousedown);
+        map.addEventListener("mouseup", mouseup);
+        map.addEventListener("mousemove", mousemove);
+        map.addEventListener("ondrag", e => {e.preventDefault()});
 
     })
     .catch(error => {
