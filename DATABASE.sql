@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 23 Paź 2023, 20:32
--- Wersja serwera: 10.4.22-MariaDB
--- Wersja PHP: 8.0.13
+-- Czas generowania: 23 Paź 2023, 21:16
+-- Wersja serwera: 10.4.27-MariaDB
+-- Wersja PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,9 +44,9 @@ CREATE TABLE `booking` (
 
 CREATE TABLE `countries` (
   `country_id` int(11) NOT NULL,
-  `country_name` varchar(60) COLLATE utf16_polish_ci NOT NULL,
-  `country_desc` text COLLATE utf16_polish_ci NOT NULL,
-  `country_code` varchar(2) COLLATE utf16_polish_ci NOT NULL
+  `country_name` varchar(60) NOT NULL,
+  `country_desc` text NOT NULL,
+  `country_code` varchar(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
 
 --
@@ -80,11 +80,11 @@ INSERT INTO `countries` (`country_id`, `country_name`, `country_desc`, `country_
 CREATE TABLE `places` (
   `place_id` int(11) NOT NULL,
   `country_id` int(11) NOT NULL,
-  `city` varchar(70) COLLATE utf16_polish_ci NOT NULL,
-  `city_desc` text COLLATE utf16_polish_ci NOT NULL,
+  `city` varchar(70) NOT NULL,
+  `city_desc` text NOT NULL,
   `pricePerDay` double NOT NULL,
   `cityIMG` blob NOT NULL,
-  `location_offset` varchar(255) COLLATE utf16_polish_ci NOT NULL
+  `location_offset` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
 
 --
@@ -112,40 +112,39 @@ INSERT INTO `places` (`place_id`, `country_id`, `city`, `city_desc`, `pricePerDa
 (18, 5, 'Ho Chi Minh City', 'As the largest city in Vietnam, Ho Chi Minh City is a bustling, dynamic metropolis. Explore the War Remnants Museum, visit the Cu Chi Tunnels, and take a stroll along the busy streets of District 1. The city also offers a vibrant nightlife scene and numerous shopping opportunities.', 78, '', '0.6322206375817746, 0.8296550029405945 '),
 (19, 5, 'Hoi An', 'Hoi An is a charming and well-preserved ancient town known for its lantern-lit streets, historic architecture, and tailor shops. Explore the Old Town, visit the Japanese Covered Bridge, and enjoy the local cuisine.', 76, '', '0.8437700722919508, 0.5288125460301876 '),
 (20, 5, 'Da Nang', 'Da Nang is a coastal city with beautiful beaches and a growing reputation as a tourist destination. Explore the Marble Mountains, visit My Khe Beach, and take a day trip to the ancient town of Hoi An.', 67, '', '0.8020319658578711, 0.5082493974625749 '),
-(21, 6, 'Phnom Penh', 'Phnom Penh, the capital of Cambodia, is a city that has risen from a troubled history to become a vibrant and lively place. Visit the Royal Palace, the Silver Pagoda, and the Tuol Sleng Genocide Museum to learn about Cambodia\'s past. The city also offers a range of dining and entertainment options.', 69, '', ''),
-(22, 6, 'Siem Reap', 'Siem Reap is a gateway to the world-famous Angkor Wat temple complex, a UNESCO World Heritage Site. Explore the Angkor Archaeological Park with its ancient temples, including Bayon and Ta Prohm. Siem Reap also offers a lively night market and a thriving arts and culture scene.', 64, '', ''),
-(23, 6, 'Battambang', 'Battambang is a tranquil and picturesque city known for its French colonial architecture, beautiful countryside, and artistic community. Take a ride on the Bamboo Train, explore Phare Ponleu Selpak (an arts center), and visit the historic temples and museums.', 61, '', ''),
-(24, 6, 'Kampot', 'Kampot is a small, riverside town that offers a laid-back atmosphere and stunning natural surroundings. Explore the picturesque Bokor Hill Station, enjoy a boat trip along the Preaek Tuek Chhu River, and sample the local specialty, Kampot pepper. Nearby Kep is also known for its coastal beauty and crab market', 59, '', ''),
-(25, 7, 'Bangkok', 'The capital and largest city of Thailand, Bangkok is a vibrant metropolis that offers a mix of ancient temples, modern skyscrapers, and bustling markets. Visit the Grand Palace, Wat Pho, and Wat Arun, explore the historic district of Rattanakosin Island, and experience the vibrant street life of Khao San Road.', 46, '', ''),
-(26, 7, 'Chiang Mai', 'Located in the mountainous region of northern Thailand, Chiang Mai is known for its rich cultural heritage and beautiful natural surroundings. Explore historic temples like Wat Phra Singh, take part in traditional Thai cooking classes, and visit the famous Night Bazaar. The city is also a gateway to the nearby jungles and hill tribes.', 49, '', ''),
-(27, 7, 'Phuket', 'Phuket is Thailand\'s largest island and a popular beach destination. Relax on the beautiful beaches, explore Old Phuket Town, and enjoy water activities like snorkeling and diving. The island offers a vibrant nightlife scene.', 59, '', ''),
-(28, 7, 'Krabi', 'Krabi is known for its stunning limestone karsts, clear waters, and outdoor adventures. Visit Railay Beach, go rock climbing, explore the Thung Teao Forest Natural Park, and take boat trips to nearby islands like Phi Phi.', 49.99, '', ''),
-(29, 8, 'Vientiane', 'Vientiane is the capital and largest city of Laos. Despite its status, it maintains a laid-back atmosphere. Explore the serene Wat Pha That Luang, stroll along the Mekong River promenade, and visit the Buddha Park (Xieng Khuan). The city also offers French colonial architecture, vibrant markets, and delicious Lao cuisine.', 76, '', ''),
-(30, 8, 'Luang Prabang', 'Luang Prabang is a UNESCO World Heritage Site known for its well-preserved traditional architecture, Buddhist temples, and serene atmosphere. Explore the Royal Palace Museum, visit the sacred Kuang Si Waterfall, and witness the daily almsgiving ceremony. The town is surrounded by stunning natural beauty and the Mekong River', 72, '', ''),
-(31, 8, 'Pakse', 'Pakse is the largest city in southern Laos and serves as a gateway to the Bolaven Plateau, famous for its coffee plantations and waterfalls. Visit the Wat Luang temple, take a scenic drive through the plateau, and explore the traditional villages of the region', 67, '', ''),
-(32, 8, 'Savannakhet', 'Savannakhet is a charming town on the banks of the Mekong River, offering a glimpse into Lao culture and colonial history. Explore the historic district with well-preserved French colonial buildings, visit the Wat Sainyaphum temple, and enjoy the tranquil riverfront.', 65, '', ''),
-(33, 9, 'Dhaka', 'As the capital and largest city of Bangladesh, Dhaka is a bustling metropolis with a mix of historic landmarks and modern developments. Visit Lalbagh Fort, the Star Mosque, and Ahsan Manzil for a glimpse of the city\'s history. Explore the vibrant street markets and savor delicious Bangladeshi cuisine.', 51, '', ''),
-(34, 9, 'Chittagong', 'Chittagong is the second-largest city and the main seaport of Bangladesh. It\'s known for its beautiful coastline, rolling hills, and lush greenery. Visit Foy\'s Lake for a scenic getaway, explore the hill station of Bandarban, and experience the diverse cultures of the Chittagong Hill Tracts.', 43, '', ''),
-(35, 9, 'Sylhet', 'Sylhet is a city in the northeastern part of Bangladesh, famous for its picturesque tea gardens, rolling hills, and numerous waterfalls. Explore the Sylhet tea estates, visit Ratnodweep, and take a journey to Jaflong, a scenic area along the border with India.', 45, '', ''),
-(36, 9, 'Rajshahi', 'Located in the northwest of Bangladesh, Rajshahi is known for its silk industry and archaeological sites. Explore the historic Varendra Research Museum, visit the Paharpur Vihara (a UNESCO World Heritage Site), and take in the beauty of the Padma River.', 46, '', ''),
-(37, 10, 'Thimphu', 'Thimphu is the capital and largest city of Bhutan. It\'s a blend of modernity and tradition, where you can visit iconic sites like Tashichho Dzong, the National Memorial Chorten, and the Giant Buddha Dordenma statue. Explore the vibrant local markets, and get a sense of Bhutan\'s unique cultural heritage.', 68, '', ''),
-(38, 10, 'Paro', 'Paro is a picturesque town and the location of Bhutan\'s only international airport. It\'s surrounded by lush valleys and is famous for the stunning Taktsang Monastery, also known as the \'Tiger\'s Nest.\' You can also visit the Rinpung Dzong, National Museum, and the town\'s unique architecture.', 67, '', ''),
-(39, 10, 'Punakha', 'Punakha, the former capital of Bhutan, is known for its beautiful Punakha Dzong, a fortress at the confluence of two rivers. The city offers a glimpse into Bhutan\'s history and culture. Don\'t miss the suspension bridge and the scenic countryside.', 56, '', ''),
-(40, 10, 'Bumthang Valley', 'Bumthang Valley is a group of towns in central Bhutan, often considered the spiritual heart of the country. Explore the ancient monasteries, including Jambay Lhakhang and Kurje Lhakhang. Bumthang is also known for its beautiful landscapes and fertile valleys.', 55, '', ''),
-(41, 11, 'Kuala Lumpur', 'The capital and largest city of Malaysia, Kuala Lumpur is a bustling metropolis with a striking skyline. Visit the iconic Petronas Twin Towers, explore the Batu Caves, and experience the blend of cultures in areas like Chinatown and Little India. The city is also known for its vibrant street food scene.', 70, '', ''),
-(42, 12, 'Marina Bay', 'Marina Bay is the epitome of modern Singapore, with its iconic skyline, impressive architecture, and futuristic attractions. Visit the Marina Bay Sands resort, the Gardens by the Bay, and the ArtScience Museum. Enjoy the stunning views from the Singapore Flyer, and watch the nightly light and water show at the Marina Bay Sands Skypark.', 89, '', ''),
+(21, 6, 'Phnom Penh', 'Phnom Penh, the capital of Cambodia, is a city that has risen from a troubled history to become a vibrant and lively place. Visit the Royal Palace, the Silver Pagoda, and the Tuol Sleng Genocide Museum to learn about Cambodia\'s past. The city also offers a range of dining and entertainment options.', 69, '', '0.45665904085324877, 0.6978582217803003'),
+(22, 6, 'Siem Reap', 'Siem Reap is a gateway to the world-famous Angkor Wat temple complex, a UNESCO World Heritage Site. Explore the Angkor Archaeological Park with its ancient temples, including Bayon and Ta Prohm. Siem Reap also offers a lively night market and a thriving arts and culture scene.', 64, '', '0.32727554719883634, 0.386460706190218'),
+(23, 6, 'Battambang', 'Battambang is a tranquil and picturesque city known for its French colonial architecture, beautiful countryside, and artistic community. Take a ride on the Bamboo Train, explore Phare Ponleu Selpak (an arts center), and visit the historic temples and museums.', 61, '', '0.126731132034497, 0.386460706190218'),
+(24, 6, 'Kampot', 'Kampot is a small, riverside town that offers a laid-back atmosphere and stunning natural surroundings. Explore the picturesque Bokor Hill Station, enjoy a boat trip along the Preaek Tuek Chhu River, and sample the local specialty, Kampot pepper. Nearby Kep is also known for its coastal beauty and crab market', 59, '', '0.27552214973707134, 0.9436983656672074'),
+(25, 7, 'Bangkok', 'The capital and largest city of Thailand, Bangkok is a vibrant metropolis that offers a mix of ancient temples, modern skyscrapers, and bustling markets. Visit the Grand Palace, Wat Pho, and Wat Arun, explore the historic district of Rattanakosin Island, and experience the vibrant street life of Khao San Road.', 46, '', '0.3878424650509691, 0.46818290713766514'),
+(26, 7, 'Chiang Mai', 'Located in the mountainous region of northern Thailand, Chiang Mai is known for its rich cultural heritage and beautiful natural surroundings. Explore historic temples like Wat Phra Singh, take part in traditional Thai cooking classes, and visit the famous Night Bazaar. The city is also a gateway to the nearby jungles and hill tribes.', 49, '', '0.20528931504837342, 0.11764503347165173'),
+(27, 7, 'Phuket', 'Phuket is Thailand\'s largest island and a popular beach destination. Relax on the beautiful beaches, explore Old Phuket Town, and enjoy water activities like snorkeling and diving. The island offers a vibrant nightlife scene.', 59, '', '0.11816167527440735, 0.8232438501413044'),
+(28, 7, 'Krabi', 'Krabi is known for its stunning limestone karsts, clear waters, and outdoor adventures. Visit Railay Beach, go rock climbing, explore the Thung Teao Forest Natural Park, and take boat trips to nearby islands like Phi Phi.', 49.99, '', '0.20114037982104171, 0.8413361274918084'),
+(29, 8, 'Vientiane', 'Vientiane is the capital and largest city of Laos. Despite its status, it maintains a laid-back atmosphere. Explore the serene Wat Pha That Luang, stroll along the Mekong River promenade, and visit the Buddha Park (Xieng Khuan). The city also offers French colonial architecture, vibrant markets, and delicious Lao cuisine.', 76, '', '0.34413062339980827, 0.4996025093522377'),
+(30, 8, 'Luang Prabang', 'Luang Prabang is a UNESCO World Heritage Site known for its well-preserved traditional architecture, Buddhist temples, and serene atmosphere. Explore the Royal Palace Museum, visit the sacred Kuang Si Waterfall, and witness the daily almsgiving ceremony. The town is surrounded by stunning natural beauty and the Mekong River', 72, '', '0.289965257702042, 0.3749262991924659'),
+(31, 8, 'Pakse', 'Pakse is the largest city in southern Laos and serves as a gateway to the Bolaven Plateau, famous for its coffee plantations and waterfalls. Visit the Wat Luang temple, take a scenic drive through the plateau, and explore the traditional villages of the region', 67, '', '0.7894902969147752, 0.8387218009868171'),
+(32, 8, 'Savannakhet', 'Savannakhet is a charming town on the banks of the Mekong River, offering a glimpse into Lao culture and colonial history. Explore the historic district with well-preserved French colonial buildings, visit the Wat Sainyaphum temple, and enjoy the tranquil riverfront.', 65, '', '0.6691228175864058, 0.6791362519823092'),
+(33, 9, 'Dhaka', 'As the capital and largest city of Bangladesh, Dhaka is a bustling metropolis with a mix of historic landmarks and modern developments. Visit Lalbagh Fort, the Star Mosque, and Ahsan Manzil for a glimpse of the city\'s history. Explore the vibrant street markets and savor delicious Bangladeshi cuisine.', 51, '', '0.5031851556155434, 0.44496640859018216'),
+(34, 9, 'Chittagong', 'Chittagong is the second-largest city and the main seaport of Bangladesh. It\'s known for its beautiful coastline, rolling hills, and lush greenery. Visit Foy\'s Lake for a scenic getaway, explore the hill station of Bandarban, and experience the diverse cultures of the Chittagong Hill Tracts.', 43, '', '0.8551312524128927, 0.7381779603773482'),
+(35, 9, 'Sylhet', 'Sylhet is a city in the northeastern part of Bangladesh, famous for its picturesque tea gardens, rolling hills, and numerous waterfalls. Explore the Sylhet tea estates, visit Ratnodweep, and take a journey to Jaflong, a scenic area along the border with India.', 45, '', '0.7475921672803694, 0.3162393858543532'),
+(36, 9, 'Rajshahi', 'Located in the northwest of Bangladesh, Rajshahi is known for its silk industry and archaeological sites. Explore the historic Varendra Research Museum, visit the Paharpur Vihara (a UNESCO World Heritage Site), and take in the beauty of the Padma River.', 46, '', '0.15123905881819424, 0.35914839343296284'),
+(37, 10, 'Thimphu', 'Thimphu is the capital and largest city of Bhutan. It\'s a blend of modernity and tradition, where you can visit iconic sites like Tashichho Dzong, the National Memorial Chorten, and the Giant Buddha Dordenma statue. Explore the vibrant local markets, and get a sense of Bhutan\'s unique cultural heritage.', 68, '', '0.2339936380902286, 0.49250183523354457'),
+(38, 10, 'Paro', 'Paro is a picturesque town and the location of Bhutan\'s only international airport. It\'s surrounded by lush valleys and is famous for the stunning Taktsang Monastery, also known as the \'Tiger\'s Nest.\' You can also visit the Rinpung Dzong, National Museum, and the town\'s unique architecture.', 67, '', '0.18500938370850198, 0.5985006837605695'),
+(39, 10, 'Punakha', 'Punakha, the former capital of Bhutan, is known for its beautiful Punakha Dzong, a fortress at the confluence of two rivers. The city offers a glimpse into Bhutan\'s history and culture. Don\'t miss the suspension bridge and the scenic countryside.', 56, '', '0.4191977633771992, 0.40872007191900783'),
+(40, 10, 'Bumthang Valley', 'Bumthang Valley is a group of towns in central Bhutan, often considered the spiritual heart of the country. Explore the ancient monasteries, including Jambay Lhakhang and Kurje Lhakhang. Bumthang is also known for its beautiful landscapes and fertile valleys.', 55, '', '0.6420957780035553, 0.408559537719511'),
+(41, 11, 'Kuala Lumpur', 'The capital and largest city of Malaysia, Kuala Lumpur is a bustling metropolis with a striking skyline. Visit the iconic Petronas Twin Towers, explore the Batu Caves, and experience the blend of cultures in areas like Chinatown and Little India. The city is also known for its vibrant street food scene.', 70, '', '0.07734955150101364, 0.577072069870814'),
+(42, 12, 'Marina Bay', 'Marina Bay is the epitome of modern Singapore, with its iconic skyline, impressive architecture, and futuristic attractions. Visit the Marina Bay Sands resort, the Gardens by the Bay, and the ArtScience Museum. Enjoy the stunning views from the Singapore Flyer, and watch the nightly light and water show at the Marina Bay Sands Skypark.', 89, '', '0.5385153118486451, 0.31531579868198517'),
 (43, 13, 'Ulaanbaatar', 'As the capital and largest city of Mongolia, Ulaanbaatar is the country\'s political, cultural, and economic center. Visit the Gandantegchinlen Monastery, the National Museum of Mongolia, and the Zaisan Memorial for panoramic views. The city offers a blend of modernity and traditional Mongolian culture.', 76, '', '0.600326777576765, 0.4226720517217334 '),
 (44, 13, 'Tsetserleg', 'The administrative center of Arkhangai Province and a gateway to the natural beauty of the region. Visit the picturesque Zayaiin Gegeenii Monastery, explore the Tsenkher Hot Springs, and enjoy horseback riding in the surrounding countryside.', 75, '', '0.43099469957856823, 0.4591092975598139 '),
 (45, 13, 'Khovd', 'A city in western Mongolia, known for its ethnic diversity and unique cultural heritage. Explore the Museum of Khovd, visit the Maazan Salaa rock paintings, and learn about the history and customs of the local ethnic groups, including Kazakh and Tuvan communities.', 68, '', '0.1458038313710789, 0.4287449260280802 '),
-(46, 14, 'Kathmandu', 'As the capital and largest city of Nepal, Kathmandu is a cultural and historical hub. Explore the Kathmandu Durbar Square, Swayambhunath Stupa (also known as the Monkey Temple), and the Pashupatinath Temple. The city offers a unique blend of Hindu and Buddhist traditions', 75, '', ''),
-(47, 14, 'Pokhara', 'A picturesque city nestled in the foothills of the Annapurna and Dhaulagiri mountain ranges. It\'s a gateway to some of Nepal\'s most beautiful treks, such as the Annapurna Circuit. Visit Phewa Lake, Devi\'s Fall, and the International Mountain Museum', 68, '', ''),
-(48, 14, 'Bhaktapur', 'One of the three ancient cities in the Kathmandu Valley and is a UNESCO World Heritage Site. Explore the well-preserved Bhaktapur Durbar Square, Nyatapola Temple, and the 55-Window Palace. The city is famous for its rich architecture and centuries-old culture', 65, '', ''),
-(49, 15, 'Delhi', 'The capital of India, is a city of contrasts, with a mix of ancient history and modernity. Explore historic sites like the Red Fort, Humayun\'s Tomb, and Qutub Minar. Visit the bustling streets of Old Delhi, experience the grand architecture of New Delhi, and enjoy the city\'s diverse cuisine.', 70, '', ''),
-(50, 15, 'Jaipur', 'The capital of Rajasthan, is known as the \'Pink City\' due to its distinctive pink sandstone buildings. Explore the City Palace, the Hawa Mahal (Palace of the Winds), and the magnificent Amber Fort. Jaipur offers a rich cultural experience, including traditional music, dance, and crafts.', 67, '', ''),
-(51, 15, 'Varanasi', 'Located on the banks of the sacred Ganges River, is one of the oldest continuously inhabited cities in the world. Visit the ghats, where people gather for religious ceremonies and rituals. Explore the narrow winding streets of the old city and experience the spiritual and cultural traditions of India', 53, '', ''),
-(52, 16, 'Bagan', 'Famous for its thousands of ancient temples and pagodas, making it one of the most significant archaeological sites in Southeast Asia. Explore the temples, enjoy hot air balloon rides over the plains, and take in the breathtaking sunsets and sunrises.', 56, '', ''),
-(53, 16, 'Mandalay', 'Myanmar\'s cultural and religious center. Visit the Mahamuni Buddha Temple, explore the Kuthodaw Pagoda with its \'world\'s largest book,\' and climb Mandalay Hill for panoramic views of the city. The city is known for its traditional arts and crafts', 58, '', ''),
-(54, 16, 'Bagan', 'Famous for its thousands of ancient temples and pagodas, making it one of the most significant archaeological sites in Southeast Asia. Explore the temples, enjoy hot air balloon rides over the plains, and take in the breathtaking sunsets and sunrises.', 54, '', '');
+(46, 14, 'Kathmandu', 'As the capital and largest city of Nepal, Kathmandu is a cultural and historical hub. Explore the Kathmandu Durbar Square, Swayambhunath Stupa (also known as the Monkey Temple), and the Pashupatinath Temple. The city offers a unique blend of Hindu and Buddhist traditions', 75, '', '0.7225401803214426, 0.7237416005443285'),
+(47, 14, 'Pokhara', 'A picturesque city nestled in the foothills of the Annapurna and Dhaulagiri mountain ranges. It\'s a gateway to some of Nepal\'s most beautiful treks, such as the Annapurna Circuit. Visit Phewa Lake, Devi\'s Fall, and the International Mountain Museum', 68, '', '0.5117992943943551, 0.5723125887381305'),
+(48, 14, 'Bhaktapur', 'One of the three ancient cities in the Kathmandu Valley and is a UNESCO World Heritage Site. Explore the well-preserved Bhaktapur Durbar Square, Nyatapola Temple, and the 55-Window Palace. The city is famous for its rich architecture and centuries-old culture', 65, '', '0.6372402979223833, 0.6702960669656703'),
+(49, 15, 'Delhi', 'The capital of India, is a city of contrasts, with a mix of ancient history and modernity. Explore historic sites like the Red Fort, Humayun\'s Tomb, and Qutub Minar. Visit the bustling streets of Old Delhi, experience the grand architecture of New Delhi, and enjoy the city\'s diverse cuisine.', 70, '', '0.30069093752883097, 0.2857300571670772'),
+(50, 15, 'Jaipur', 'The capital of Rajasthan, is known as the \'Pink City\' due to its distinctive pink sandstone buildings. Explore the City Palace, the Hawa Mahal (Palace of the Winds), and the magnificent Amber Fort. Jaipur offers a rich cultural experience, including traditional music, dance, and crafts.', 67, '', '0.24356757122194134, 0.311621309981661'),
+(51, 15, 'Varanasi', 'Located on the banks of the sacred Ganges River, is one of the oldest continuously inhabited cities in the world. Visit the ghats, where people gather for religious ceremonies and rituals. Explore the narrow winding streets of the old city and experience the spiritual and cultural traditions of India', 53, '', '0.5117367496855435, 0.46308409216625146'),
+(52, 16, 'Bagan', 'Famous for its thousands of ancient temples and pagodas, making it one of the most significant archaeological sites in Southeast Asia. Explore the temples, enjoy hot air balloon rides over the plains, and take in the breathtaking sunsets and sunrises.', 56, '', '0.3038779138059138, 0.4059356169289928'),
+(53, 16, 'Mandalay', 'Myanmar\'s cultural and religious center. Visit the Mahamuni Buddha Temple, explore the Kuthodaw Pagoda with its \'world\'s largest book,\' and climb Mandalay Hill for panoramic views of the city. The city is known for its traditional arts and crafts', 58, '', '0.409952318558643, 0.35526851394228093');
 
 -- --------------------------------------------------------
 
@@ -157,7 +156,7 @@ CREATE TABLE `sessions` (
   `token` varchar(64) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `expires_at` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Zrzut danych tabeli `sessions`
@@ -174,6 +173,7 @@ INSERT INTO `sessions` (`token`, `user_id`, `expires_at`) VALUES
 ('8e1a3a3b2407a30e919f45e0979497a94b37eb2f5071f59e3d1f38179d28a3ca', 1, 1698237727),
 ('988ba891a306797a9cf0e4af4bffb419cd413c1e2cef47e2196756c09287c2e9', 1, 1698224536),
 ('9a182a3eadc8311a2f613bb8a34d2c97b4d8eaee4b8c9c7ada8e6db9df589e70', 1, 1698086206),
+('b4dcae91d2ac6a9968aaa1c6cb3f493ce55c418fa0853495d76594142590799b', 1, 1698260326),
 ('c185eb25e0bcff1cc82ad7d2a1ba1360ac351ee6f42adbde526a40fb83735794', 1, 1698256822),
 ('fae291fbf59149de865487d80cb186dfeea644b13deefe428298f88a5f45656e', 1, 1698257786);
 
@@ -185,11 +185,11 @@ INSERT INTO `sessions` (`token`, `user_id`, `expires_at`) VALUES
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
-  `login` varchar(30) COLLATE utf16_polish_ci NOT NULL,
-  `email` varchar(255) COLLATE utf16_polish_ci NOT NULL,
-  `password` varchar(255) COLLATE utf16_polish_ci NOT NULL,
-  `name` varchar(50) COLLATE utf16_polish_ci NOT NULL,
-  `surname` varchar(70) COLLATE utf16_polish_ci NOT NULL,
+  `login` varchar(30) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `surname` varchar(70) NOT NULL,
   `dob` date NOT NULL,
   `is_admin` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
