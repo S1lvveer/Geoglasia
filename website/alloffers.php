@@ -38,7 +38,7 @@
               $countryName = "SELECT countries.country_name FROM countries, places 
                               WHERE countries.country_id = places.country_id";
 
-    $placeQuery = "SELECT places.city, places.city_desc, places.pricePerDay FROM places";    
+    $placeQuery = "SELECT places.city, places.city_desc, places.pricePerDay, places.cityIMG FROM places";    
 
               $result = $db -> query($placeQuery);
               $countryResult = $db -> query($countryName);
@@ -46,13 +46,13 @@
     while($row = $result -> fetch_assoc() AND $countryRow = $countryResult ->fetch_assoc()) {
         printf("
         <div class='grid-element'>
-                <div class='img-sect'>img of country outline</div>
+                <div class='img-sect'><img class='img-style' src='%s'></div>
                 <div class='city-thingies'>
                     <h3>%s<br>%s</h3>
                     <div class='description'>%s</div>
                     <div><h2>%s USD/day</h2><button>Go book!</button></div>
                 </div>
-            </div>", $countryRow['country_name'], $row['city'], $row['city_desc'], $row['pricePerDay']);
+            </div>",$row['cityIMG'], $countryRow['country_name'], $row['city'], $row['city_desc'], $row['pricePerDay']);
     }
 ?>
         </div>
