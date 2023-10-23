@@ -96,7 +96,7 @@
     user-select: none;
 }
 
-/* .land - svg > path */
+/* All valid land & invalid land */
 .land {
     fill: var(--map-invalid-fill);
     stroke-opacity: 0.2;
@@ -114,4 +114,9 @@
     fill: var(--map-highlight);
 
     transition: 0.5s;
+}
+
+/* Markers [country tooltips] */
+.marker {
+    
 }

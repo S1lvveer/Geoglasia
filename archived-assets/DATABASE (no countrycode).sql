@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 23 Paź 2023, 10:23
--- Wersja serwera: 10.4.22-MariaDB
--- Wersja PHP: 8.0.13
+-- Generation Time: Oct 23, 2023 at 09:35 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `project_pai`
+-- Database: `project_pai`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `booking`
+-- Table structure for table `booking`
 --
 
 CREATE TABLE `booking` (
@@ -39,54 +39,53 @@ CREATE TABLE `booking` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `countries`
+-- Table structure for table `countries`
 --
 
 CREATE TABLE `countries` (
   `country_id` int(11) NOT NULL,
-  `country_name` varchar(60) COLLATE utf16_polish_ci NOT NULL,
-  `country_desc` text COLLATE utf16_polish_ci NOT NULL,
-  `country_code` varchar(2) COLLATE utf16_polish_ci NOT NULL
+  `country_name` varchar(60) NOT NULL,
+  `country_desc` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
 
 --
--- Zrzut danych tabeli `countries`
+-- Dumping data for table `countries`
 --
 
-INSERT INTO `countries` (`country_id`, `country_name`, `country_desc`, `country_code`) VALUES
-(1, 'South Korea', 'South Korea, officially known as the Republic of Korea, is a vibrant and culturally rich nation located on the Korean Peninsula in East Asia. Its culture is a captivating blend of tradition and modernity, creating a unique and dynamic identity.', 'KR'),
-(2, 'Japan', 'Japan, an island nation in East Asia, boasts a culture that\'s a captivating fusion of tradition and innovation. Its unique cultural elements have had a profound influence on the world.', 'JP'),
-(3, 'China', 'A vast and diverse country in East Asia, is celebrated for its rich and multifaceted culture, which has evolved over thousands of years. Its cultural heritage is deeply rooted in tradition and has significantly influenced the world.', 'CN'),
-(4, 'Taiwan', 'An island nation in East Asia, is a place of vibrant and diverse culture deeply influenced by its unique history and geographical location. Its culture is a dynamic blend of traditional Chinese heritage and modern innovations.', 'TW'),
-(5, 'Vietnam', 'Located in Southeast Asia, is a nation with a rich and diverse cultural heritage deeply intertwined with its history and geography. Its culture reflects a unique blend of tradition, innovation, and resilience.', 'VN'),
-(6, 'Cambodia', 'ocated in Southeast Asia, is a nation with a rich cultural heritage deeply intertwined with its history, religion, and stunning architectural wonders. Its culture reflects a unique blend of ancient traditions and the enduring spirit of its people.', 'KH'),
-(7, 'Thailand', 'Southeast Asian nation, is renowned for its rich and vibrant culture, which seamlessly combines traditional heritage with modern influences. Its culture is characterized by a deep appreciation for spirituality, art, and hospitality.', 'TH'),
-(8, 'Laos', 'A landlocked country in Southeast Asia, possesses a rich and diverse culture deeply influenced by its history, religion, and breathtaking natural landscapes. Its culture is characterized by its deep spirituality, traditions, and a strong connection to the environment.', 'LA'),
-(9, 'Bangladesh', 'A South Asian nation, boasts a diverse and vibrant culture deeply rooted in its history, traditions, and the resilience of its people. Its culture is characterized by a rich blend of heritage, art, music, and a strong sense of community.', 'BD'),
-(10, 'Bhutan', 'A small Himalayan kingdom in South Asia, is celebrated for its unique and rich culture, deeply rooted in its history, Buddhism, and its commitment to preserving tradition. Bhutan\'s culture is marked by a deep sense of spirituality, reverence for nature, and a unique approach to modernization.', 'BT'),
-(11, 'Malaysia', 'A Southeast Asian nation, is celebrated for its diverse and multicultural society, which has created a vibrant and dynamic cultural tapestry. The country\'s culture reflects a harmonious blend of traditions, religions, and influences from various ethnic communities.', 'MY'),
-(12, 'Singapore', 'A city-state in Southeast Asia, is celebrated for its unique and diverse culture, a testament to its history as a melting pot of different ethnicities and traditions. The culture of Singapore is characterized by a harmonious blend of influences from its Chinese, Malay, Indian, and Western roots.', 'SG'),
-(13, 'Mongolia', 'A landlocked country in East Asia, is known for its unique and nomadic culture, deeply rooted in its history, vast landscapes, and the enduring spirit of its people. Mongolian culture is characterized by its strong ties to the nomadic way of life, ancient traditions, and deep respect for nature.', 'MN'),
-(14, 'Nepal', 'Nestled in the Himalayas in South Asia, is renowned for its rich and diverse culture deeply intertwined with its breathtaking natural landscapes and deep-rooted spiritual traditions. The culture of Nepal is characterized by its profound connection to the mountains, religious heritage, and vibrant traditions.', 'NP'),
-(15, 'India', 'A vast and diverse South Asian nation, is celebrated for its rich and multifaceted culture, one of the world\'s oldest and most complex. Its culture is a captivating fusion of ancient traditions, spiritual depth, and modern innovation.', 'IN'),
-(16, 'Myanmar', 'A diverse Southeast Asian nation, is celebrated for its rich and multifaceted culture deeply rooted in its history, spirituality, and the enduring traditions of its people. Myanmar\'s culture is characterized by its deep connection to Buddhism, a reverence for tradition, and a complex blend of ethnicities.', 'MM');
+INSERT INTO `countries` (`country_id`, `country_name`, `country_desc`) VALUES
+(1, 'South Korea', 'South Korea, officially known as the Republic of Korea, is a vibrant and culturally rich nation located on the Korean Peninsula in East Asia. Its culture is a captivating blend of tradition and modernity, creating a unique and dynamic identity.'),
+(2, 'Japan', 'Japan, an island nation in East Asia, boasts a culture that\'s a captivating fusion of tradition and innovation. Its unique cultural elements have had a profound influence on the world.'),
+(3, 'China', 'A vast and diverse country in East Asia, is celebrated for its rich and multifaceted culture, which has evolved over thousands of years. Its cultural heritage is deeply rooted in tradition and has significantly influenced the world.'),
+(4, 'Taiwan', 'An island nation in East Asia, is a place of vibrant and diverse culture deeply influenced by its unique history and geographical location. Its culture is a dynamic blend of traditional Chinese heritage and modern innovations.'),
+(5, 'Vietnam', 'Located in Southeast Asia, is a nation with a rich and diverse cultural heritage deeply intertwined with its history and geography. Its culture reflects a unique blend of tradition, innovation, and resilience.'),
+(6, 'Cambodia', 'ocated in Southeast Asia, is a nation with a rich cultural heritage deeply intertwined with its history, religion, and stunning architectural wonders. Its culture reflects a unique blend of ancient traditions and the enduring spirit of its people.'),
+(7, 'Thailand', 'Southeast Asian nation, is renowned for its rich and vibrant culture, which seamlessly combines traditional heritage with modern influences. Its culture is characterized by a deep appreciation for spirituality, art, and hospitality.'),
+(8, 'Laos', 'A landlocked country in Southeast Asia, possesses a rich and diverse culture deeply influenced by its history, religion, and breathtaking natural landscapes. Its culture is characterized by its deep spirituality, traditions, and a strong connection to the environment.'),
+(9, 'Bangladesh', 'A South Asian nation, boasts a diverse and vibrant culture deeply rooted in its history, traditions, and the resilience of its people. Its culture is characterized by a rich blend of heritage, art, music, and a strong sense of community.'),
+(10, 'Bhutan', 'A small Himalayan kingdom in South Asia, is celebrated for its unique and rich culture, deeply rooted in its history, Buddhism, and its commitment to preserving tradition. Bhutan\'s culture is marked by a deep sense of spirituality, reverence for nature, and a unique approach to modernization.'),
+(11, 'Malaysia', 'A Southeast Asian nation, is celebrated for its diverse and multicultural society, which has created a vibrant and dynamic cultural tapestry. The country\'s culture reflects a harmonious blend of traditions, religions, and influences from various ethnic communities.'),
+(12, 'Singapore', 'A city-state in Southeast Asia, is celebrated for its unique and diverse culture, a testament to its history as a melting pot of different ethnicities and traditions. The culture of Singapore is characterized by a harmonious blend of influences from its Chinese, Malay, Indian, and Western roots.'),
+(13, 'Mongolia', 'A landlocked country in East Asia, is known for its unique and nomadic culture, deeply rooted in its history, vast landscapes, and the enduring spirit of its people. Mongolian culture is characterized by its strong ties to the nomadic way of life, ancient traditions, and deep respect for nature.'),
+(14, 'Nepal', 'Nestled in the Himalayas in South Asia, is renowned for its rich and diverse culture deeply intertwined with its breathtaking natural landscapes and deep-rooted spiritual traditions. The culture of Nepal is characterized by its profound connection to the mountains, religious heritage, and vibrant traditions.'),
+(15, 'India', 'A vast and diverse South Asian nation, is celebrated for its rich and multifaceted culture, one of the world\'s oldest and most complex. Its culture is a captivating fusion of ancient traditions, spiritual depth, and modern innovation.'),
+(16, 'Myanmar', 'A diverse Southeast Asian nation, is celebrated for its rich and multifaceted culture deeply rooted in its history, spirituality, and the enduring traditions of its people. Myanmar\'s culture is characterized by its deep connection to Buddhism, a reverence for tradition, and a complex blend of ethnicities.');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `places`
+-- Table structure for table `places`
 --
 
 CREATE TABLE `places` (
   `place_id` int(11) NOT NULL,
   `country_id` int(11) NOT NULL,
-  `city` varchar(70) COLLATE utf16_polish_ci NOT NULL,
-  `city_desc` text COLLATE utf16_polish_ci NOT NULL,
+  `city` varchar(70) NOT NULL,
+  `city_desc` text NOT NULL,
   `pricePerDay` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
 
 --
--- Zrzut danych tabeli `places`
+-- Dumping data for table `places`
 --
 
 INSERT INTO `places` (`place_id`, `country_id`, `city`, `city_desc`, `pricePerDay`) VALUES
@@ -148,17 +147,17 @@ INSERT INTO `places` (`place_id`, `country_id`, `city`, `city_desc`, `pricePerDa
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `sessions`
+-- Table structure for table `sessions`
 --
 
 CREATE TABLE `sessions` (
   `token` varchar(64) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `expires_at` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Zrzut danych tabeli `sessions`
+-- Dumping data for table `sessions`
 --
 
 INSERT INTO `sessions` (`token`, `user_id`, `expires_at`) VALUES
@@ -169,22 +168,22 @@ INSERT INTO `sessions` (`token`, `user_id`, `expires_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
-  `login` varchar(30) COLLATE utf16_polish_ci NOT NULL,
-  `email` varchar(255) COLLATE utf16_polish_ci NOT NULL,
-  `password` varchar(255) COLLATE utf16_polish_ci NOT NULL,
-  `name` varchar(50) COLLATE utf16_polish_ci NOT NULL,
-  `surname` varchar(70) COLLATE utf16_polish_ci NOT NULL,
+  `login` varchar(30) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `surname` varchar(70) NOT NULL,
   `dob` date NOT NULL,
   `is_admin` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
 
 --
--- Zrzut danych tabeli `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `login`, `email`, `password`, `name`, `surname`, `dob`, `is_admin`) VALUES
@@ -199,7 +198,7 @@ INSERT INTO `users` (`user_id`, `login`, `email`, `password`, `name`, `surname`,
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `user_bookings`
+-- Table structure for table `user_bookings`
 --
 
 CREATE TABLE `user_bookings` (
@@ -208,11 +207,11 @@ CREATE TABLE `user_bookings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
 
 --
--- Indeksy dla zrzutów tabel
+-- Indexes for dumped tables
 --
 
 --
--- Indeksy dla tabeli `booking`
+-- Indexes for table `booking`
 --
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`book_id`),
@@ -220,85 +219,85 @@ ALTER TABLE `booking`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indeksy dla tabeli `countries`
+-- Indexes for table `countries`
 --
 ALTER TABLE `countries`
   ADD PRIMARY KEY (`country_id`);
 
 --
--- Indeksy dla tabeli `places`
+-- Indexes for table `places`
 --
 ALTER TABLE `places`
   ADD PRIMARY KEY (`place_id`),
   ADD KEY `country_id` (`country_id`);
 
 --
--- Indeksy dla tabeli `sessions`
+-- Indexes for table `sessions`
 --
 ALTER TABLE `sessions`
   ADD PRIMARY KEY (`token`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indeksy dla tabeli `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- Indeksy dla tabeli `user_bookings`
+-- Indexes for table `user_bookings`
 --
 ALTER TABLE `user_bookings`
   ADD KEY `book_id` (`book_id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- AUTO_INCREMENT dla zrzuconych tabel
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT dla tabeli `booking`
+-- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
   MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT dla tabeli `places`
+-- AUTO_INCREMENT for table `places`
 --
 ALTER TABLE `places`
   MODIFY `place_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
--- AUTO_INCREMENT dla tabeli `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- Ograniczenia dla zrzutów tabel
+-- Constraints for dumped tables
 --
 
 --
--- Ograniczenia dla tabeli `booking`
+-- Constraints for table `booking`
 --
 ALTER TABLE `booking`
   ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`place_id`) REFERENCES `places` (`place_id`),
   ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
--- Ograniczenia dla tabeli `places`
+-- Constraints for table `places`
 --
 ALTER TABLE `places`
   ADD CONSTRAINT `places_ibfk_1` FOREIGN KEY (`country_id`) REFERENCES `countries` (`country_id`);
 
 --
--- Ograniczenia dla tabeli `sessions`
+-- Constraints for table `sessions`
 --
 ALTER TABLE `sessions`
   ADD CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
--- Ograniczenia dla tabeli `user_bookings`
+-- Constraints for table `user_bookings`
 --
 ALTER TABLE `user_bookings`
   ADD CONSTRAINT `user_bookings_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `booking` (`book_id`),
