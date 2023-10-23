@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 23 Paź 2023, 22:22
--- Wersja serwera: 10.4.22-MariaDB
--- Wersja PHP: 8.0.13
+-- Czas generowania: 23 Paź 2023, 23:11
+-- Wersja serwera: 10.4.27-MariaDB
+-- Wersja PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,9 +44,9 @@ CREATE TABLE `booking` (
 
 CREATE TABLE `countries` (
   `country_id` int(11) NOT NULL,
-  `country_name` varchar(60) COLLATE utf16_polish_ci NOT NULL,
-  `country_desc` text COLLATE utf16_polish_ci NOT NULL,
-  `country_code` varchar(2) COLLATE utf16_polish_ci NOT NULL
+  `country_name` varchar(60) NOT NULL,
+  `country_desc` text NOT NULL,
+  `country_code` varchar(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
 
 --
@@ -80,11 +80,11 @@ INSERT INTO `countries` (`country_id`, `country_name`, `country_desc`, `country_
 CREATE TABLE `places` (
   `place_id` int(11) NOT NULL,
   `country_id` int(11) NOT NULL,
-  `city` varchar(70) COLLATE utf16_polish_ci NOT NULL,
-  `city_desc` text COLLATE utf16_polish_ci NOT NULL,
+  `city` varchar(70) NOT NULL,
+  `city_desc` text NOT NULL,
   `pricePerDay` double NOT NULL,
-  `cityIMG` varchar(255) COLLATE utf16_polish_ci NOT NULL,
-  `location_offset` varchar(255) COLLATE utf16_polish_ci NOT NULL
+  `cityIMG` varchar(255) NOT NULL,
+  `location_offset` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
 
 --
@@ -92,31 +92,31 @@ CREATE TABLE `places` (
 --
 
 INSERT INTO `places` (`place_id`, `country_id`, `city`, `city_desc`, `pricePerDay`, `cityIMG`, `location_offset`) VALUES
-(1, 1, 'Seoul', 'The capital and largest city of South Korea, Seoul is a bustling metropolis with a perfect blend of modernity and tradition. You can explore ancient palaces, vibrant markets, and enjoy the thriving K-pop culture. Don\'t miss the stunning Bukchon Hanok Village and the futuristic Dongdaemun Design Plaza.', 89, 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/%EA%B2%BD%EB%B3%B5%EA%B6%81_%EC%A0%84%EA%B2%BD.jpg/1920px-%EA%B2%BD%EB%B3%B5%EA%B6%81_%EC%A0%84%EA%B2%BD.jpg', '0.3348477730617227, 0.3029382127122646 '),
-(2, 1, 'Busan', 'South Korea\'s second-largest city, Busan, is known for its beautiful beaches, such as Haeundae and Gwangalli. The city also offers a bustling fish market, historical temples, and the famous Busan International Film Festival. It\'s a great place to experience a more relaxed coastal lifestyle.', 78, '', '0.7763082517192346, 0.7474384502159604 '),
-(3, 1, 'Jeju City', 'Located on Jeju Island, Jeju City is a popular destination for nature lovers. Explore the unique volcanic landscapes, stunning waterfalls, and the picturesque Hallasan National Park. The island is also famous for its lava tubes and lava caves.', 83, '', ''),
-(4, 1, 'Incheon', 'Incheon, a port city near Seoul, is renowned for its modern developments and transportation hub, including Incheon International Airport. You can visit Chinatown, Wolmido Island, and the Freedom Park, which commemorates the Incheon landing during the Korean War.', 82, '', '0.21344614143090695, 0.3293068708692635 '),
-(5, 2, 'Tokyo', 'Japan\'s bustling capital, Tokyo is a city that seamlessly blends the ultramodern with the traditional. Explore high-tech districts like Shibuya and Akihabara, visit historic temples like Senso-ji, and savor world-class cuisine. Tokyo is a city of constant excitement and innovation.', 125, '', '0.6393927629541526, 0.7091812231000516'),
-(6, 2, 'Kyoto', 'Kyoto is the epitome of traditional Japan, with its historic temples, tea houses, and beautiful gardens. It\'s famous for the stunning Kinkaku-ji (Golden Pavilion) and Fushimi Inari Shrine. Don\'t miss the opportunity to experience a traditional tea ceremony in this cultural treasure.', 103, '', '0.3891072953113708, 0.7457472661361615'),
-(7, 2, 'Osaka', 'Osaka is known for its vibrant street food scene and lively atmosphere. Visit Osaka Castle, explore the entertainment district of Dotonbori, and try the city\'s iconic street foods like takoyaki and okonomiyaki. Osaka is often called \'Japan\'s Kitchen.\'', 86, '', '0.36097384236894686, 0.7741617372600246 '),
-(8, 2, 'Hiroshima', 'Hiroshima is a city with a poignant history, having been largely destroyed by an atomic bomb during World War II. The Hiroshima Peace Memorial, also known as the Atomic Bomb Dome, is a UNESCO World Heritage Site. The Peace Memorial Park and Museum provide a moving experience and a message of peace.', 85, '', '0.19217312471440334, 0.7817389295597214 '),
-(9, 3, 'Beijing', 'As the capital of China, Beijing is a city steeped in history and culture. Explore the iconic Forbidden City, visit the historic Temple of Heaven, and walk along the Great Wall of China. Beijing also offers a glimpse into China\'s modernity with its skyscrapers and contemporary art scenes.', 78, '', '0.6762200282087447, 0.42450097281875754 '),
-(10, 3, 'Shanghai', 'Shanghai is China\'s economic hub and a bustling metropolis that seamlessly combines the old and the new. Wander along the historic Bund waterfront, admire the futuristic skyline in the Pudong district, and explore the vibrant neighborhoods like Tianzifang. Shanghai offers a taste of China\'s cosmopolitan side.', 102, '', '0.7627268453220498, 0.6707074336126236 '),
-(11, 3, 'Xi\'an', 'Xi\'an is known for its ancient history and the famous Terracotta Army. Explore the city walls, visit the Big Wild Goose Pagoda, and experience the vibrant Muslim Quarter. Xi\'an offers a journey through China\'s ancient past.', 85, '', '0.6122802068641279, 0.6065911677808877 '),
-(12, 3, 'Chengdu', 'Chengdu, the capital of Sichuan Province, is famous for its spicy cuisine and as the home of the giant panda. Visit the Chengdu Research Base of Giant Panda Breeding, explore historic sites like Wuhou Shrine, and enjoy Sichuan hotpot.', 76, '', '0.4787588152327222, 0.6655781323460848 '),
-(13, 4, 'Taipei', 'The capital of Taiwan, Taipei is a vibrant metropolis known for its towering skyscrapers, bustling night markets, and historic temples. Must-visit attractions include the iconic Taipei 101, the National Palace Museum, Longshan Temple, and the lively Shilin Night Market.', 86, '', '0.6252504500170222, 0.25251054435038756 '),
-(14, 4, 'Taichung', 'Taichung is often considered the cultural capital of Taiwan, with a thriving arts and cultural scene. It\'s home to the National Taiwan Museum of Fine Arts, and the Rainbow Village, a colorful and artistic village. The city also offers beautiful parks and gardens, like Calligraphy Greenway and Taichung Park.', 56, '', '0.39812956005357397, 0.38728854290475456 '),
-(15, 4, 'Kaohsiung', 'Kaohsiung, located in southern Taiwan, is a city known for its vibrant arts scene, beautiful parks, and scenic waterfront. Explore Lotus Pond, visit the Pier-2 Art Center, and enjoy local street food along Liuhe Night Market.', 58, '', '0.22444887949329, 0.6727007751375317 '),
-(16, 4, 'Tainan', 'Tainan is one of Taiwan\'s oldest cities with a rich history. Visit Chihkan Tower, Anping Fort, and Koxinga Shrine. Don\'t miss the opportunity to savor Tainan\'s famous street food and traditional snacks.', 66, '', '0.21108882714249894, 0.5141384238971 '),
-(17, 5, 'Hanoi', 'The capital and largest city of Vietnam, Hanoi is a blend of old-world charm and modern vitality. Explore the historic Old Quarter, visit Hoan Kiem Lake and Ngoc Son Temple, and delve into the country\'s history at the Ho Chi Minh Mausoleum. Hanoi is also famous for its street food, offering delicious and affordable culinary delights.', 73, '', '0.48853412904046223, 0.1675594556558742 '),
-(18, 5, 'Ho Chi Minh City', 'As the largest city in Vietnam, Ho Chi Minh City is a bustling, dynamic metropolis. Explore the War Remnants Museum, visit the Cu Chi Tunnels, and take a stroll along the busy streets of District 1. The city also offers a vibrant nightlife scene and numerous shopping opportunities.', 78, '', '0.6322206375817746, 0.8296550029405945 '),
-(19, 5, 'Hoi An', 'Hoi An is a charming and well-preserved ancient town known for its lantern-lit streets, historic architecture, and tailor shops. Explore the Old Town, visit the Japanese Covered Bridge, and enjoy the local cuisine.', 76, '', '0.8437700722919508, 0.5288125460301876 '),
-(20, 5, 'Da Nang', 'Da Nang is a coastal city with beautiful beaches and a growing reputation as a tourist destination. Explore the Marble Mountains, visit My Khe Beach, and take a day trip to the ancient town of Hoi An.', 67, '', '0.8020319658578711, 0.5082493974625749 '),
-(21, 6, 'Phnom Penh', 'Phnom Penh, the capital of Cambodia, is a city that has risen from a troubled history to become a vibrant and lively place. Visit the Royal Palace, the Silver Pagoda, and the Tuol Sleng Genocide Museum to learn about Cambodia\'s past. The city also offers a range of dining and entertainment options.', 69, '', '0.45665904085324877, 0.6978582217803003'),
-(22, 6, 'Siem Reap', 'Siem Reap is a gateway to the world-famous Angkor Wat temple complex, a UNESCO World Heritage Site. Explore the Angkor Archaeological Park with its ancient temples, including Bayon and Ta Prohm. Siem Reap also offers a lively night market and a thriving arts and culture scene.', 64, '', '0.32727554719883634, 0.386460706190218'),
-(23, 6, 'Battambang', 'Battambang is a tranquil and picturesque city known for its French colonial architecture, beautiful countryside, and artistic community. Take a ride on the Bamboo Train, explore Phare Ponleu Selpak (an arts center), and visit the historic temples and museums.', 61, '', '0.126731132034497, 0.386460706190218'),
-(24, 6, 'Kampot', 'Kampot is a small, riverside town that offers a laid-back atmosphere and stunning natural surroundings. Explore the picturesque Bokor Hill Station, enjoy a boat trip along the Preaek Tuek Chhu River, and sample the local specialty, Kampot pepper. Nearby Kep is also known for its coastal beauty and crab market', 59, '', '0.27552214973707134, 0.9436983656672074'),
-(25, 7, 'Bangkok', 'The capital and largest city of Thailand, Bangkok is a vibrant metropolis that offers a mix of ancient temples, modern skyscrapers, and bustling markets. Visit the Grand Palace, Wat Pho, and Wat Arun, explore the historic district of Rattanakosin Island, and experience the vibrant street life of Khao San Road.', 46, '', '0.3878424650509691, 0.46818290713766514'),
+(1, 1, 'Seoul', 'The capital and largest city of South Korea, Seoul is a bustling metropolis with a perfect blend of modernity and tradition. You can explore ancient palaces, vibrant markets, and enjoy the thriving K-pop culture. Don\'t miss the stunning Bukchon Hanok Village and the futuristic Dongdaemun Design Plaza.', 89, 'https://cdn.britannica.com/57/75757-050-122EC2ED/Changgyong-Palace-background-Seoul.jpg', '0.3348477730617227, 0.3029382127122646 '),
+(2, 1, 'Busan', 'South Korea\'s second-largest city, Busan, is known for its beautiful beaches, such as Haeundae and Gwangalli. The city also offers a bustling fish market, historical temples, and the famous Busan International Film Festival. It\'s a great place to experience a more relaxed coastal lifestyle.', 78, 'https://media.timeout.com/images/105996093/image.jpg', '0.7763082517192346, 0.7474384502159604 '),
+(3, 1, 'Jeju City', 'Located on Jeju Island, Jeju City is a popular destination for nature lovers. Explore the unique volcanic landscapes, stunning waterfalls, and the picturesque Hallasan National Park. The island is also famous for its lava tubes and lava caves.', 83, 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Jeju_-_Hallasan.JPG', ''),
+(4, 1, 'Incheon', 'Incheon, a port city near Seoul, is renowned for its modern developments and transportation hub, including Incheon International Airport. You can visit Chinatown, Wolmido Island, and the Freedom Park, which commemorates the Incheon landing during the Korean War.', 82, 'https://www.insideasiatours.com/sites/default/files/2021-08/Songdo-Central-Park-Incheon.jpg', '0.21344614143090695, 0.3293068708692635 '),
+(5, 2, 'Tokyo', 'Japan\'s bustling capital, Tokyo is a city that seamlessly blends the ultramodern with the traditional. Explore high-tech districts like Shibuya and Akihabara, visit historic temples like Senso-ji, and savor world-class cuisine. Tokyo is a city of constant excitement and innovation.', 125, 'https://www.ciee.org/sites/default/files/images/2023-04/tokyo-city-neon-lights.jpg', '0.6393927629541526, 0.7091812231000516'),
+(6, 2, 'Kyoto', 'Kyoto is the epitome of traditional Japan, with its historic temples, tea houses, and beautiful gardens. It\'s famous for the stunning Kinkaku-ji (Golden Pavilion) and Fushimi Inari Shrine. Don\'t miss the opportunity to experience a traditional tea ceremony in this cultural treasure.', 103, 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/02/23/18/kyoto-main.jpg?width=1200', '0.3891072953113708, 0.7457472661361615'),
+(7, 2, 'Osaka', 'Osaka is known for its vibrant street food scene and lively atmosphere. Visit Osaka Castle, explore the entertainment district of Dotonbori, and try the city\'s iconic street foods like takoyaki and okonomiyaki. Osaka is often called \'Japan\'s Kitchen.\'', 86, 'https://a.travel-assets.com/findyours-php/viewfinder/images/res70/477000/477580-Osaka.jpg', '0.36097384236894686, 0.7741617372600246 '),
+(8, 2, 'Hiroshima', 'Hiroshima is a city with a poignant history, having been largely destroyed by an atomic bomb during World War II. The Hiroshima Peace Memorial, also known as the Atomic Bomb Dome, is a UNESCO World Heritage Site. The Peace Memorial Park and Museum provide a moving experience and a message of peace.', 85, 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Atomic_Bomb_Dome_and_Motoyaso_River%2C_Hiroshima%2C_Northwest_view_20190417_1.jpg', '0.19217312471440334, 0.7817389295597214 '),
+(9, 3, 'Beijing', 'As the capital of China, Beijing is a city steeped in history and culture. Explore the iconic Forbidden City, visit the historic Temple of Heaven, and walk along the Great Wall of China. Beijing also offers a glimpse into China\'s modernity with its skyscrapers and contemporary art scenes.', 78, 'https://cdn.britannica.com/03/198203-050-138BB1C3/entrance-Gate-of-Divine-Might-Beijing-Forbidden.jpg', '0.6762200282087447, 0.42450097281875754 '),
+(10, 3, 'Shanghai', 'Shanghai is China\'s economic hub and a bustling metropolis that seamlessly combines the old and the new. Wander along the historic Bund waterfront, admire the futuristic skyline in the Pudong district, and explore the vibrant neighborhoods like Tianzifang. Shanghai offers a taste of China\'s cosmopolitan side.', 102, 'https://cdn.britannica.com/08/187508-050-D6FB5173/Shanghai-Tower-Gensler-San-Francisco-world-Oriental-2015.jpg', '0.7627268453220498, 0.6707074336126236 '),
+(11, 3, 'Xi\'an', 'Xi\'an is known for its ancient history and the famous Terracotta Army. Explore the city walls, visit the Big Wild Goose Pagoda, and experience the vibrant Muslim Quarter. Xi\'an offers a journey through China\'s ancient past.', 85, 'https://english.news.cn/20230511/5d0951d6f34c46d5a1ecd8e676a866b3/89a9de9e945040a8a2b28fff0b6781ae.jpg', '0.6122802068641279, 0.6065911677808877 '),
+(12, 3, 'Chengdu', 'Chengdu, the capital of Sichuan Province, is famous for its spicy cuisine and as the home of the giant panda. Visit the Chengdu Research Base of Giant Panda Breeding, explore historic sites like Wuhou Shrine, and enjoy Sichuan hotpot.', 76, 'https://media.cntraveler.com/photos/5b1a9b8408618014c567f2f2/16:9/w_4000,h_2250,c_limit/Chengdu%20China_GettyImages-510901343.jpg', '0.4787588152327222, 0.6655781323460848 '),
+(13, 4, 'Taipei', 'The capital of Taiwan, Taipei is a vibrant metropolis known for its towering skyscrapers, bustling night markets, and historic temples. Must-visit attractions include the iconic Taipei 101, the National Palace Museum, Longshan Temple, and the lively Shilin Night Market.', 86, 'https://res.klook.com/image/upload/fl_lossy.progressive,w_800,c_fill,q_85/Taipei_CP1125X624_1.jpg', '0.6252504500170222, 0.25251054435038756 '),
+(14, 4, 'Taichung', 'Taichung is often considered the cultural capital of Taiwan, with a thriving arts and cultural scene. It\'s home to the National Taiwan Museum of Fine Arts, and the Rainbow Village, a colorful and artistic village. The city also offers beautiful parks and gardens, like Calligraphy Greenway and Taichung Park.', 56, 'https://cktravels.com/wp-content/uploads/2019/05/IMG_5548.jpg', '0.39812956005357397, 0.38728854290475456 '),
+(15, 4, 'Kaohsiung', 'Kaohsiung, located in southern Taiwan, is a city known for its vibrant arts scene, beautiful parks, and scenic waterfront. Explore Lotus Pond, visit the Pier-2 Art Center, and enjoy local street food along Liuhe Night Market.', 58, 'https://warmcheaptrips.com/wp-content/uploads/2020/05/Lorus-Pond-1127x800.jpg', '0.22444887949329, 0.6727007751375317 '),
+(16, 4, 'Tainan', 'Tainan is one of Taiwan\'s oldest cities with a rich history. Visit Chihkan Tower, Anping Fort, and Koxinga Shrine. Don\'t miss the opportunity to savor Tainan\'s famous street food and traditional snacks.', 66, 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/44/a4/76/caption.jpg?w=1200&h=-1&s=1', '0.21108882714249894, 0.5141384238971 '),
+(17, 5, 'Hanoi', 'The capital and largest city of Vietnam, Hanoi is a blend of old-world charm and modern vitality. Explore the historic Old Quarter, visit Hoan Kiem Lake and Ngoc Son Temple, and delve into the country\'s history at the Ho Chi Minh Mausoleum. Hanoi is also famous for its street food, offering delicious and affordable culinary delights.', 73, 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/33/f7/12/caption.jpg?w=700&h=-1&s=1', '0.48853412904046223, 0.1675594556558742 '),
+(18, 5, 'Ho Chi Minh City', 'As the largest city in Vietnam, Ho Chi Minh City is a bustling, dynamic metropolis. Explore the War Remnants Museum, visit the Cu Chi Tunnels, and take a stroll along the busy streets of District 1. The city also offers a vibrant nightlife scene and numerous shopping opportunities.', 78, 'https://content.r9cdn.net/rimg/dimg/f0/b1/54455949-city-18144-167c85df43f.jpg?width=1366&height=768&xhint=1159&yhint=754&crop=true', '0.6322206375817746, 0.8296550029405945 '),
+(19, 5, 'Hoi An', 'Hoi An is a charming and well-preserved ancient town known for its lantern-lit streets, historic architecture, and tailor shops. Explore the Old Town, visit the Japanese Covered Bridge, and enjoy the local cuisine.', 76, 'https://static.vinwonders.com/2022/07/hoi-an-ancient-town-3-1.jpg', '0.8437700722919508, 0.5288125460301876 '),
+(20, 5, 'Da Nang', 'Da Nang is a coastal city with beautiful beaches and a growing reputation as a tourist destination. Explore the Marble Mountains, visit My Khe Beach, and take a day trip to the ancient town of Hoi An.', 67, 'https://res.klook.com/image/upload/fl_lossy.progressive,w_800,c_fill,q_85/destination/ur2mrg23d91mex03l4mw.jpg', '0.8020319658578711, 0.5082493974625749 '),
+(21, 6, 'Phnom Penh', 'Phnom Penh, the capital of Cambodia, is a city that has risen from a troubled history to become a vibrant and lively place. Visit the Royal Palace, the Silver Pagoda, and the Tuol Sleng Genocide Museum to learn about Cambodia\'s past. The city also offers a range of dining and entertainment options.', 69, 'https://lp-cms-production.imgix.net/2019-06/iStock_000031715564Medium.jpg?sharp=10&vib=20&w=1200&w=600&h=400', '0.45665904085324877, 0.6978582217803003'),
+(22, 6, 'Siem Reap', 'Siem Reap is a gateway to the world-famous Angkor Wat temple complex, a UNESCO World Heritage Site. Explore the Angkor Archaeological Park with its ancient temples, including Bayon and Ta Prohm. Siem Reap also offers a lively night market and a thriving arts and culture scene.', 64, 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/33/fc/e0/siem-reap.jpg?w=700&h=500&s=1', '0.32727554719883634, 0.386460706190218'),
+(23, 6, 'Battambang', 'Battambang is a tranquil and picturesque city known for its French colonial architecture, beautiful countryside, and artistic community. Take a ride on the Bamboo Train, explore Phare Ponleu Selpak (an arts center), and visit the historic temples and museums.', 61, 'https://ychef.files.bbci.co.uk/1280x720/p0fcjrrd.jpg', '0.126731132034497, 0.386460706190218'),
+(24, 6, 'Kampot', 'Kampot is a small, riverside town that offers a laid-back atmosphere and stunning natural surroundings. Explore the picturesque Bokor Hill Station, enjoy a boat trip along the Preaek Tuek Chhu River, and sample the local specialty, Kampot pepper. Nearby Kep is also known for its coastal beauty and crab market', 59, 'https://cdn.internationalliving.com/wp-content/uploads/2019/05/Kampot-Feature.jpg', '0.27552214973707134, 0.9436983656672074'),
+(25, 7, 'Bangkok', 'The capital and largest city of Thailand, Bangkok is a vibrant metropolis that offers a mix of ancient temples, modern skyscrapers, and bustling markets. Visit the Grand Palace, Wat Pho, and Wat Arun, explore the historic district of Rattanakosin Island, and experience the vibrant street life of Khao San Road.', 46, 'https://a.cdn-hotels.com/gdcs/production172/d459/3af9262b-3d8b-40c6-b61d-e37ae1aa90aa.jpg', '0.3878424650509691, 0.46818290713766514'),
 (26, 7, 'Chiang Mai', 'Located in the mountainous region of northern Thailand, Chiang Mai is known for its rich cultural heritage and beautiful natural surroundings. Explore historic temples like Wat Phra Singh, take part in traditional Thai cooking classes, and visit the famous Night Bazaar. The city is also a gateway to the nearby jungles and hill tribes.', 49, '', '0.20528931504837342, 0.11764503347165173'),
 (27, 7, 'Phuket', 'Phuket is Thailand\'s largest island and a popular beach destination. Relax on the beautiful beaches, explore Old Phuket Town, and enjoy water activities like snorkeling and diving. The island offers a vibrant nightlife scene.', 59, '', '0.11816167527440735, 0.8232438501413044'),
 (28, 7, 'Krabi', 'Krabi is known for its stunning limestone karsts, clear waters, and outdoor adventures. Visit Railay Beach, go rock climbing, explore the Thung Teao Forest Natural Park, and take boat trips to nearby islands like Phi Phi.', 49.99, '', '0.20114037982104171, 0.8413361274918084'),
@@ -156,7 +156,7 @@ CREATE TABLE `sessions` (
   `token` varchar(64) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `expires_at` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Zrzut danych tabeli `sessions`
@@ -187,11 +187,11 @@ INSERT INTO `sessions` (`token`, `user_id`, `expires_at`) VALUES
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
-  `login` varchar(30) COLLATE utf16_polish_ci NOT NULL,
-  `email` varchar(255) COLLATE utf16_polish_ci NOT NULL,
-  `password` varchar(255) COLLATE utf16_polish_ci NOT NULL,
-  `name` varchar(50) COLLATE utf16_polish_ci NOT NULL,
-  `surname` varchar(70) COLLATE utf16_polish_ci NOT NULL,
+  `login` varchar(30) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `surname` varchar(70) NOT NULL,
   `dob` date NOT NULL,
   `is_admin` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
