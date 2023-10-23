@@ -14,6 +14,7 @@
     background-color: #59a570;
     border-radius: 25px;
     width: 700px;
+    justify-self: center;
 }
 
 .img-sect {

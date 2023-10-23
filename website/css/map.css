@@ -41,22 +41,29 @@
     height: calc(100% + 5em);
     background-color: lightskyblue;
     border-radius: 5em;
+    border: 1em solid rgb(132, 220, 255);
     z-index: 1
 }
 
-.hover-info {
+.hover-info, .cursor-info {
     position: absolute;
-    right: 0;
-    top: 0;
-
-    text-align: right;
     color: white;
-    
     z-index: 5;
 }
+.hover-info {
+    right: 0;
+    top: 0;
+    text-align: right;
+}
+.cursor-info {
+    left: 0;
+    bottom: 0;
+    text-align: left;
+}
 
-.hover-info > * {
+.hover-info > *, .cursor-info > * {
     margin: 0;
+    user-select: none;
 }
 
 .svg-container {
@@ -85,8 +92,7 @@
     stroke-width: 0.5;
 
     transform-origin: 0 0;
-    transition: transform 0.3s;
-    transition: transform-origin 0.3s;
+    transition: transform 0.05s;
 }
 
 /* .land - svg > path */

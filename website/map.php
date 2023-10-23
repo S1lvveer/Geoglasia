@@ -37,17 +37,25 @@
     <main>
         <div class="map">
             <div class="map-bg"></div>
+
+            <!-- Hover & mouse position/scale info -->
             <div class="hover-info">
                 <h3>Country:</h3>
                 <h3 class="hovered-text">NONE</h3>
+            </div>
+            <div class="cursor-info">
+                <!-- <h3>Scale:</h3> -->
+                <h3 class="current-scale">Scale: 1.0x</h3>
+                <!-- <h3>Position on map:</h3> -->
+                <h3 class="current-pos">Position: 0px, 0px</h3>
             </div>
             
             <div class="svg-container"></div>
         </div>
     </main>
 
-    <script src="map.js"></script>
-    <script src="main.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/main.js"></script>
     
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
