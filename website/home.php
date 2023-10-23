@@ -66,15 +66,10 @@
                     }
 
                     $countryResult->free_result();
-
-                    // If you want to display data from the "places" table as well, use a similar approach with the $placesQuery.
                 ?>
             </div>
         </div>
-
         <div class="swiper-pagination"></div>
-        </div>
-        
         
     </main>
 

@@ -38,7 +38,7 @@
     $countryName = "SELECT countries.country_name FROM countries, places 
                     WHERE countries.country_id = places.country_id";
 
-    $placeQuery = "SELECT places.city, places.city_desc FROM places";    
+    $placeQuery = "SELECT places.city, places.city_desc, places.pricePerDay FROM places";    
 
     $result = $db -> Query($placeQuery);
     $countryResult = $db -> Query($countryName);
@@ -50,9 +50,9 @@
                 <div class='city-thingies'>
                     <h3>%s<br>%s</h3>
                     <div class='description'>%s</div>
-                    <button>Click!</button>
+                    <div><h2>%s USD/day</h2><button>Go book!</button></div>
                 </div>
-            </div>", $countryRow['country_name'], $row['city'], $row['city_desc']);
+            </div>", $countryRow['country_name'], $row['city'], $row['city_desc'], $row['pricePerDay']);
     }
 ?>
         </div>
@@ -83,5 +83,6 @@
       },
     });
   </script>
+
 </body>
 </html>

@@ -18,3 +18,50 @@
 
     background: radial-gradient(closest-side, rgb(253, 255, 253), var(--main-color));
 }
+
+.home-cards{
+    width: 300px;
+    background-color: #59a570;
+    border-radius: 25px;
+}
+
+.card{
+    padding: 3%;
+}
+.card h3{
+    text-align: center;
+}
+.description{
+    text-align: justify;
+
+    border-radius: 10px;
+    max-height: 100px;
+
+    overflow: hidden;
+    overflow-y: scroll;
+    padding: 3%;
+}
+
+.img-sect{
+    background-color: white;
+    height: 150px;
+    margin-bottom: 2%;
+    padding: 2%;
+    border-radius: 25px;
+}
+
+::-webkit-scrollbar{
+    width: 15px;
+}
+
+::-webkit-scrollbar-track{
+    background-color: aliceblue;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+    border-left: 0.5px solid aliceblue;
+    border-right: 0.5px solid aliceblue;
+    background-color: #d787e4;
+    border-radius: 10px;
+}

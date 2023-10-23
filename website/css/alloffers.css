@@ -4,28 +4,34 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 25px;
     padding-inline: 1.5%;
-
-    margin: auto;
+    margin-top: auto;
+    margin-inline: 50%;
 }
 
 .grid-element{
+    margin: auto;
     display: flex;
     padding: 5%;
     background-color: #59a570;
     border-radius: 25px;
     width: 700px;
+
+    justify-content: center;
+    align-items: center;
 }
 
 .img-sect {
     background-color: white;
-    height: 300px;
+    width: 45%;
+    height: 270px;
     margin-right: 2%; /* Add some margin for spacing */
-    padding: 2%;
+    padding: 1.5%;
     border-radius: 25px;
 }
 
-.city-things {
+.city-thingies {
     padding: 1.5%;
+    width: 46%;
 }
 
 .description{
@@ -33,8 +39,8 @@
 
     border-radius: 10px;
     max-height: 170px;
-    /* overflow: hidden;
-    overflow-y: scroll; */
+    overflow: hidden;
+    overflow-y: scroll;
 }
 
 .city-thingies ::-webkit-scrollbar{
@@ -52,3 +58,4 @@
     background-color: #d787e4;
     border-radius: 10px;
 }
+
