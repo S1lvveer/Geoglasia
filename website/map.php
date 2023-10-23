@@ -51,7 +51,7 @@
                 if ($user && $user['is_admin']) {
                 ?>
                 <div class="admin">
-                    <h2 class="admin">Click events</h2>
+                    <h2 class="admin">Admin debugger</h2>
                     <h4 class="click-origin admin">Country origin [topleft]: <span class='copyable'>Click something!</span></h4>
                     <h4 class="click-offset admin">[copy to db] Offset by: <span class='copyable'>Click something!</span></h4>
                 </div>
@@ -81,10 +81,12 @@
                         $locationOffset = $place['location_offset']; // (varchar 255, store a whole translate parameter in there)
                         $countryName = $country['country_name'];
                         $placeName = $place['city'];
+                        $cityIMG = $place['cityIMG'];
+                        $city_desc = $place['city_desc'];
 
                         // Create a marker element [and pass country-code + location offset so we can set it in JS]
                         echo
-                            "<div class='marker' data-country-code='$countryCode' data-offset = '$locationOffset'>
+                            "<div class='marker' data-country-code='$countryCode' data-offset='$locationOffset' data-img='$cityIMG' data-desc='$city_desc' data-name='$placeName' data-country='$countryName'>
                                 <span class='tooltip'>$placeName, $countryName</span>
                                 <div class='mark'></div>
                             </div>";
@@ -104,13 +106,54 @@
             <?php
             if (!$user) {
             ?>
+            <div class="not-logged-in">
+                <ion-icon name="warning" class="warning"></ion-icon>
+                <h2>Log in to start booking!</h2>
+            </div>
+            
 
             <?php } 
             else 
             { ?>
 
+            <img alt="One of our wonderful booking destinations!" class='place-image' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/%EA%B2%BD%EB%B3%B5%EA%B6%81_%EC%A0%84%EA%B2%BD.jpg/1920px-%EA%B2%BD%EB%B3%B5%EA%B6%81_%EC%A0%84%EA%B2%BD.jpg">
+
+            <div class="info">
+                <p class="name">Place name, Country name</p>
+                <p class="desc">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi, nostrum.</p>
+            </div>
+
+            <form action="map.php" method="POST">
+                <!-- All the booking table parameters -->
+                <input type="hidden" name="place_id" id="place_id">
+                <input type="hidden" name="book_date" id="book_date">
+                <input type="hidden" name="book_start" id="book_start">
+                <input type="hidden" name="book_end" id="book_end">
+
+                <button name="submit" id="submit">Book this place!</button>
+            </form>
             <?php } ?>
+
+            <section class="booking-results">
+                <?php
+                if (isset($_POST['submit'])) {
+                    $place_id = $_POST['place_id'];
+                    $user_id = $user['user_id'];
+                    $book_date = $_POST['book_date'];
+                    $book_start = $_POST['book_start'];
+                    $book_end = $_POST['book_end'];
+
+                    $sql = "INSERT INTO booking(place_id, user_id, book_date, book_start, book_end) VALUES (?, ?, ?, ?, ?)";
+                    $stmt = $db->prepare($sql);
+                    $stmt->bind_param("iisss", $place_id, $user_id, $book_date, $book_start, $book_end);
+                    $stmt->execute();
+
+                    echo "<div class='success'> Successfully booked! </div>";
+                }
+                ?>
+            </section>
         </section>
+
     </main>
 
     

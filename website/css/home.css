@@ -69,16 +69,16 @@ h3{
     border-radius: 25px;
 }
 
-::-webkit-scrollbar{
+.swiper::-webkit-scrollbar{
     width: 15px;
 }
 
-::-webkit-scrollbar-track{
+.swiper::-webkit-scrollbar-track{
     background-color: aliceblue;
     border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb{
+.swiper::-webkit-scrollbar-thumb{
     border-left: 0.5px solid aliceblue;
     border-right: 0.5px solid aliceblue;
     background-color: #d787e4;

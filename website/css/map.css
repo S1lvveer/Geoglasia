@@ -12,6 +12,8 @@
 :root {
     --booking-bg: rgb(145, 199, 134);
     --booking-bg-s: rgb(120, 182, 108);
+    --book-success: rgb(135, 255, 131);
+    --book-success-s: rgb(116, 201, 113);
 }
 
 .map {
@@ -26,7 +28,29 @@
     --map-invalid-fill: lightgray;
     --map-invalid-highlight: rgb(150,150,150);
 
+    --warning-color: rgb(240, 169, 77);
+
+
     animation: popin 0.3s ease-out;
+}
+
+.not-logged-in {
+    position: relative;
+    
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1em;
+
+    color: var(--warning-color);
+}
+.warning {
+    width: 100px;
+    height: 100px;
 }
 
 .booking {
@@ -35,18 +59,82 @@
     left: 50%;
     transform: translateX(-50%);
 
-    width: 60%;
-    height: 20%;
+    width: 70%;
+    height: calc(20% + 2em);
     background-color: var(--booking-bg);
     border: 0.5em solid var(--booking-bg-s);
     border-radius: 5em;
-    /* padding: 1em; */
+    padding: 2.5em;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.place-image {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+.info {
+    height: 100%;
+}
+.info > * {
+    margin: 0;
+    color: white;
+}
+
+#submit {
+    padding: 0.5em;
+    outline: none;
+    border: none;
+
+    background-color: var(--book-success-s);
+    border: 0.5em solid var(--book-success);
+    border-radius: 1em;
+    color: white;
+    font-size: 1em;
+    font-weight: 600;
+
+    transition: 0.25s ease;
+}
+#submit:hover {
+    border-color: var(--book-success-s);
+    /* border-radius: 100%; */
+    font-size: 1.2em;
+}
+
+
+.booking-results {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    /* background-color: black; */
+    width: 100%;
+    height: 50%;
 
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
+.booking-results .success {
+    width: 50%;
 
+    text-align: center;
+    margin: 5px;
+    padding: 5px;
+
+    background-color: var(--book-success);
+    border: 0.5em solid var(--book-success-s);
+    border-radius: 15px;
+
+    font-weight: 600;
+    color: black;
+}
 
 
 /* Valid and invalid countries */
