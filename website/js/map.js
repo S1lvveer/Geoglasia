@@ -102,11 +102,23 @@ fetch("../assets/asiaLow.svg")
 
         let selected;
         function setSelectedCountry(country) {
+            // Deselect by clicking on air
+            if (!country && selected) {
+                selected.classList.remove("selected");
+                selected = null;
+                return;
+            }
+            if (!country) return;
+            if (!country.classList.contains("valid-country")) return;
+
+            // Select by clicking on country path
             if (selected) {
                 selected.classList.remove("selected");
             }
             selected = country;
             country.classList.add("selected")
+
+            hovertext.classList.add("selected");
         }
 
         // Listen to hovered countries & update the country display
@@ -118,6 +130,11 @@ fetch("../assets/asiaLow.svg")
 
             country.addEventListener("mouseover", e => {
                 hovertext.textContent = name;
+
+                if (country != selected) {
+                    hovertext.classList.remove("selected");
+                }
+
                 if (is_valid) {
                     hovertext.classList.add("valid");
                 } else {
@@ -127,11 +144,13 @@ fetch("../assets/asiaLow.svg")
             })
             country.addEventListener("mouseleave", e => {
                 if (hovertext.textContent == name) {
-                    if (country.classList.contains("selected"))
-                        hovertext.textContent = name;
-                    else
-                        hovertext.textContent = "NONE";
+                    hovertext.textContent = "NONE";
                     hovertext.classList.remove("valid");
+                }
+
+                if (selected) {
+                    hovertext.textContent = selected.getAttribute("title");
+                    hovertext.classList.add("selected");
                 }
             })
             country.addEventListener("click", e => {
@@ -139,6 +158,14 @@ fetch("../assets/asiaLow.svg")
             })
         })
 
+        mapSVG.addEventListener("click", e => {
+            if (e.target.nodeName == "svg") {
+                setSelectedCountry();
+                hovertext.textContent = "NONE";
+                hovertext.classList.remove("valid");
+                hovertext.classList.remove("selected");
+            }
+        })
 
 
         ////////////////////////////////////////////////////////

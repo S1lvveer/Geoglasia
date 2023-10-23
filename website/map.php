@@ -101,7 +101,15 @@
         </div>
 
         <section class="booking">
-            
+            <?php
+            if (!$user) {
+            ?>
+
+            <?php } 
+            else 
+            { ?>
+
+            <?php } ?>
         </section>
     </main>
 

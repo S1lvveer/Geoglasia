@@ -22,6 +22,7 @@
 
     --map-fill: rgb(173, 230, 185);
     --map-highlight: rgb(71, 187, 115);
+    --map-click-highlight: rgb(255, 191, 95);
     --map-invalid-fill: lightgray;
     --map-invalid-highlight: rgb(150,150,150);
 
@@ -46,14 +47,21 @@
     justify-content: center;
 }
 
+
+
 /* Valid and invalid countries */
 .hovered-text {
     color: var(--map-invalid-highlight);
 }
 
-.hovered-text.valid,
-.selected {
+.hovered-text.valid {
     color: var(--map-highlight);
+}
+.hovered-text.selected {
+    color: var(--map-click-highlight);
+}
+.hovered-text::before {
+    content: '> ';
 }
 
 /* Map, map svg & map background */
@@ -138,6 +146,8 @@
     position: relative;
     fill: var(--map-invalid-fill);
     stroke-opacity: 0.2;
+
+    transition: 0.5s;
 }
 .land.valid-country {
     fill: var(--map-fill);
@@ -152,6 +162,9 @@
     fill: var(--map-highlight);
 
     transition: 0.5s;
+}
+.land.selected, .land.selected:hover {
+    fill: var(--map-click-highlight);
 }
 
 /* Markers [country tooltips] */
