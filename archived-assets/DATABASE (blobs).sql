@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 23 Paź 2023, 22:22
--- Wersja serwera: 10.4.22-MariaDB
--- Wersja PHP: 8.0.13
+-- Czas generowania: 23 Paź 2023, 21:16
+-- Wersja serwera: 10.4.27-MariaDB
+-- Wersja PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,9 +44,9 @@ CREATE TABLE `booking` (
 
 CREATE TABLE `countries` (
   `country_id` int(11) NOT NULL,
-  `country_name` varchar(60) COLLATE utf16_polish_ci NOT NULL,
-  `country_desc` text COLLATE utf16_polish_ci NOT NULL,
-  `country_code` varchar(2) COLLATE utf16_polish_ci NOT NULL
+  `country_name` varchar(60) NOT NULL,
+  `country_desc` text NOT NULL,
+  `country_code` varchar(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
 
 --
@@ -80,11 +80,11 @@ INSERT INTO `countries` (`country_id`, `country_name`, `country_desc`, `country_
 CREATE TABLE `places` (
   `place_id` int(11) NOT NULL,
   `country_id` int(11) NOT NULL,
-  `city` varchar(70) COLLATE utf16_polish_ci NOT NULL,
-  `city_desc` text COLLATE utf16_polish_ci NOT NULL,
+  `city` varchar(70) NOT NULL,
+  `city_desc` text NOT NULL,
   `pricePerDay` double NOT NULL,
-  `cityIMG` varchar(255) COLLATE utf16_polish_ci NOT NULL,
-  `location_offset` varchar(255) COLLATE utf16_polish_ci NOT NULL
+  `cityIMG` blob NOT NULL,
+  `location_offset` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
 
 --
@@ -92,7 +92,7 @@ CREATE TABLE `places` (
 --
 
 INSERT INTO `places` (`place_id`, `country_id`, `city`, `city_desc`, `pricePerDay`, `cityIMG`, `location_offset`) VALUES
-(1, 1, 'Seoul', 'The capital and largest city of South Korea, Seoul is a bustling metropolis with a perfect blend of modernity and tradition. You can explore ancient palaces, vibrant markets, and enjoy the thriving K-pop culture. Don\'t miss the stunning Bukchon Hanok Village and the futuristic Dongdaemun Design Plaza.', 89, 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/%EA%B2%BD%EB%B3%B5%EA%B6%81_%EC%A0%84%EA%B2%BD.jpg/1920px-%EA%B2%BD%EB%B3%B5%EA%B6%81_%EC%A0%84%EA%B2%BD.jpg', '0.3348477730617227, 0.3029382127122646 '),
+(1, 1, 'Seoul', 'The capital and largest city of South Korea, Seoul is a bustling metropolis with a perfect blend of modernity and tradition. You can explore ancient palaces, vibrant markets, and enjoy the thriving K-pop culture. Don\'t miss the stunning Bukchon Hanok Village and the futuristic Dongdaemun Design Plaza.', 89, '', '0.3348477730617227, 0.3029382127122646 '),
 (2, 1, 'Busan', 'South Korea\'s second-largest city, Busan, is known for its beautiful beaches, such as Haeundae and Gwangalli. The city also offers a bustling fish market, historical temples, and the famous Busan International Film Festival. It\'s a great place to experience a more relaxed coastal lifestyle.', 78, '', '0.7763082517192346, 0.7474384502159604 '),
 (3, 1, 'Jeju City', 'Located on Jeju Island, Jeju City is a popular destination for nature lovers. Explore the unique volcanic landscapes, stunning waterfalls, and the picturesque Hallasan National Park. The island is also famous for its lava tubes and lava caves.', 83, '', ''),
 (4, 1, 'Incheon', 'Incheon, a port city near Seoul, is renowned for its modern developments and transportation hub, including Incheon International Airport. You can visit Chinatown, Wolmido Island, and the Freedom Park, which commemorates the Incheon landing during the Korean War.', 82, '', '0.21344614143090695, 0.3293068708692635 '),
@@ -156,7 +156,7 @@ CREATE TABLE `sessions` (
   `token` varchar(64) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `expires_at` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Zrzut danych tabeli `sessions`
@@ -165,7 +165,6 @@ CREATE TABLE `sessions` (
 INSERT INTO `sessions` (`token`, `user_id`, `expires_at`) VALUES
 ('0413ddcf23b63c790c5b4132be4724c4ab91fcddb150d8d44de0d6a719eab079', 9, 1698087251),
 ('2f85d670e319c64e61db7dd5856acacda49278ccc08aebded836f281b8c6245b', 1, 1698249758),
-('3c5f6d3214888918809e1c7eb8c860148c4ea8d3075a20aba3fab2b0f49259b3', 1, 1698262736),
 ('40143d811796410feafc4cb5419d330b9a05add5cea85e1f469e178d363a97ae', 1, 1698248345),
 ('5e8f72728fe4d725b737eb9e62a06a0dfcff3e9463d10f8807dd728a4d9a21ef', 1, 1698238924),
 ('645185e0758944febc863a5aae72fda4f0e7a8cec25d414820e9c53ae2144c35', 1, 1698237639),
@@ -176,7 +175,6 @@ INSERT INTO `sessions` (`token`, `user_id`, `expires_at`) VALUES
 ('9a182a3eadc8311a2f613bb8a34d2c97b4d8eaee4b8c9c7ada8e6db9df589e70', 1, 1698086206),
 ('b4dcae91d2ac6a9968aaa1c6cb3f493ce55c418fa0853495d76594142590799b', 1, 1698260326),
 ('c185eb25e0bcff1cc82ad7d2a1ba1360ac351ee6f42adbde526a40fb83735794', 1, 1698256822),
-('f97941a7c955be1ab59420875375dd07d6919481d95fc05992b3bae3b4c8cedf', 1, 1698265166),
 ('fae291fbf59149de865487d80cb186dfeea644b13deefe428298f88a5f45656e', 1, 1698257786);
 
 -- --------------------------------------------------------
@@ -187,11 +185,11 @@ INSERT INTO `sessions` (`token`, `user_id`, `expires_at`) VALUES
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
-  `login` varchar(30) COLLATE utf16_polish_ci NOT NULL,
-  `email` varchar(255) COLLATE utf16_polish_ci NOT NULL,
-  `password` varchar(255) COLLATE utf16_polish_ci NOT NULL,
-  `name` varchar(50) COLLATE utf16_polish_ci NOT NULL,
-  `surname` varchar(70) COLLATE utf16_polish_ci NOT NULL,
+  `login` varchar(30) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `surname` varchar(70) NOT NULL,
   `dob` date NOT NULL,
   `is_admin` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
@@ -273,7 +271,7 @@ ALTER TABLE `user_bookings`
 -- AUTO_INCREMENT dla tabeli `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `places`
