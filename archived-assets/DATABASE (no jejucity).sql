@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 24 Paź 2023, 00:45
--- Wersja serwera: 10.4.22-MariaDB
--- Wersja PHP: 8.0.13
+-- Czas generowania: 23 Paź 2023, 23:11
+-- Wersja serwera: 10.4.27-MariaDB
+-- Wersja PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,9 +44,9 @@ CREATE TABLE `booking` (
 
 CREATE TABLE `countries` (
   `country_id` int(11) NOT NULL,
-  `country_name` varchar(60) COLLATE utf16_polish_ci NOT NULL,
-  `country_desc` text COLLATE utf16_polish_ci NOT NULL,
-  `country_code` varchar(2) COLLATE utf16_polish_ci NOT NULL
+  `country_name` varchar(60) NOT NULL,
+  `country_desc` text NOT NULL,
+  `country_code` varchar(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
 
 --
@@ -80,11 +80,11 @@ INSERT INTO `countries` (`country_id`, `country_name`, `country_desc`, `country_
 CREATE TABLE `places` (
   `place_id` int(11) NOT NULL,
   `country_id` int(11) NOT NULL,
-  `city` varchar(70) COLLATE utf16_polish_ci NOT NULL,
-  `city_desc` text COLLATE utf16_polish_ci NOT NULL,
+  `city` varchar(70) NOT NULL,
+  `city_desc` text NOT NULL,
   `pricePerDay` double NOT NULL,
-  `cityIMG` varchar(255) COLLATE utf16_polish_ci NOT NULL,
-  `location_offset` varchar(255) COLLATE utf16_polish_ci NOT NULL
+  `cityIMG` varchar(255) NOT NULL,
+  `location_offset` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
 
 --
@@ -94,7 +94,7 @@ CREATE TABLE `places` (
 INSERT INTO `places` (`place_id`, `country_id`, `city`, `city_desc`, `pricePerDay`, `cityIMG`, `location_offset`) VALUES
 (1, 1, 'Seoul', 'The capital and largest city of South Korea, Seoul is a bustling metropolis with a perfect blend of modernity and tradition. You can explore ancient palaces, vibrant markets, and enjoy the thriving K-pop culture. Don\'t miss the stunning Bukchon Hanok Village and the futuristic Dongdaemun Design Plaza.', 89, 'https://cdn.britannica.com/57/75757-050-122EC2ED/Changgyong-Palace-background-Seoul.jpg', '0.3348477730617227, 0.3029382127122646 '),
 (2, 1, 'Busan', 'South Korea\'s second-largest city, Busan, is known for its beautiful beaches, such as Haeundae and Gwangalli. The city also offers a bustling fish market, historical temples, and the famous Busan International Film Festival. It\'s a great place to experience a more relaxed coastal lifestyle.', 78, 'https://media.timeout.com/images/105996093/image.jpg', '0.7763082517192346, 0.7474384502159604 '),
-(3, 1, 'Jeju City', 'Located on Jeju Island, Jeju City is a popular destination for nature lovers. Explore the unique volcanic landscapes, stunning waterfalls, and the picturesque Hallasan National Park. The island is also famous for its lava tubes and lava caves.', 83, 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Jeju_-_Hallasan.JPG', '0.1508593298199571, 1.0096977845155741'),
+(3, 1, 'Jeju City', 'Located on Jeju Island, Jeju City is a popular destination for nature lovers. Explore the unique volcanic landscapes, stunning waterfalls, and the picturesque Hallasan National Park. The island is also famous for its lava tubes and lava caves.', 83, 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Jeju_-_Hallasan.JPG', ''),
 (4, 1, 'Incheon', 'Incheon, a port city near Seoul, is renowned for its modern developments and transportation hub, including Incheon International Airport. You can visit Chinatown, Wolmido Island, and the Freedom Park, which commemorates the Incheon landing during the Korean War.', 82, 'https://www.insideasiatours.com/sites/default/files/2021-08/Songdo-Central-Park-Incheon.jpg', '0.21344614143090695, 0.3293068708692635 '),
 (5, 2, 'Tokyo', 'Japan\'s bustling capital, Tokyo is a city that seamlessly blends the ultramodern with the traditional. Explore high-tech districts like Shibuya and Akihabara, visit historic temples like Senso-ji, and savor world-class cuisine. Tokyo is a city of constant excitement and innovation.', 125, 'https://www.ciee.org/sites/default/files/images/2023-04/tokyo-city-neon-lights.jpg', '0.6393927629541526, 0.7091812231000516'),
 (6, 2, 'Kyoto', 'Kyoto is the epitome of traditional Japan, with its historic temples, tea houses, and beautiful gardens. It\'s famous for the stunning Kinkaku-ji (Golden Pavilion) and Fushimi Inari Shrine. Don\'t miss the opportunity to experience a traditional tea ceremony in this cultural treasure.', 103, 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/02/23/18/kyoto-main.jpg?width=1200', '0.3891072953113708, 0.7457472661361615'),
@@ -156,7 +156,7 @@ CREATE TABLE `sessions` (
   `token` varchar(64) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `expires_at` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Zrzut danych tabeli `sessions`
@@ -174,7 +174,6 @@ INSERT INTO `sessions` (`token`, `user_id`, `expires_at`) VALUES
 ('8e1a3a3b2407a30e919f45e0979497a94b37eb2f5071f59e3d1f38179d28a3ca', 1, 1698237727),
 ('988ba891a306797a9cf0e4af4bffb419cd413c1e2cef47e2196756c09287c2e9', 1, 1698224536),
 ('9a182a3eadc8311a2f613bb8a34d2c97b4d8eaee4b8c9c7ada8e6db9df589e70', 1, 1698086206),
-('b2a520d6beb63004f5041f74424f6941ba0797c51f5b2c9afc47d4bdd97ffd41', 1, 1698273718),
 ('b4dcae91d2ac6a9968aaa1c6cb3f493ce55c418fa0853495d76594142590799b', 1, 1698260326),
 ('c185eb25e0bcff1cc82ad7d2a1ba1360ac351ee6f42adbde526a40fb83735794', 1, 1698256822),
 ('f97941a7c955be1ab59420875375dd07d6919481d95fc05992b3bae3b4c8cedf', 1, 1698265166),
@@ -188,11 +187,11 @@ INSERT INTO `sessions` (`token`, `user_id`, `expires_at`) VALUES
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
-  `login` varchar(30) COLLATE utf16_polish_ci NOT NULL,
-  `email` varchar(255) COLLATE utf16_polish_ci NOT NULL,
-  `password` varchar(255) COLLATE utf16_polish_ci NOT NULL,
-  `name` varchar(50) COLLATE utf16_polish_ci NOT NULL,
-  `surname` varchar(70) COLLATE utf16_polish_ci NOT NULL,
+  `login` varchar(30) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `surname` varchar(70) NOT NULL,
   `dob` date NOT NULL,
   `is_admin` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
