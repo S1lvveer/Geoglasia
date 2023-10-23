@@ -100,6 +100,15 @@ fetch("../assets/asiaLow.svg")
         const mapSVG = svg_container.querySelector("svg");
         const hovertext = document.querySelector(".hovered-text");
 
+        let selected;
+        function setSelectedCountry(country) {
+            if (selected) {
+                selected.classList.remove("selected");
+            }
+            selected = country;
+            country.classList.add("selected")
+        }
+
         // Listen to hovered countries & update the country display
         let countries = mapSVG.querySelectorAll(".land");
         countries.forEach(country => {
@@ -118,11 +127,19 @@ fetch("../assets/asiaLow.svg")
             })
             country.addEventListener("mouseleave", e => {
                 if (hovertext.textContent == name) {
-                    hovertext.textContent = "NONE";
+                    if (country.classList.contains("selected"))
+                        hovertext.textContent = name;
+                    else
+                        hovertext.textContent = "NONE";
                     hovertext.classList.remove("valid");
                 }
             })
+            country.addEventListener("click", e => {
+                setSelectedCountry(country);
+            })
         })
+
+
 
         ////////////////////////////////////////////////////////
         // MAP MARKERS: Add marker svgs to all "mark" objects //
@@ -135,10 +152,26 @@ fetch("../assets/asiaLow.svg")
             return mapSVG.querySelector(`#${countryCode}`);
         }
 
+        // Calculate the pixel ratio [for proper saving of pixels in the database]
+        function pxToPathPercent(pixels, relativePath) {
+            let bounds = relativePath.getBoundingClientRect();
+            return {
+                x: pixels.x / bounds.width,
+                y: pixels.y / bounds.height
+            };
+        }
+        function pathPercentToPx(percentages, relativePath) {
+            let bounds = relativePath.getBoundingClientRect();
+            return {
+                x: percentages.x * bounds.width,
+                y: percentages.y * bounds.height
+            };
+        }
+
         // Calculate the relative position of the element based off path
         const size = 25;
         const moveLeft = size/2, moveDown = size; // The marker is 25 pixels, so for it to mark properly, origin point has to be bottom middle
-        function getRelativeToCountry(path, ) {
+        function getRelativeToCountry(path) {
             let mapBounds = svg_container.getBoundingClientRect();
             let pathBounds = path.getBoundingClientRect();
             let x = pathBounds.left - mapBounds.left;
@@ -162,15 +195,18 @@ fetch("../assets/asiaLow.svg")
 
                 // Save the offset variables (they are seperated by a space and a comma)
                 let offsetX = 0, offsetY = 0;
+                let offsets = {x: 0, y: 0};
                 if (offsetSplit.length >= 2) {
                     offsetX = parseFloat(offsetSplit[0]);
                     offsetY = parseFloat(offsetSplit[1]);
+
+                    offsets = pathPercentToPx({x: offsetX, y: offsetY}, path);
                 }
 
                 let relativePos = getRelativeToCountry(path);
 
-                let x = (relativePos.x - moveLeft) + offsetX*currentScale;
-                let y = (relativePos.y - moveDown) + offsetY*currentScale;
+                let x = (relativePos.x - moveLeft) + offsets.x;
+                let y = (relativePos.y - moveDown) + offsets.y;
                 marker.style.left = `${x}px`;
                 marker.style.top = `${y}px`;
                 //console.log(relativePos);
@@ -228,7 +264,7 @@ fetch("../assets/asiaLow.svg")
         let currentScale = 1;
 
         let translate = {scale: currentScale, translateX: 0, translateY: 0};
-        let startPos = {x: 0, y: 0};
+        let startPos = {x: 0, y: 0, startScale: currentScale};
         let offset = {x: 0, y: 0};
         let mousePos = {x: 0, y: 0};
 
@@ -263,6 +299,7 @@ fetch("../assets/asiaLow.svg")
             isPanning = true;
             startPos.x = event.clientX;
             startPos.y = event.clientY;
+            startPos.startScale = currentScale;
             offset.x = translate.translateX;
             offset.y = translate.translateY;
         }
@@ -271,6 +308,8 @@ fetch("../assets/asiaLow.svg")
         }
         function mousemove(event) {
             if (!isPanning) return;
+
+            //const ratio = currentScale / startPos.startScale;
 
             mousePos.x = event.clientX;
             mousePos.y = event.clientY;
@@ -304,6 +343,8 @@ fetch("../assets/asiaLow.svg")
         map.addEventListener("mousemove", mousemove);
         map.addEventListener("ondrag", e => {e.preventDefault()});
 
+
+
         ///////////////////
         // Map dev tools //
         ///////////////////
@@ -321,12 +362,14 @@ fetch("../assets/asiaLow.svg")
                     let relativePos = getRelativeToCountry(path);
                     click_origin.innerHTML = `Country origin [topleft]: <span class='copyable'> ${relativePos.x}px, ${relativePos.y}px </span>`;
 
-                    let x = (e.clientX - mapBounds.x - relativePos.x) / currentScale;
+                    let x = (e.clientX - mapBounds.x - relativePos.x); // / currentScale;
                     x = x.toFixed(2);
-                    let y = (e.clientY - mapBounds.y - relativePos.y) / currentScale;
+                    let y = (e.clientY - mapBounds.y - relativePos.y); // / currentScale;
                     y = y.toFixed(2);
 
-                    click_offset.innerHTML = `[copy to db] Offset by: <span class='copyable'> ${x}px, ${y}px </span>`;
+                    let pathPercent = pxToPathPercent({x: x, y: y}, path);
+
+                    click_offset.innerHTML = `[copy to db] Offset by: <span class='copyable'> ${pathPercent.x}, ${pathPercent.y} </span>`;
                 }
             })
         }

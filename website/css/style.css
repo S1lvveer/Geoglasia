@@ -31,6 +31,8 @@
 
     --page-name-bg: rgba(77, 255, 137, 0.3);
 
+    --scrollbar-color: rgb(62, 189, 58);
+
     /* Variables [sizes, etc] */
     --header-height: calc(5rem + 20px + 9rem); /* the height i calculated that it needs to be, to fill up the rest of the screen below the navigation bar */
 }
@@ -57,6 +59,26 @@ main {
     --main-height: calc( var(--body-height) - var(--header-height) );
     width: 100%;
     background-color: var(--main-color);
+}
+
+/* --------- */
+/* Scrollbar */
+/* --------- */
+
+::-webkit-scrollbar{
+    width: 15px;
+}
+
+::-webkit-scrollbar-track{
+    background-color: aliceblue;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+    border-left: 0.5px solid aliceblue;
+    border-right: 0.5px solid aliceblue;
+    background-color: var(--scrollbar-color);
+    border-radius: 10px;
 }
 
 /* ------------- */

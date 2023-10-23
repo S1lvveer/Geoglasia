@@ -50,9 +50,12 @@
                 <?php
                 if ($user && $user['is_admin']) {
                 ?>
-                <h2 class="admin">Click events</h2>
-                <h4 class="click-origin admin">Country origin [topleft]: <span class='copyable'>Click something!</span></h4>
-                <h4 class="click-offset admin">[copy to db] Offset by: <span class='copyable'>Click something!</span></h4>
+                <div class="admin">
+                    <h2 class="admin">Click events</h2>
+                    <h4 class="click-origin admin">Country origin [topleft]: <span class='copyable'>Click something!</span></h4>
+                    <h4 class="click-offset admin">[copy to db] Offset by: <span class='copyable'>Click something!</span></h4>
+                </div>
+                
                 <?php
                 }
                 ?>
@@ -95,8 +98,11 @@
                     </div> -->
                 </div>
             </div>
-
         </div>
+
+        <section class="booking">
+            
+        </section>
     </main>
 
     
