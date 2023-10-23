@@ -9,6 +9,11 @@
     }
 }
 
+:root {
+    --booking-bg: rgb(145, 199, 134);
+    --booking-bg-s: rgb(120, 182, 108);
+}
+
 .map {
     position: absolute;
     top: 10%;
@@ -23,11 +28,31 @@
     animation: popin 0.3s ease-out;
 }
 
+.booking {
+    position: absolute;
+    top: calc(60% + 9.5em);
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 60%;
+    height: 20%;
+    background-color: var(--booking-bg);
+    border: 0.5em solid var(--booking-bg-s);
+    border-radius: 5em;
+    /* padding: 1em; */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Valid and invalid countries */
 .hovered-text {
     color: var(--map-invalid-highlight);
 }
-.hovered-text.valid {
+
+.hovered-text.valid,
+.selected {
     color: var(--map-highlight);
 }
 
@@ -89,11 +114,13 @@
     left: 0;
     bottom: 0;
     text-align: left;
+    pointer-events: none;
 }
 
 .hover-info > *, .cursor-info > * {
     margin: 0;
     user-select: none;
+    pointer-events: none;
 }
 
 .admin {
@@ -102,6 +129,7 @@
 }
 .copyable {
     user-select: all;
+    pointer-events: all;
     color: black;
 }
 
