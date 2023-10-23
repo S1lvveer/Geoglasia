@@ -43,11 +43,44 @@
             <div class="map-bg"></div>
             
         </div>
-    
+
+        <div class="reservation">
+        <?php
+        if (!$user) {
+            echo "<h3>Here would be your reservations!</h3>";
+        } else {
+            $user_id = $user['user_id'];
+
+            $reservationsQuery = "SELECT users.name, users.surname 
+                                FROM users
+                                INNER JOIN user_bookings ON users.user_id = user_bookings.user_id
+                                WHERE user_bookings.user_id = $user_id";
+
+            $result = $db->query($reservationsQuery);
+
+            if ($result) {
+                if ($result->num_rows == 0) {
+                    echo "<h3>You don't have any reservations at the moment</h3>";
+                } else {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "s";
+                        $name = $row['name'];
+                        $surname = $row['surname'];
+                    }
+                }
+            } else {
+                echo "Error in the query: " . $db->error;
+            }
+
+        }
+        ?>
+
+        </div>
         <!-- infinite swiper -->
-        <div class="swiper mySwiper home-cards">
-            <div class="swiper-wrapper">
-                <?php
+        <div class="swipeWrap"> <!-- this many divs is for actually getting the whole thing wrapped -->
+            <div class="swiper mySwiper home-cards">
+                <div class="swiper-wrapper">
+                    <?php
                     $countriesQuery = 'SELECT countries.country_name, countries.country_desc FROM countries';
                     $placesQuery = 'SELECT places.city FROM places';
 
@@ -66,11 +99,11 @@
                     }
 
                     $countryResult->free_result();
-                ?>
+                    ?>
+                </div>
+                <div class="swiper-pagination">
             </div>
         </div>
-        <div class="swiper-pagination"></div>
-        
     </main>
 
     <script src="js/main.js"></script>
