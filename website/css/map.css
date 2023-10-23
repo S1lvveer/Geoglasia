@@ -31,7 +31,7 @@
     color: var(--map-highlight);
 }
 
-
+/* Map, map svg & map background */
 .map-bg {
     position: absolute;
     top: 50%;
@@ -44,28 +44,6 @@
     border: 1em solid rgb(132, 220, 255);
     z-index: 1
 }
-
-.hover-info, .cursor-info {
-    position: absolute;
-    color: white;
-    z-index: 5;
-}
-.hover-info {
-    right: 0;
-    top: 0;
-    text-align: right;
-}
-.cursor-info {
-    left: 0;
-    bottom: 0;
-    text-align: left;
-}
-
-.hover-info > *, .cursor-info > * {
-    margin: 0;
-    user-select: none;
-}
-
 .svg-container {
     position: absolute;
     top: 50%;
@@ -95,7 +73,30 @@
     transition: transform 0.05s;
 }
 
-/* .land - svg > path */
+
+/* Bottom left & top right info */
+.hover-info, .cursor-info {
+    position: absolute;
+    color: white;
+    z-index: 5;
+}
+.hover-info {
+    right: 0;
+    top: 0;
+    text-align: right;
+}
+.cursor-info {
+    left: 0;
+    bottom: 0;
+    text-align: left;
+}
+
+.hover-info > *, .cursor-info > * {
+    margin: 0;
+    user-select: none;
+}
+
+/* All valid land & invalid land */
 .land {
     fill: var(--map-invalid-fill);
     stroke-opacity: 0.2;
@@ -113,4 +114,9 @@
     fill: var(--map-highlight);
 
     transition: 0.5s;
+}
+
+/* Markers [country tooltips] */
+.marker {
+    
 }
