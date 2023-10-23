@@ -138,13 +138,13 @@ fetch("../assets/asiaLow.svg")
         // Calculate the relative position of the element based off path
         const size = 25;
         const moveLeft = size/2, moveDown = size; // The marker is 25 pixels, so for it to mark properly, origin point has to be bottom middle
-        function getRelativeToCountry(path) {
+        function getRelativeToCountry(path, ) {
             let mapBounds = svg_container.getBoundingClientRect();
             let pathBounds = path.getBoundingClientRect();
             let x = pathBounds.left - mapBounds.left;
             let y = pathBounds.top - mapBounds.top;
             
-            return {x: x-moveLeft, y: y-moveDown};
+            return {x: x, y: y};
             // return {x: 505, y: 52}; 
             // ^ this is the coords Mongolia should be at
         }
@@ -156,15 +156,31 @@ fetch("../assets/asiaLow.svg")
                 let countryCode = marker.getAttribute('data-country-code');
                 let path = getPathFromCountryCode(countryCode);
 
+                // Get the offset variables from the database
+                let offsetText = marker.getAttribute("data-offset");
+                let offsetSplit = offsetText.split(', ');
+
+                // Save the offset variables (they are seperated by a space and a comma)
+                let offsetX = 0, offsetY = 0;
+                if (offsetSplit.length >= 2) {
+                    offsetX = parseFloat(offsetSplit[0]);
+                    offsetY = parseFloat(offsetSplit[1]);
+                }
+
                 let relativePos = getRelativeToCountry(path);
-                marker.style.top = `${relativePos.y}px`;
-                marker.style.left = `${relativePos.x}px`;
+
+                let x = (relativePos.x - moveLeft) + offsetX*currentScale;
+                let y = (relativePos.y - moveDown) + offsetY*currentScale;
+                marker.style.left = `${x}px`;
+                marker.style.top = `${y}px`;
                 //console.log(relativePos);
             })
         }
 
+        window.addEventListener("resize", updateMarkers);
+
         // Fetch the marker svg to put everywhere [cosmetic change - add the marker]
-        fetch("../assets/marker.svg")
+        fetch("../assets/marker-red.svg")
             .then(response2 => response2.text())
             .then(svgText2 => {
                 // Loaded the file. Parse
@@ -277,9 +293,9 @@ fetch("../assets/asiaLow.svg")
                 y: (translate.translateY / scale).toFixed(0)
             }
             scale_text.textContent = `Scale: ${scale}x`;
-            pos_text.textContent = `Position: ${pos.x}px, ${pos.y}px`;
+            pos_text.textContent = `Position: ${-pos.x}px, ${-pos.y}px`;
 
-            updateMarkers();
+            setTimeout(updateMarkers, 50);
         }
         
         map.addEventListener("wheel", zoom);
@@ -288,7 +304,32 @@ fetch("../assets/asiaLow.svg")
         map.addEventListener("mousemove", mousemove);
         map.addEventListener("ondrag", e => {e.preventDefault()});
 
+        ///////////////////
+        // Map dev tools //
+        ///////////////////
 
+        // There are dev elements, so we can detect dev tools now. [I don't care if this got spoofed lol]
+        if (document.querySelector(".admin")) {
+            const click_origin = document.querySelector(".click-origin"); // Set this to the top left origin point of the path
+            const click_offset = document.querySelector(".click-offset"); // Set this to the amount of pixels it needs to be offset by (we will be saving this to the db)
+
+            map.addEventListener("click", e => {
+                let path = e.target;
+
+                let mapBounds = svg_container.getBoundingClientRect();
+                if (path.nodeName == "path") {
+                    let relativePos = getRelativeToCountry(path);
+                    click_origin.innerHTML = `Country origin [topleft]: <span class='copyable'> ${relativePos.x}px, ${relativePos.y}px </span>`;
+
+                    let x = (e.clientX - mapBounds.x - relativePos.x) / currentScale;
+                    x = x.toFixed(2);
+                    let y = (e.clientY - mapBounds.y - relativePos.y) / currentScale;
+                    y = y.toFixed(2);
+
+                    click_offset.innerHTML = `[copy to db] Offset by: <span class='copyable'> ${x}px, ${y}px </span>`;
+                }
+            })
+        }
 
     })
     .catch(error => {

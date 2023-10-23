@@ -46,6 +46,16 @@
             <div class="cursor-info">
                 <h3 class="current-scale">Scale: 1.0x</h3>
                 <h3 class="current-pos">Position: 0px, 0px</h3>
+
+                <?php
+                if ($user && $user['is_admin']) {
+                ?>
+                <h2 class="admin">Click events</h2>
+                <h4 class="click-origin admin">Country origin [topleft]: <span class='copyable'>Click something!</span></h4>
+                <h4 class="click-offset admin">[copy to db] Offset by: <span class='copyable'>Click something!</span></h4>
+                <?php
+                }
+                ?>
             </div>
             
             <div class="svg-container">
@@ -65,13 +75,13 @@
 
                         // Get variables
                         $countryCode = $country['country_code'];
-                        $locationOffset = "translate(0%, 0%)"; // $place['location_offset'] (varchar 255, store a whole translate parameter in there)
+                        $locationOffset = $place['location_offset']; // (varchar 255, store a whole translate parameter in there)
                         $countryName = $country['country_name'];
                         $placeName = $place['city'];
 
                         // Create a marker element [and pass country-code + location offset so we can set it in JS]
                         echo
-                            "<div class='marker' data-country-code='$countryCode' style='transform: $locationOffset;'>
+                            "<div class='marker' data-country-code='$countryCode' data-offset = '$locationOffset'>
                                 <span class='tooltip'>$placeName, $countryName</span>
                                 <div class='mark'></div>
                             </div>";
