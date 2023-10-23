@@ -92,6 +92,11 @@ fetch("../assets/asiaLow.svg")
     })
 
     .then(() => { // Do something with all valid countries
+
+        /////////////////////////////////////////////////
+        // COUNTRY VALIDATION: Valid and invalid tags! //
+        /////////////////////////////////////////////////
+
         const mapSVG = svg_container.querySelector("svg");
         const hovertext = document.querySelector(".hovered-text");
 
@@ -109,6 +114,7 @@ fetch("../assets/asiaLow.svg")
                 } else {
                     hovertext.classList.remove("valid");
                 }
+                //console.log(country.getBoundingClientRect());
             })
             country.addEventListener("mouseleave", e => {
                 if (hovertext.textContent == name) {
@@ -117,6 +123,85 @@ fetch("../assets/asiaLow.svg")
                 }
             })
         })
+
+        ////////////////////////////////////////////////////////
+        // MAP MARKERS: Add marker svgs to all "mark" objects //
+        ////////////////////////////////////////////////////////
+
+        const markers = map.querySelector(".markers");
+
+        // Get path from countryCode
+        function getPathFromCountryCode(countryCode) {
+            return mapSVG.querySelector(`#${countryCode}`);
+        }
+
+        // Calculate the relative position of the element based off path
+        const size = 25;
+        const moveLeft = size/2, moveDown = size; // The marker is 25 pixels, so for it to mark properly, origin point has to be bottom middle
+        function getRelativeToCountry(path) {
+            let mapBounds = svg_container.getBoundingClientRect();
+            let pathBounds = path.getBoundingClientRect();
+            let x = pathBounds.left - mapBounds.left;
+            let y = pathBounds.top - mapBounds.top;
+            
+            return {x: x-moveLeft, y: y-moveDown};
+            // return {x: 505, y: 52}; 
+            // ^ this is the coords Mongolia should be at
+        }
+
+        const markerList = markers.querySelectorAll(".marker");
+        function updateMarkers() {
+            markerList.forEach(marker => {
+                // Find the country path this marker should be relative to
+                let countryCode = marker.getAttribute('data-country-code');
+                let path = getPathFromCountryCode(countryCode);
+
+                let relativePos = getRelativeToCountry(path);
+                marker.style.top = `${relativePos.y}px`;
+                marker.style.left = `${relativePos.x}px`;
+                //console.log(relativePos);
+            })
+        }
+
+        // Fetch the marker svg to put everywhere [cosmetic change - add the marker]
+        fetch("../assets/marker.svg")
+            .then(response2 => response2.text())
+            .then(svgText2 => {
+                // Loaded the file. Parse
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(svgText2, 'image/svg+xml');
+
+                let markerSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                markerSVG.setAttribute("width", "512");
+                markerSVG.setAttribute("height", "512");
+
+                let g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                markerSVG.appendChild(g);
+
+                // Clone all paths to the group
+                let paths = doc.querySelectorAll("path");
+                paths.forEach(path => {
+                    let cloned = path.cloneNode(true);
+                    g.appendChild(cloned);
+                })
+
+                // Now, markerSVG is our marker! We can clone it to all ".mark" objects.
+                markerList.forEach(marker => {
+                    let mark = marker.querySelector(".mark");
+                    mark.appendChild(markerSVG.cloneNode(true));
+                })
+            })
+            .then(() => {
+                // Update all marker position for the first time!
+                setTimeout(() => {
+                    markers.style.visibility = 'visible';
+                    updateMarkers();
+                }, 350)
+                
+            })
+        
+
+
 
         /////////////////////////////////////////////////
         // MAP DEFORMATION: Zooming, scaling & panning //
@@ -193,6 +278,8 @@ fetch("../assets/asiaLow.svg")
             }
             scale_text.textContent = `Scale: ${scale}x`;
             pos_text.textContent = `Position: ${pos.x}px, ${pos.y}px`;
+
+            updateMarkers();
         }
         
         map.addEventListener("wheel", zoom);
