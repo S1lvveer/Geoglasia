@@ -85,11 +85,11 @@
                         $city_desc = $place['city_desc'];
 
                         // Create a marker element [and pass country-code + location offset so we can set it in JS]
-                        echo
-                            "<div class='marker' data-country-code='$countryCode' data-offset='$locationOffset' data-img='$cityIMG' data-desc='$city_desc' data-name='$placeName' data-country='$countryName'>
-                                <span class='tooltip'>$placeName, $countryName</span>
-                                <div class='mark'></div>
-                            </div>";
+                        printf(
+                            '<div class="marker" data-country-code="%s" data-offset="%s" data-img="%s" data-desc="%s" data-name="%s" data-country="%s">
+                                <span class="tooltip">%s, %s</span>
+                                <div class="mark"></div>
+                            </div>', $countryCode, $locationOffset, $cityIMG, $city_desc, $placeName, $countryName, $placeName, $countryName);
                         
                     }
                     ?>
@@ -116,11 +116,16 @@
             else 
             { ?>
 
-            <img alt="One of our wonderful booking destinations!" class='place-image' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/%EA%B2%BD%EB%B3%B5%EA%B6%81_%EC%A0%84%EA%B2%BD.jpg/1920px-%EA%B2%BD%EB%B3%B5%EA%B6%81_%EC%A0%84%EA%B2%BD.jpg">
+            <img alt="One of our wonderful booking destinations!" class='place-image' src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png">
 
             <div class="info">
-                <p class="name">Place name, Country name</p>
+                <h3 class="name">Place name, Country name</h3>
                 <p class="desc">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi, nostrum.</p>
+            </div>
+
+            <div class="date-info">
+                <p class="startdate">Start date: TBD</p>
+                <p class="enddate">End date: TBD</p>
             </div>
 
             <form action="map.php" method="POST">

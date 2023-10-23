@@ -1,5 +1,24 @@
+// Declare starter variables!
 const map = document.querySelector(".map");
 const svg_container = document.querySelector(".svg-container");
+
+const bookingMain = document.querySelector(".booking");
+const booking = {
+    image: bookingMain.querySelector(".place-image"),
+    name: bookingMain.querySelector(".info .name"),
+    desc: bookingMain.querySelector(".info .desc"),
+    startdate: bookingMain.querySelector(".date-info .startdate"),
+    enddate: bookingMain.querySelector(".date-info .enddate"),
+    form: {
+        place_id: bookingMain.querySelector("form #place_id"),
+        user_id: bookingMain.querySelector("form #user_id"),
+        book_date: bookingMain.querySelector("form #book_date"),
+        book_start: bookingMain.querySelector("form #book_start"),
+        book_end: bookingMain.querySelector("form #book_end"),
+    }
+};
+
+//console.log(booking);
 
 // Handle the SVG by setting its' viewbox to the boundingbox of all the paths.
 function setViewBox(svg) {
@@ -96,6 +115,7 @@ fetch("../assets/asiaLow.svg")
         /////////////////////////////////////////////////
         // COUNTRY VALIDATION: Valid and invalid tags! //
         /////////////////////////////////////////////////
+
 
         const mapSVG = svg_container.querySelector("svg");
         const hovertext = document.querySelector(".hovered-text");
@@ -279,7 +299,44 @@ fetch("../assets/asiaLow.svg")
                 
             })
         
+        //////////////////////////////////////////////////
+        // CREATE BOOKING PLACES FROM MARKER DATA VARS! //
+        //////////////////////////////////////////////////
 
+        // Set the place info under the map for booking.
+        const placeholderImg = "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
+        function setPlaceInfo(marker) {
+            // data-country-code='$countryCode' data-offset='$locationOffset' data-img='$cityIMG' data-desc='$city_desc' data-name='$placeName' data-country='$countryName'
+            let data = {
+                country: marker.getAttribute("data-country"),
+                place: marker.getAttribute("data-name"),
+                placedesc: marker.getAttribute("data-desc"),
+                countrycode: marker.getAttribute("data-country-code"),
+                image: marker.getAttribute("data-img"),
+                date_start: marker.getAttribute("data-datestart"),
+                date_end: marker.getAttribute("data-dateend")
+            };
+            console.log(data.placedesc);
+
+            // Fill up the details
+            if (data.image.length == 0) 
+                data.image = placeholderImg;
+
+            booking.image.src = data.image;
+            booking.name.textContent = `${data.place}, ${data.country}`;
+            booking.desc.textContent = `${data.placedesc}`;
+            booking.startdate.textContent = `Start date: ${data.date_start}`;
+            booking.enddate.textContent = `End date: ${data.date_end}`;
+
+            // Fill up the form
+            booking.form.place_id
+        }
+
+        markerList.forEach(marker => {
+            marker.addEventListener("click", e => {
+                setPlaceInfo(marker);
+            });
+        });
 
 
         /////////////////////////////////////////////////
