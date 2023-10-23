@@ -95,7 +95,7 @@ fetch("../assets/asiaLow.svg")
         const mapSVG = svg_container.querySelector("svg");
         const hovertext = document.querySelector(".hovered-text");
 
-        // Listen to hovered elements & update the country display
+        // Listen to hovered countries & update the country display
         let countries = mapSVG.querySelectorAll(".land");
         countries.forEach(country => {
             let code = country.id;
@@ -118,7 +118,12 @@ fetch("../assets/asiaLow.svg")
             })
         })
 
-        // MAP MANIPULATION BELOW
+        /////////////////////////////////////////////////
+        // MAP DEFORMATION: Zooming, scaling & panning //
+        /////////////////////////////////////////////////
+        const scale_text = map.querySelector(".current-scale");
+        const pos_text = map.querySelector(".current-pos");
+
         let currentScale = 1;
 
         let translate = {scale: currentScale, translateX: 0, translateY: 0};
@@ -180,6 +185,14 @@ fetch("../assets/asiaLow.svg")
         function update() {
             const matrix = `matrix(${translate.scale},0,0,${translate.scale},${translate.translateX},${translate.translateY})`;
             mapSVG.style.transform = matrix;
+
+            let scale = translate.scale.toFixed(1);
+            let pos = {
+                x: (translate.translateX / scale).toFixed(0),
+                y: (translate.translateY / scale).toFixed(0)
+            }
+            scale_text.textContent = `Scale: ${scale}x`;
+            pos_text.textContent = `Position: ${pos.x}px, ${pos.y}px`;
         }
         
         map.addEventListener("wheel", zoom);
@@ -187,6 +200,8 @@ fetch("../assets/asiaLow.svg")
         map.addEventListener("mouseup", mouseup);
         map.addEventListener("mousemove", mousemove);
         map.addEventListener("ondrag", e => {e.preventDefault()});
+
+
 
     })
     .catch(error => {

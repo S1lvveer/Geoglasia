@@ -66,8 +66,8 @@
         <div class="curve"></div>
     </main>
 
-    <script src="display-countries.js"></script>
-    <script src="main.js"></script>
+    <script src="js/display-countries.js"></script>
+    <script src="js/main.js"></script>
     
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
