@@ -340,6 +340,7 @@
             element.parentElement.remove();
         }
     </script>
+    
     <script src="js/map.js"></script>
     <script src="js/main.js"></script>
     

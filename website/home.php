@@ -45,35 +45,79 @@
         </div>
 
         <div class="reservation">
-        <?php
-        if (!$user) {
-            echo "<h3>Here would be your reservations!</h3>";
-        } else {
-            $user_id = $user['user_id'];
 
-            $reservationsQuery = "SELECT users.name, users.surname 
-                                FROM users
-                                INNER JOIN user_bookings ON users.user_id = user_bookings.user_id
-                                WHERE user_bookings.user_id = $user_id";
+            <?php
+            if (!$user) {
+                // User is not logged in
+            ?>
+                <div class="not-logged-in">
+                    <ion-icon name="warning" class="warning"></ion-icon>
+                    <h2>Log in to see your reservations!</h2>
+                </div>
 
-            $result = $db->query($reservationsQuery);
+            <?php 
+            } else { 
+                echo "<h1>Your Reservations</h1>";
+                // User is logged in!
+                $user_id = $user['user_id'];
+                
+                // Prepare a statement to grab all of our user's reservations.
+                $stmt = $db->stmt_init();
+                $stmt->prepare(
+                    "SELECT booking.book_id, book_date, book_start, book_end, max_participants, city, pricePerDay
+                    FROM user_bookings, booking, places
+                    WHERE user_bookings.book_id = booking.book_id
+                    AND booking.place_id = places.place_id
+                    AND user_id = ?"
+                );
+                $stmt->bind_param("s", $user_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
 
-            if ($result) {
-                if ($result->num_rows == 0) {
-                    echo "<h3>You don't have any reservations at the moment</h3>";
-                } else {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "s";
-                        $name = $row['name'];
-                        $surname = $row['surname'];
-                    }
+                // Today's date
+                $today = date("Y-m-d");
+
+                while ($row = $result->fetch_assoc()) {
+                    // Get number of participants in this booking
+                    $book_id = $row['book_id'];
+
+                    $stmt2 = $db->stmt_init();
+                    $stmt2->prepare("SELECT * FROM user_bookings WHERE book_id = ? AND book_date < ?");
+                    $stmt2->bind_param("is", $book_id, $row['book_start']);
+                    $stmt2->execute();
+                    $participants = $stmt2->get_result()->num_rows;
+                    $stmt2->close();
+
+                    // Collect basic information about the trip
+                    $city = $row['city'];
+
+                    $reservation_date = $row['book_date'];
+                    $start_date = $row['book_start'];
+                    $end_date = $row['book_end'];
+                    $max_participants = $row['max_participants'];
+                    $pricePerDay = $row['pricePerDay'];
+
+                    $trip_length = date_diff(date_create($start_date), date_create($end_date));
+                    $trip_length = $trip_length->format("%a");
+
+                    // Display all the info about the trip!
+                    printf(
+                    "<div class='result'>
+                        <h2> > Reservation for <span class='placename'>%s</span> <</h2>
+                        <p>Reservation date: %s</p>
+                        <p>Start date: %s</p>
+                        <p>End date: %s (Trip lasts %s days)</p>
+                        <p>Participants: %s/%s</p>
+                        <p>Price per day: %s PLN</p>
+                        
+                    </div>", $city, $reservation_date, $start_date, $end_date, $trip_length, $participants, $max_participants, $pricePerDay);
                 }
-            } else {
-                echo "Error in the query: " . $db->error;
-            }
 
-        }
-        ?>
+                $stmt->close();
+            } 
+
+            ?>
+
 
         </div>
         <!-- infinite swiper -->
