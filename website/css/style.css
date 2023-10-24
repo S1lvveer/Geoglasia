@@ -337,24 +337,3 @@ div.nav-links {
 .cta:hover {
     background-color: var(--button-color-hovered);
 }
-
-
-/* All elements! */
-.not-logged-in {
-    position: relative;
-    
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    gap: 1em;
-
-    color: var(--warning-color);
-}
-.warning {
-    width: 100px;
-    height: 100px;
-}
