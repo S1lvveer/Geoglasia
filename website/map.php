@@ -41,7 +41,12 @@
     $popups = array();
     function popup($class, $text) {
         global $popups;
-        $entry = "<div class='$class' onclick='closePopup(this)'> $text </div>";
+        $entry = 
+        "<div class='$class'>
+            $text
+            <button class='close' onclick='closePopup(this)'>X</button>
+        </div>";
+
         array_push($popups, $entry);
     }
 
@@ -331,8 +336,8 @@
     
     <script>
         // Close a php popup.
-        function close(element) {
-            element.remove();
+        function closePopup(element) {
+            element.parentElement.remove();
         }
     </script>
     <script src="js/map.js"></script>
