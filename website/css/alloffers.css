@@ -25,6 +25,8 @@
     height: 270px;
     margin-right: 2%; /* Add some margin for spacing */
     border-radius: 25px;
+    border: 3px solid #f3f3f3;
+    box-shadow: -10px 10px 0 0 rgb(166, 225, 157)l
 }
 
 .img-style {
@@ -51,7 +53,7 @@
     overflow-y: scroll;
 }
 
-.city-thingies ::-webkit-scrollbar{
+/* .city-thingies ::-webkit-scrollbar{
     width: 15px;
 }
 
@@ -65,5 +67,5 @@
     border-right: 0.5px solid aliceblue;
     background-color: #d787e4;
     border-radius: 10px;
-}
+} */
 

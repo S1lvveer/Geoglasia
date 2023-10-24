@@ -50,7 +50,7 @@
                 <div class='city-thingies'>
                     <h3>%s<br>%s</h3>
                     <div class='description'>%s</div>
-                    <div><h2>%s USD/day</h2><button>Go book!</button></div>
+                    <div><h2>%s USD/day</h2><a href='map.php'><button>Go book!</button></a></div>
                 </div>
             </div>",$row['cityIMG'], $countryRow['country_name'], $row['city'], $row['city_desc'], $row['pricePerDay']);
     }
