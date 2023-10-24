@@ -33,6 +33,145 @@
     
     ?>
 
+    <?php
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // All things related to booking! (This needs to be above the map generation code, so all the information is always kept up-to-date.) //
+
+    // Create a popup of class "class"
+    $popups = array();
+    function popup($class, $text) {
+        global $popups;
+        $entry = "<div class='$class' onclick='closePopup(this)'> $text </div>";
+        array_push($popups, $entry);
+    }
+
+    // Display all popups by the end (to make sure every info is updated)
+    function displayPopups() {
+        global $popups;
+        foreach($popups as $entry) {
+            echo $entry;
+        }
+    }
+
+    if (isset($_POST['submit'])) {
+        $place_id = (int)$_POST['place_id'];
+        $user_id = $user['user_id'];
+        $place_name = $_POST['place_name'];
+
+        // Store errors here
+        $errors = array();
+
+        // Today's date
+        $book_date = date("Y-m-d");
+
+
+        // Ensure on the server that a valid one doesn't exist yet
+        $stmt = $db->prepare("SELECT * FROM booking WHERE place_id = ? AND book_start > ?");
+        $stmt->bind_param("ss", $place_id, $book_date);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $doesExist = $result->num_rows;
+        //echo "$doesExist";
+
+        // If the booking doesn't exist yet, create it!
+        if ($doesExist == 0) {
+            // Firstly, ensure on the server that a valid one doesn't exist yet
+
+
+
+            // Generate database friendly dates, along with a random start + end date + random max participants!
+            $randomParticipants = mt_rand(4,8);
+            $randomStart = mt_rand(1, 28); // trip starts in 1-28 days
+            $randomEnd = $randomStart + mt_rand(3,21); // trip will last for 3-14 days
+            $book_start = date("Y-m-d", strtotime("+$randomStart days"));
+            $book_end = date("Y-m-d", strtotime("+$randomEnd days"));
+
+            
+            //var_dump($place_id, $randomParticipants, $book_start, $book_end);
+
+            $stmt->close();
+            $stmt = $db->stmt_init();
+            $stmt->prepare( "INSERT INTO booking(place_id, max_participants, book_start, book_end) VALUES (?, ?, ?, ?)" );
+            $stmt->bind_param("iiss", $place_id, $randomParticipants, $book_start, $book_end);
+            $stmt->execute();
+
+            $lastid = $stmt->insert_id;
+
+            $stmt->close();
+            $addToBooking = "INSERT INTO user_bookings(user_id, book_id, book_date) VALUES (?, ?, ?)";
+            $stmt = $db->stmt_init();
+            $stmt->prepare($addToBooking);
+            $stmt->bind_param("iis", $user_id, $lastid, $book_date);
+            $stmt->execute();
+
+            popup("success", "You are position 1/$randomParticipants.");
+            popup("success", "The trip will start at $book_start ($randomStart days), and end at $book_end ($randomEnd days)!");
+            
+        } else {
+            // The booking already exists!
+            $book_id = $_POST['book_id'];
+            $book_start = $_POST['book_start'];
+            $book_end = $_POST['book_end'];
+            $max_participants = (int)$_POST['max_participants'];
+            //var_dump($book_id, $book_start, $book_end, $max_participants);
+
+
+            //var_dump($book_id, $user_id);
+            // Find out whether the user is already booked here
+            $stmt->close();
+            $stmt = $db->stmt_init();
+            $stmt->prepare("SELECT * FROM user_bookings WHERE book_id = ? AND user_id = ?");
+            $stmt->bind_param("ss", $book_id, $user_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $isBooked = $result->num_rows;
+
+            if ($isBooked == 0) {
+                // The user isn't booked yet!
+
+                // Find out if there is an eligible spot
+                $stmt->close();
+                $stmt = $db->stmt_init();
+                $stmt->prepare("SELECT * FROM user_bookings WHERE book_id = ?");
+                $stmt->bind_param("s", $book_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $amount = $result->num_rows;
+
+                if ($amount < $max_participants) {
+                    // There is a spot!
+
+                    $stmt->close();
+                    $addToBooking = "INSERT INTO user_bookings(user_id, book_id, book_date) VALUES (?, ?, ?)";
+                    $stmt = $db->prepare($addToBooking);
+                    $stmt->bind_param("sss", $user_id, $book_id, $book_date);
+                    $stmt->execute();
+
+                    $userPosition = $amount + $max_participants;
+                    popup("success", "You are position $userPosition/$max_participants.");
+                } else {
+                    array_push($errors, "The booking is filled. ($max_participants/$max_participants participants)");
+                }
+            } else {
+                array_push($errors, "You are already booked to $place_name.");
+            }
+            
+        }
+
+        if (count($errors) > 0) {
+            // Display all errors!
+            foreach ($errors as $error) {
+                popup("fail", "$error");
+
+            }
+        } else {
+            // Successful!
+            popup("success", "Successfully booked a trip to $place_name!");
+        }
+    }
+    ?>
+
     <!-- Home items -->
     <main>
         <div class="map">
@@ -76,9 +215,43 @@
                         $result = $db->query($getCountryInfo);
                         $country = $result->fetch_assoc();
 
+                        // Get the corresponding booking (if it exists)
+                        $today = date("Y-m-d");
+                        $place_id = $place['place_id'];
+                        $getBookInfo = "SELECT * FROM booking WHERE place_id = $place_id AND book_start > $today";
+                        $result = $db->query($getBookInfo);
+
+                        // Fill up the booking attributes (otherwise it's hard to decide whether to add these attributes or not)
+                        $booking_data_attributes = "";
+                        if ($result->num_rows > 0) {
+                            $booking = $result->fetch_assoc();
+                            
+                            $book_id = $booking['book_id'];
+                            $book_start = $booking['book_start'];
+                            $book_end = $booking['book_end'];
+                            $max_participants = $booking['max_participants'];
+
+                            // Check for how many participants there are.
+                            $stmt = $db->stmt_init();
+                            $stmt->prepare("SELECT * FROM user_bookings WHERE book_id = ?");
+                            $stmt->bind_param("s", $book_id);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $participants = $result->num_rows;
+                            $stmt->close();
+
+                            
+
+                            // Finally, fill the booking attributes
+                            $booking_data_attributes = sprintf(
+                            'data-bookid="%s" data-bookstart="%s" data-bookend="%s" data-participants="%s" data-max-participants="%s"'
+                            ,$book_id, $book_start, $book_end, $participants, $max_participants
+                            );
+                        }
+
                         // Get variables
                         $countryCode = $country['country_code'];
-                        $locationOffset = $place['location_offset']; // (varchar 255, store a whole translate parameter in there)
+                        $locationOffset = $place['location_offset']; // (varchar 255, store a whole path percent offset in there)
                         $countryName = $country['country_name'];
                         $placeName = $place['city'];
                         $cityIMG = $place['cityIMG'];
@@ -86,10 +259,10 @@
 
                         // Create a marker element [and pass country-code + location offset so we can set it in JS]
                         printf(
-                            '<div class="marker" data-country-code="%s" data-offset="%s" data-img="%s" data-desc="%s" data-name="%s" data-country="%s">
+                            '<div class="marker" data-country-code="%s" data-offset="%s" data-img="%s" data-desc="%s" data-name="%s" data-country="%s" data-placeid="%s" %s>
                                 <span class="tooltip">%s, %s</span>
                                 <div class="mark"></div>
-                            </div>', $countryCode, $locationOffset, $cityIMG, $city_desc, $placeName, $countryName, $placeName, $countryName);
+                            </div>', $countryCode, $locationOffset, $cityIMG, $city_desc, $placeName, $countryName, $place_id, $booking_data_attributes, $placeName, $countryName);
                         
                     }
                     ?>
@@ -119,42 +292,36 @@
             <img alt="One of our wonderful booking destinations!" class='place-image' src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png">
 
             <div class="info">
-                <h3 class="name">Place name, Country name</h3>
-                <p class="desc">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi, nostrum.</p>
+                <h3 class="name">Select a place.</h3>
+                <p class="desc">Select a place to start booking!</p>
             </div>
 
-            <div class="date-info">
+            <div class="trip-info">
                 <p class="startdate">Start date: TBD</p>
                 <p class="enddate">End date: TBD</p>
+                <p class="participants">Participants: None!</p>
             </div>
 
             <form action="map.php" method="POST">
-                <!-- All the booking table parameters -->
+                <!-- All the booking table parameters needed -->
                 <input type="hidden" name="place_id" id="place_id">
-                <input type="hidden" name="book_date" id="book_date">
+
+                <input type="hidden" name="book_id" id="book_id">
                 <input type="hidden" name="book_start" id="book_start">
                 <input type="hidden" name="book_end" id="book_end">
+                <input type="hidden" name="participants" id="participants">
+                <input type="hidden" name="max_participants" id="max_participants">
 
-                <button name="submit" id="submit">Book this place!</button>
+                <!-- Extra parameters so I can see stuff in php code -->
+                <input type="hidden" name="place_name" id="place_name">
+
+                <button name="submit" id="submit" disabled>Book this place!</button>
             </form>
             <?php } ?>
 
             <section class="booking-results">
                 <?php
-                if (isset($_POST['submit'])) {
-                    $place_id = $_POST['place_id'];
-                    $user_id = $user['user_id'];
-                    $book_date = $_POST['book_date'];
-                    $book_start = $_POST['book_start'];
-                    $book_end = $_POST['book_end'];
-
-                    $sql = "INSERT INTO booking(place_id, user_id, book_date, book_start, book_end) VALUES (?, ?, ?, ?, ?)";
-                    $stmt = $db->prepare($sql);
-                    $stmt->bind_param("iisss", $place_id, $user_id, $book_date, $book_start, $book_end);
-                    $stmt->execute();
-
-                    echo "<div class='success'> Successfully booked! </div>";
-                }
+                displayPopups();
                 ?>
             </section>
         </section>
@@ -162,7 +329,12 @@
     </main>
 
     
-
+    <script>
+        // Close a php popup.
+        function close(element) {
+            element.remove();
+        }
+    </script>
     <script src="js/map.js"></script>
     <script src="js/main.js"></script>
     

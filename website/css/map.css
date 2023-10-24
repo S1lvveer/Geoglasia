@@ -14,6 +14,9 @@
     --booking-bg-s: rgb(120, 182, 108);
     --book-success: rgb(135, 255, 131);
     --book-success-s: rgb(116, 201, 113);
+
+    --book-fail: rgb(252, 255, 89);
+    --book-fail-s: rgb(224, 194, 113);
 }
 
 .map {
@@ -71,12 +74,14 @@
     justify-content: space-between;
 
     gap: 2em;
+    z-index: 10;
 }
 
 .place-image {
     height: 100%;
     width: auto;
     aspect-ratio: 16/9;
+    border: 0.5em solid white;
     border-radius: 5em;
 
     flex: 1;
@@ -101,10 +106,9 @@
 .info .desc {
     overflow-y: auto;
 }
-.dateinfo {
+.trip-info {
     flex: 1;
-}
-.startdate, .enddate {
+
     color: white;
     font-weight: 600;
 }
@@ -121,12 +125,19 @@
     font-size: 1em;
     font-weight: 600;
 
+    cursor: pointer;
+
     transition: 0.25s ease;
     flex: 1;
 }
+#submit:disabled {
+    background-color: gray;
+    border-color: lightgray;
+    cursor: not-allowed;
+}
 #submit:hover {
-    border-color: var(--book-success-s);
-    /* border-radius: 100%; */
+    /* border-color: var(--book-success-s); */
+    border-radius: 2em;
     font-size: 1.2em;
 }
 
@@ -146,19 +157,25 @@
     justify-content: center;
     flex-direction: column;
 }
-.booking-results .success {
+.booking-results > * {
     width: 50%;
 
     text-align: center;
-    margin: 5px;
+    margin: 2px;
     padding: 5px;
 
-    background-color: var(--book-success);
-    border: 0.5em solid var(--book-success-s);
     border-radius: 15px;
 
     font-weight: 600;
     color: black;
+}
+.booking-results .success {
+    background-color: var(--book-success);
+    border: 0.5em solid var(--book-success-s);
+}
+.booking-results .fail {
+    background-color: var(--book-fail);
+    border: 0.5em solid var(--book-fail-s);
 }
 
 

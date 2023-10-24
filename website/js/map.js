@@ -7,14 +7,16 @@ const booking = {
     image: bookingMain.querySelector(".place-image"),
     name: bookingMain.querySelector(".info .name"),
     desc: bookingMain.querySelector(".info .desc"),
-    startdate: bookingMain.querySelector(".date-info .startdate"),
-    enddate: bookingMain.querySelector(".date-info .enddate"),
+    startdate: bookingMain.querySelector(".startdate"),
+    enddate: bookingMain.querySelector(".enddate"),
+    participants: bookingMain.querySelector(".participants"),
     form: {
+        book_id: bookingMain.querySelector("form #book_id"),
         place_id: bookingMain.querySelector("form #place_id"),
-        user_id: bookingMain.querySelector("form #user_id"),
-        book_date: bookingMain.querySelector("form #book_date"),
-        book_start: bookingMain.querySelector("form #book_start"),
-        book_end: bookingMain.querySelector("form #book_end"),
+        place_name: bookingMain.querySelector("form #place_name"),
+        max_participants: bookingMain.querySelector("form #max_participants"),
+
+        submit: bookingMain.querySelector("form #submit"),
     }
 };
 
@@ -305,18 +307,26 @@ fetch("../assets/asiaLow.svg")
 
         // Set the place info under the map for booking.
         const placeholderImg = "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
+        let hasPlaceSelected = false;
         function setPlaceInfo(marker) {
+            booking.form.submit.removeAttribute("disabled");
+
             // data-country-code='$countryCode' data-offset='$locationOffset' data-img='$cityIMG' data-desc='$city_desc' data-name='$placeName' data-country='$countryName'
             let data = {
                 country: marker.getAttribute("data-country"),
                 place: marker.getAttribute("data-name"),
+                place_id: marker.getAttribute("data-placeid"),
                 placedesc: marker.getAttribute("data-desc"),
                 countrycode: marker.getAttribute("data-country-code"),
                 image: marker.getAttribute("data-img"),
-                date_start: marker.getAttribute("data-datestart"),
-                date_end: marker.getAttribute("data-dateend")
+
+                //already_booked: marker.getAttribute("data-already-booked"),
+                book_id: marker.getAttribute("data-bookid"),
+                date_start: marker.getAttribute("data-bookstart"),
+                date_end: marker.getAttribute("data-bookend"),
+                participants: marker.getAttribute("data-participants"),
+                max_participants: marker.getAttribute("data-max-participants"),
             };
-            console.log(data.placedesc);
 
             // Fill up the details
             if (data.image.length == 0) 
@@ -325,11 +335,29 @@ fetch("../assets/asiaLow.svg")
             booking.image.src = data.image;
             booking.name.textContent = `${data.place}, ${data.country}`;
             booking.desc.textContent = `${data.placedesc}`;
-            booking.startdate.textContent = `Start date: ${data.date_start}`;
-            booking.enddate.textContent = `End date: ${data.date_end}`;
+
+            if (data.book_id) {
+                booking.startdate.textContent = `Start date: ${data.date_start}`;
+                booking.enddate.textContent = `End date: ${data.date_end}`;
+                booking.participants.textContent = `Participants: ${data.participants}/${data.max_participants}`;
+            } else {
+                booking.startdate.textContent = `Start date: TBD`;
+                booking.enddate.textContent = `End date: TBD`;
+                booking.participants.textContent = `Participants: None!`;
+            }
+
+            function fill(input, value) {
+                if (value)
+                    input.value = value;
+            }
 
             // Fill up the form
-            booking.form.place_id
+            fill(booking.form.book_id, data.book_id);
+            fill(booking.form.place_id, data.place_id);
+            fill(booking.form.place_name, data.place);
+            fill(booking.form.max_participants, data.max_participants);
+
+            console.log(data);
         }
 
         markerList.forEach(marker => {
@@ -337,6 +365,8 @@ fetch("../assets/asiaLow.svg")
                 setPlaceInfo(marker);
             });
         });
+
+
 
 
         /////////////////////////////////////////////////
