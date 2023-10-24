@@ -38,11 +38,11 @@
     <!-- Home items -->
     <main>
         
-        <div class="map">
+        <!-- <div class="map">
             
             <div class="map-bg"></div>
             
-        </div>
+        </div> -->
 
         <div class="reservation">
 
@@ -104,11 +104,11 @@
                     printf(
                     "<div class='result'>
                         <h2> > Reservation for <span class='placename'>%s</span> <</h2>
-                        <p>Reservation date: %s</p>
-                        <p>Start date: %s</p>
-                        <p>End date: %s (Trip lasts %s days)</p>
-                        <p>Participants: %s/%s</p>
-                        <p>Price per day: %s PLN</p>
+                        <p>Reservation date: <span>%s</span></p>
+                        <p>Start date: <span>%s</span></p>
+                        <p>End date: <span>%s (Trip lasts %s days) </span> </p>
+                        <p>Participants: <span>%s/%s </span> </p>
+                        <p>Price per day: <span>%s PLN </span> </p>
                         
                     </div>", $city, $reservation_date, $start_date, $end_date, $trip_length, $participants, $max_participants, $pricePerDay);
                 }
@@ -123,23 +123,25 @@
         <!-- infinite swiper -->
         <div class="swipeWrap"> <!-- this many divs is for actually getting the whole thing wrapped -->
             <div class="swiper mySwiper home-cards">
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper country-list">
                     <?php
-                    $countriesQuery = 'SELECT countries.country_name, countries.country_desc FROM countries';
-                    $placesQuery = 'SELECT places.city FROM places';
+                    $countriesQuery = 'SELECT * FROM countries';
 
                     $countryResult = $db->query($countriesQuery);
 
                     while ($row = $countryResult->fetch_assoc()) {
+                        $countryName = $row['country_name'];
+                        $countryDesc = $row['country_desc'];
+                        $countryCode = $row['country_code'];
+
                         printf("
                         <div class='swiper-slide card'>
-                            <div class='img-sect'>img of country outline</div>
+                            <div class='country-outline' data-country-code='%s'></div>
                     
-                            <h3>%s</h3>
-                            <ul></ul>
+                            <h2>%s</h2>
                         
                             <div class='description'>%s</div>
-                        </div>", $row['country_name'], $row['country_desc']);
+                        </div>", $countryCode, $countryName, $countryDesc);
                     }
 
                     $countryResult->free_result();
@@ -154,6 +156,75 @@
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
+    <script>
+    // Insert a country outline SVG for each country!
+    const country_list = document.querySelector(".country-list");
+
+    // Handle the SVG by setting its' viewbox to the boundingbox of the path.
+    function setViewBox(svg) {
+        let path = svg.querySelector("path");
+
+        let bounds = path.getBBox();
+        svg.setAttribute('viewBox', `${bounds.x} ${bounds.y} ${bounds.width} ${bounds.height}`);
+    }
+
+    // Detect whenever a child is added (in this case, an SVG).
+    function childAdded(mutationList) {
+        mutationList.forEach(mutation => {
+            mutation.addedNodes.forEach(node => {
+                if (node.tagName === 'svg') {
+                    setViewBox(node);
+                }
+            })
+        })
+    }
+
+    const observer = new MutationObserver(childAdded)
+    observer.observe(country_list, {childList: true, subtree: true});
+
+    // Generate the map!
+    fetch("../assets/asiaLow.svg")
+        .then(response => response.text())
+        .then(svgText => {
+            // Loaded the file. Now I have to parse it
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(svgText, 'image/svg+xml');
+
+            function createCountrySVG(countryCode) {
+                // Find the country's path in the svg file and single it out 
+                let path = doc.getElementById(countryCode);
+                if (path) {
+                    let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    
+                    svg.setAttribute('width', '100');
+                    svg.setAttribute('height', '100');
+
+                    //console.log(countryCode, "appended");
+                    svg.appendChild(path.cloneNode(true));
+
+                    return svg;
+                }
+
+                return null; // no country path found
+            }
+
+            // Loop through all of the outline elements, create an SVG in them!
+            const outlines = document.querySelectorAll(".country-outline")
+            outlines.forEach(outline => {
+                let countryCode = outline.getAttribute("data-country-code");
+                let svg = createCountrySVG(countryCode);
+                if (svg) {
+                    outline.appendChild(svg);
+                }
+            })
+        })
+        .catch(error => {
+            console.error("Error loading the SVG file:", error);
+        });
+    </script>
+
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>

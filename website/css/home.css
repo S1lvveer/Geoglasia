@@ -3,6 +3,9 @@
 :root {
     --booking-bg: rgb(145, 199, 134);
     --booking-bg-s: rgb(120, 182, 108);
+
+    --card-bg: rgb(79, 157, 230);
+    --card-bg-s:rgb(122, 191, 255);
 }
 
 .map {
@@ -25,11 +28,11 @@
 }
 
 .reservation {
-    width: 30%;
+    width: calc(25% + 8em);
     background-color:var(--booking-bg);
     border: 1em solid var(--booking-bg-s);
     padding: 1em;
-    height: 400px;
+    height: 30em;
     border-radius: 2em;
 
     display: flex;
@@ -46,8 +49,17 @@
 
 .result {
     padding: 1em;
-    width: 75%;
+    width: 90%;
     text-align: center;
+    /* background-color: var(--booking-bg-s); */
+    border-radius: 2em;
+    border: 0.5em solid var(--booking-bg-s);
+    margin: 1em;
+}
+.result h2 {
+    color: var(--card-bg);
+    background: linear-gradient(rgba(255,255,255,0), rgba(157, 240, 255, 0.25), rgba(255,255,255,0));
+    border-radius: 2em;
 }
 .result p {
     margin: 5px;
@@ -55,63 +67,80 @@
 }
 .result p::before {
     content: '- ';
-
+}
+.result p span {
+    font-weight: 700;
 }
 
 .placename {
     color: var(--category-hovered);
 }
 
-h3{
-    text-align: center;
-    vertical-align: bottom;
-}
 .swipeWrap{
     width: 20%;
     padding: 1.5%;
 }
 .home-cards{
-    width: 300px;
-    background-color: #59a570;
-    border-radius: 25px;
+    width: 20em;
+    background-color: var(--card-bg);
+    border: 1em solid var(--card-bg-s);
+    border-radius: 2em;
 }
 
 .card{
-    padding: 3%;
+    /* border: 1em solid var(--card-bg); */
+    padding: 0.5em;
+    
 }
-.card h3{
+.card h2{
     text-align: center;
 }
 .description{
     text-align: justify;
 
-    border-radius: 10px;
-    max-height: 100px;
+    max-height: 10em;
+    width: 100%;
 
     overflow: hidden;
     overflow-y: scroll;
-    padding: 3%;
+    padding: 0;
     margin-bottom: 40px;
 }
 
-.img-sect{
+.country-outline {
     background-color: white;
     height: 150px;
     margin-bottom: 2%;
     padding: 2%;
     border-radius: 25px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    --country-fill: rgb(255, 227, 105);
 }
 
-.swiper::-webkit-scrollbar{
-    width: 15px;
+.country-outline svg {
+    width: 100%;
+    height: 100%;
+
+    fill: var(--country-fill);
+    stroke: orange;
+    stroke-opacity: 0.5;
+    stroke-width: 5%;
 }
 
-.swiper::-webkit-scrollbar-track{
+.description::-webkit-scrollbar{
+    width: 10px;
+}
+
+.description::-webkit-scrollbar-track{
     background-color: aliceblue;
     border-radius: 10px;
 }
 
-.swiper::-webkit-scrollbar-thumb{
+.description::-webkit-scrollbar-thumb{
     border-left: 0.5px solid aliceblue;
     border-right: 0.5px solid aliceblue;
     background-color: #d787e4;
