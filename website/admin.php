@@ -36,7 +36,7 @@
 
     <!-- Home items -->
     <main>
-        <section class="UserStats">
+        <!-- <section class="UserStats">
             <table>
                 <tr>
                     <th>login</th>
@@ -46,9 +46,7 @@
                     <th>Date of Birth</th>
                 </tr>
                 <tr>
-    <?php
-        $userQuery = "SELECT  FROM"
-    ?>
+
                 </tr>
             </table>
         </section>
@@ -64,7 +62,7 @@
                     <th>Reservation end</th>    
                 </tr>
             </table>
-        </section>
+        </section> -->
     </main>
 
     <?php
