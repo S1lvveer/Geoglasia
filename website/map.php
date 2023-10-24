@@ -261,13 +261,14 @@
                         $placeName = $place['city'];
                         $cityIMG = $place['cityIMG'];
                         $city_desc = $place['city_desc'];
+                        $priceDaily = $place['pricePerDay'];
 
                         // Create a marker element [and pass country-code + location offset so we can set it in JS]
                         printf(
-                            '<div class="marker" data-country-code="%s" data-offset="%s" data-img="%s" data-desc="%s" data-name="%s" data-country="%s" data-placeid="%s" %s>
+                            '<div class="marker" data-country-code="%s" data-offset="%s" data-img="%s" data-desc="%s" data-name="%s" data-country="%s" data-placeid="%s" data-price-daily="%s" %s>
                                 <span class="tooltip">%s, %s</span>
                                 <div class="mark"></div>
-                            </div>', $countryCode, $locationOffset, $cityIMG, $city_desc, $placeName, $countryName, $place_id, $booking_data_attributes, $placeName, $countryName);
+                            </div>', $countryCode, $locationOffset, $cityIMG, $city_desc, $placeName, $countryName, $place_id, $priceDaily, $booking_data_attributes, $placeName, $countryName);
                         
                     }
                     ?>
@@ -305,6 +306,7 @@
                 <p class="startdate">Start date: TBD</p>
                 <p class="enddate">End date: TBD</p>
                 <p class="participants">Participants: None!</p>
+                <p class="pricedaily">Price per day: ? USD</p>
             </div>
 
             <form action="map.php" method="POST">

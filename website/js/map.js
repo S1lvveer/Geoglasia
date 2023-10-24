@@ -10,6 +10,7 @@ const booking = {
     startdate: bookingMain.querySelector(".startdate"),
     enddate: bookingMain.querySelector(".enddate"),
     participants: bookingMain.querySelector(".participants"),
+    priceDaily: bookingMain.querySelector(".pricedaily"),
     form: {
         book_id: bookingMain.querySelector("form #book_id"),
         place_id: bookingMain.querySelector("form #place_id"),
@@ -326,6 +327,7 @@ fetch("../assets/asiaLow.svg")
                 date_end: marker.getAttribute("data-bookend"),
                 participants: marker.getAttribute("data-participants"),
                 max_participants: marker.getAttribute("data-max-participants"),
+                priceDaily: marker.getAttribute("data-price-daily"),
             };
 
             // Fill up the details
@@ -335,6 +337,7 @@ fetch("../assets/asiaLow.svg")
             booking.image.src = data.image;
             booking.name.textContent = `${data.place}, ${data.country}`;
             booking.desc.textContent = `${data.placedesc}`;
+            booking.priceDaily.textContent = `Price per day: ${data.priceDaily} USD`;
 
             if (data.book_id) {
                 booking.startdate.textContent = `Start date: ${data.date_start}`;
