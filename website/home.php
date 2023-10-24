@@ -146,6 +146,7 @@
                     $trip_length = date_diff(date_create($start_date), date_create($end_date));
                     $trip_length = $trip_length->format("%a");
 
+                    $allprice = $trip_length * $pricePerDay;
                     // Display all the info about the trip!
                     printf(
                     "<div class='result'>
@@ -154,9 +155,10 @@
                         <p>Start date: <span>%s</span></p>
                         <p>End date: <span>%s (Trip lasts %s days) </span> </p>
                         <p>Participants: <span>%s/%s </span> </p>
-                        <p>Price per day: <span>%s USD </span> </p>
+                        <p>Price per day: <span>%s USD </span></p>
+                        <p>Whole price: <span>%s USD</span></p>
                         
-                    </div>", $city, $reservation_date, $start_date, $end_date, $trip_length, $participants, $max_participants, $pricePerDay);
+                    </div>", $city, $reservation_date, $start_date, $end_date, $trip_length, $participants, $max_participants, $pricePerDay, $allprice);
                 }
 
                 $stmt->close();
