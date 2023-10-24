@@ -1,3 +1,8 @@
+:root {
+    --button: rgb(0, 231, 89);
+    --button-s: rgb(2, 206, 80);
+}
+
 .grid-wrapper{
     width: 100%;
     display: grid;
@@ -51,6 +56,30 @@
     max-height: 170px;
     overflow: hidden;
     overflow-y: scroll;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+}
+
+.buttons a button {
+    padding: 1em 2em 1em 2em;
+    outline: none;
+    background-color: var(--button);
+    border: 0.5em solid var(--button-s);
+    border-radius: 2em;
+    font-weight: 600;
+    color: lightcoral;
+
+    transition: 0.25s;
+}
+.buttons a button:hover {
+    transform: scale(110%);
+    color: white;
 }
 
 /* .city-thingies ::-webkit-scrollbar{

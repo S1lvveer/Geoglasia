@@ -352,7 +352,13 @@ div.nav-links {
 
     color: var(--warning-color);
 }
-.warning {
+.not-logged-in .warning {
     width: 100px;
     height: 100px;
+}
+.not-logged-in h2 {
+    transition: 0.2s;
+}
+.not-logged-in h2:hover {
+    transform: scale(110%);
 }

@@ -38,11 +38,54 @@
     <!-- Home items -->
     <main>
         
-        <!-- <div class="map">
+        <div class="stats">
+            <?php
+            if (!$user) {
+                // User is not logged in
+            ?>
+                <div class="not-logged-in">
+                    <ion-icon name="warning" class="warning"></ion-icon>
+                    <h2>Log in to see your stats!</h2>
+                </div>
+
+            <?php 
+            } else { 
+
+            }
+            ?>
             
-            <div class="map-bg"></div>
-            
-        </div> -->
+        </div>
+
+        <!-- infinite swiper left -->
+        <div class="card-container left-card">
+            <div class="swiper leftSwiper home-cards">
+                <div class="swiper-wrapper country-list">
+                    <?php
+                    $countriesQuery = 'SELECT * FROM countries';
+
+                    $countryResult = $db->query($countriesQuery);
+
+                    while ($row = $countryResult->fetch_assoc()) {
+                        $countryName = $row['country_name'];
+                        $countryDesc = $row['country_desc'];
+                        $countryCode = $row['country_code'];
+
+                        printf("
+                        <div class='swiper-slide card'>
+                            <div class='country-outline' data-country-code='%s'></div>
+                    
+                            <h2>%s</h2>
+                        
+                            <div class='description'>%s</div>
+                        </div>", $countryCode, $countryName, $countryDesc);
+                    }
+
+                    $countryResult->free_result();
+                    ?>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
 
         <div class="reservation">
 
@@ -77,7 +120,10 @@
                 // Today's date
                 $today = date("Y-m-d");
 
+                $i = 0;
                 while ($row = $result->fetch_assoc()) {
+                    $i += 1;
+
                     // Get number of participants in this booking
                     $book_id = $row['book_id'];
 
@@ -117,37 +163,36 @@
             } 
 
             ?>
-
-
         </div>
-        <!-- infinite swiper -->
-        <div class="swipeWrap"> <!-- this many divs is for actually getting the whole thing wrapped -->
-            <div class="swiper mySwiper home-cards">
+
+        <!-- infinite swiper left -->
+        <div class="card-container right-card">
+            <div class="swiper rightSwiper home-cards">
                 <div class="swiper-wrapper country-list">
-                    <?php
-                    $countriesQuery = 'SELECT * FROM countries';
+                <?php
+                        $placesQuery = 'SELECT places.*, country_name FROM places, countries
+                        WHERE places.country_id = countries.country_id';
 
-                    $countryResult = $db->query($countriesQuery);
+                        $placesResult = $db->query($placesQuery);
 
-                    while ($row = $countryResult->fetch_assoc()) {
-                        $countryName = $row['country_name'];
-                        $countryDesc = $row['country_desc'];
-                        $countryCode = $row['country_code'];
+                        while ($row = $placesResult->fetch_assoc()) {
+                            $countryRow = $placesResult->fetch_assoc();
+                            $country = $countryRow['country_name'];
 
-                        printf("
-                        <div class='swiper-slide card'>
-                            <div class='country-outline' data-country-code='%s'></div>
-                    
-                            <h2>%s</h2>
+                            printf("
+                            <div class='swiper-slide card'>
+                                <div class='img-holder'> <img src='%s'> </div>
                         
-                            <div class='description'>%s</div>
-                        </div>", $countryCode, $countryName, $countryDesc);
-                    }
+                                <h2>%s, %s</h2>
+                            
+                                <div class='description'>%s</div>
+                            </div>", $row['cityIMG'], $row['city'], $country, $row['city_desc']);
+                        }
 
-                    $countryResult->free_result();
-                    ?>
+                        $placesResult->free_result();
+                        ?>
                 </div>
-                <div class="swiper-pagination">
+                <div class="swiper-pagination2"></div>
             </div>
         </div>
     </main>
@@ -183,6 +228,7 @@
 
     const observer = new MutationObserver(childAdded)
     observer.observe(country_list, {childList: true, subtree: true});
+    // observer.observe()
 
     // Generate the map!
     fetch("../assets/asiaLow.svg")
@@ -231,7 +277,7 @@
 
 <!-- Initialize Swiper -->
     <script>
-        var swiper = new Swiper(".mySwiper", {
+        var swiper = new Swiper(".leftSwiper", {
             spaceBetween: 20,
             centeredSlides: true,
             loop: true,
@@ -239,7 +285,7 @@
                 enabled: true,
             },
             autoplay: {
-            delay: 6500,
+            delay: 5000,
             disableOnInteraction: false,
             },
             pagination: {
@@ -251,6 +297,19 @@
             prevEl: ".swiper-button-prev",
             },
         });
+
+        var swiper2 = new Swiper(".rightSwiper", {
+            spaceBetween: 20,
+            centeredSlides: true,
+            loop: true,
+            keyboard: {
+                enabled: true,
+            },
+            autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+            },
+        })
     </script>
 </body>
 </html>

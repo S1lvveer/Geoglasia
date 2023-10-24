@@ -111,7 +111,7 @@
             $stmt->execute();
 
             popup("success", "You are position 1/$randomParticipants.");
-            popup("success", "The trip will start at $book_start ($randomStart days), and end at $book_end ($randomEnd days)!");
+            popup("success", "The trip will start at $book_start (in $randomStart days), and end at $book_end (in $randomEnd days)!");
             
         } else {
             // The booking already exists!
@@ -340,7 +340,7 @@
             element.parentElement.remove();
         }
     </script>
-    
+
     <script src="js/map.js"></script>
     <script src="js/main.js"></script>
     

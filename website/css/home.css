@@ -6,17 +6,40 @@
 
     --card-bg: rgb(79, 157, 230);
     --card-bg-s:rgb(122, 191, 255);
+
+    --reservation-bg: rgb(171, 219, 161);
+
+    --country-fill: rgb(255, 227, 105);
 }
 
-.map {
-    position: absolute;
-    top: 0;
-    height: 20em;
-    width: 20em;
-    z-index: 1;
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+        "left-card middle right-card"
+        ". reservation .";
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+}
+main > * {
+    justify-self: center;
 }
 
-.map-bg {
+@media (max-width: 1200px) {
+    .card-container {
+        transform: scale(75%);
+    }
+}
+
+.stats {
+    grid-area: middle;
+    width: 90%;
+    height: 90%;
+}
+
+/* .map-bg {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -24,22 +47,26 @@
     width: 100%;
     height: 100%;
 
-    background: radial-gradient(closest-side, rgb(253, 255, 253), var(--main-color));
-}
+    background: radial-gradient(closest-side, rgb(255, 237, 156), var(--main-color));
+} */
 
 .reservation {
-    width: calc(25% + 8em);
+    position: relative;
+    
     background-color:var(--booking-bg);
     border: 1em solid var(--booking-bg-s);
     padding: 1em;
     height: 30em;
+    width: clamp(30em, 100%, 50em);
+    
     border-radius: 2em;
 
     display: flex;
-    
     align-items: center;
     overflow-y: auto;
     flex-direction: column;
+
+    grid-area: reservation;
 }
 .reservation h1 {
     color: white;
@@ -47,11 +74,46 @@
     text-align: center;
 }
 
+.card-container {
+    padding: 1em;
+    transition: 0.5s;
+}
+.card-container .home-cards {
+    width: calc(20em + 2vw);
+    background-color: var(--card-bg);
+    border: 1em solid var(--card-bg-s);
+    border-radius: 2em;
+}
+
+
+.left-card {
+    grid-area: left-card;
+    justify-self: end;
+}
+.right-card {
+    grid-area: right-card;
+    justify-self: start;
+}
+
+.img-holder {
+    width: 100%;
+    height: calc(150px + 0.4em);
+    border-radius: 1em;
+    border: 0.2em solid white;
+}
+.img-holder img {
+    width: 100%;
+    height: 150px;
+    border-radius: 1em;
+    margin: 0;
+}
+
+
 .result {
     padding: 1em;
     width: 90%;
     text-align: center;
-    /* background-color: var(--booking-bg-s); */
+    background-color: var(--reservation-bg);
     border-radius: 2em;
     border: 0.5em solid var(--booking-bg-s);
     margin: 1em;
@@ -76,21 +138,14 @@
     color: var(--category-hovered);
 }
 
-.swipeWrap{
-    width: 20%;
-    padding: 10em;
-}
-.home-cards{
-    width: 20em;
-    background-color: var(--card-bg);
-    border: 1em solid var(--card-bg-s);
-    border-radius: 2em;
-}
 
 .card{
     /* border: 1em solid var(--card-bg); */
     padding: 0.5em;
     
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .card h2{
     text-align: center;
@@ -98,12 +153,12 @@
 .description{
     text-align: justify;
 
-    max-height: 10em;
+    /* max-height: 10em; */
     width: 100%;
 
     overflow: hidden;
-    overflow-y: scroll;
-    padding: 0;
+    overflow-y: auto;
+    padding: 5px;
     margin-bottom: 40px;
 }
 
@@ -112,13 +167,11 @@
     height: 150px;
     margin-bottom: 2%;
     padding: 2%;
-    border-radius: 25px;
+    border-radius: 2em;
     
     display: flex;
     align-items: center;
     justify-content: center;
-
-    --country-fill: rgb(255, 227, 105);
 }
 
 .country-outline svg {

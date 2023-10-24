@@ -9,6 +9,10 @@
     }
 }
 
+:root {
+    --country-fill: rgb(198, 235, 63);
+}
+
 .aboutus {
     position: absolute;
     top: 0;
@@ -54,7 +58,8 @@
     left: 50%;
     transform: translate(-50%, -6em);
 
-    fill: rgb(198, 235, 63);
+    /* fill: rgb(198, 235, 63); */
+    fill: var(--country-fill);
     /* background-color: rgba(255,255,255,0.5); */
 }
 
