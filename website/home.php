@@ -50,7 +50,67 @@
 
             <?php 
             } else { 
+                echo "<h1>User statistics</h1>";
 
+                // Get today's date
+                $today = date("Y-m-d");
+
+                // Get past, in progress, and future reservations
+                $all_sql = "SELECT * 
+                FROM user_bookings
+                JOIN booking ON user_bookings.book_id = booking.book_id
+                WHERE %s";
+
+                $active_sql = sprintf($all_sql, "booking.book_start <= '$today' AND booking.book_end >= '$today'");
+                $expired_sql = sprintf($all_sql, "booking.book_end < '$today'");
+                $future_sql = sprintf($all_sql, "booking.book_start > '$today'");
+
+                $active_query = $db->query($active_sql);
+                $active = $active_query->num_rows;
+
+                $expired_query = $db->query($expired_sql);
+                $expired = $expired_query->num_rows;
+
+                $future_query = $db->query($future_sql);
+                $future = $future_query->num_rows;
+
+
+                /*
+                $query = "SELECT
+
+                COUNT(CASE
+                    WHEN booking.book_start <= $today AND booking.book_end >= $today THEN 1
+                    ELSE 0
+                END) AS active_reservations,
+                COUNT(CASE
+                    WHEN booking.book_end < $today THEN 1
+                    ELSE 0
+                END) AS expired_reservations,
+                COUNT(CASE
+                    WHEN booking.book_start > $today THEN 1
+                    ELSE 0
+                END) AS future_reservations
+
+                FROM user_bookings
+                JOIN booking ON user_bookings.book_id = booking.book_id
+                WHERE user_id = ?";
+
+                $stmt = $db->prepare($query);
+                $stmt->bind_param("s", $user['user_id']);
+                $stmt->execute();
+                $stmt->bind_result($active, $expired, $future);
+                $stmt->fetch();
+                $stmt->close();
+                */
+                // ^ Doesn't work for some reason, shows them all up instead of just one :(. Also, this doesn't need to be prepared, as there is 0 user input.
+
+                $total = $future + $active + $expired;
+
+                echo "<p>You have $total total reservations.
+                <br> -> $future are reserved,
+                <br> -> $active are in progress,
+                <br> -> $expired are expired.
+                </p>";
             }
             ?>
             
@@ -120,18 +180,29 @@
                 // Today's date
                 $today = date("Y-m-d");
 
-                $i = 0;
+                
                 while ($row = $result->fetch_assoc()) {
-                    $i += 1;
-
                     // Get number of participants in this booking
                     $book_id = $row['book_id'];
 
                     $stmt2 = $db->stmt_init();
-                    $stmt2->prepare("SELECT * FROM user_bookings WHERE book_id = ? AND book_date < ?");
+                    $stmt2->prepare("SELECT users.login FROM user_bookings, users 
+                    WHERE user_bookings.user_id = users.user_id
+                    AND book_id = ? AND book_date < ?");
                     $stmt2->bind_param("is", $book_id, $row['book_start']);
                     $stmt2->execute();
-                    $participants = $stmt2->get_result()->num_rows;
+                    $participants = $stmt2->get_result();
+                    $num_participants = $participants->num_rows;
+
+                    $participantNames = "";
+                    for ($i=1; $i<=$num_participants; $i++) {
+                        $userRow = $participants->fetch_assoc();
+                        $participantNames .= $userRow['login'];
+
+                        if ($i != $num_participants)
+                            $participantNames .= ", ";
+                    }
+
                     $stmt2->close();
 
                     // Collect basic information about the trip
@@ -153,10 +224,10 @@
                         <p>Reservation date: <span>%s</span></p>
                         <p>Start date: <span>%s</span></p>
                         <p>End date: <span>%s (Trip lasts %s days) </span> </p>
-                        <p>Participants: <span>%s/%s </span> </p>
+                        <p>Participants: <span>%s/%s </span> [users: %s] </p>
                         <p>Price per day: <span>%s USD </span> </p>
                         
-                    </div>", $city, $reservation_date, $start_date, $end_date, $trip_length, $participants, $max_participants, $pricePerDay);
+                    </div>", $city, $reservation_date, $start_date, $end_date, $trip_length, $num_participants, $max_participants, $participantNames, $pricePerDay);
                 }
 
                 $stmt->close();

@@ -35,8 +35,24 @@ main > * {
 
 .stats {
     grid-area: middle;
-    width: 90%;
-    height: 90%;
+    width: 75%;
+    height: 75%;
+
+    color: white;
+    background-color: rgba(128,128,128, 0.5);
+    border-radius: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.stats p {
+    margin: 2px;
+}
+.stats p::before {
+    content: '> ';
 }
 
 /* .map-bg {
@@ -97,9 +113,10 @@ main > * {
 
 .img-holder {
     width: 100%;
-    height: calc(150px + 0.4em);
+    height: calc(150px + 0.5em);
     border-radius: 1em;
-    border: 0.2em solid white;
+    background-color: lightgray;
+    border: 0.25em solid antiquewhite;
 }
 .img-holder img {
     width: 100%;
@@ -151,21 +168,21 @@ main > * {
     text-align: center;
 }
 .description{
-    text-align: justify;
-
+    text-align: center;
+    color: antiquewhite;
+    
     /* max-height: 10em; */
     width: 100%;
 
     overflow: hidden;
     overflow-y: auto;
-    padding: 5px;
-    margin-bottom: 40px;
+    padding: 10px;
 }
 
 .country-outline {
     background-color: white;
+    border: 0.25em solid antiquewhite;
     height: 150px;
-    margin-bottom: 2%;
     padding: 2%;
     border-radius: 2em;
     
