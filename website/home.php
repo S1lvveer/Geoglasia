@@ -57,6 +57,7 @@
 
             <?php 
             } else { 
+                echo "<h1>Your Reservations</h1>";
                 // User is logged in!
                 $user_id = $user['user_id'];
                 
@@ -94,6 +95,7 @@
                     $start_date = $row['book_start'];
                     $end_date = $row['book_end'];
                     $max_participants = $row['max_participants'];
+                    $pricePerDay = $row['pricePerDay'];
 
                     $trip_length = date_diff(date_create($start_date), date_create($end_date));
                     $trip_length = $trip_length->format("%a");
@@ -101,13 +103,14 @@
                     // Display all the info about the trip!
                     printf(
                     "<div class='result'>
-                        <h3>Reservation for %s:</h3>
+                        <h2> > Reservation for <span class='placename'>%s</span> <</h2>
                         <p>Reservation date: %s</p>
                         <p>Start date: %s</p>
                         <p>End date: %s (Trip lasts %s days)</p>
                         <p>Participants: %s/%s</p>
+                        <p>Price per day: %s PLN</p>
                         
-                    </div>", $city, $reservation_date, $start_date, $end_date, $trip_length, $participants, $max_participants);
+                    </div>", $city, $reservation_date, $start_date, $end_date, $trip_length, $participants, $max_participants, $pricePerDay);
                 }
 
                 $stmt->close();

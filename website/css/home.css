@@ -24,16 +24,44 @@
     background: radial-gradient(closest-side, rgb(253, 255, 253), var(--main-color));
 }
 
-.reservation{
-    width: 60%;
+.reservation {
+    width: 30%;
     background-color:var(--booking-bg);
     border: 1em solid var(--booking-bg-s);
     padding: 1em;
     height: 400px;
     border-radius: 2em;
 
+    display: flex;
+    
+    align-items: center;
     overflow-y: auto;
+    flex-direction: column;
 }
+.reservation h1 {
+    color: white;
+    margin: 0;
+    text-align: center;
+}
+
+.result {
+    padding: 1em;
+    width: 75%;
+    text-align: center;
+}
+.result p {
+    margin: 5px;
+    text-align: left;
+}
+.result p::before {
+    content: '- ';
+
+}
+
+.placename {
+    color: var(--category-hovered);
+}
+
 h3{
     text-align: center;
     vertical-align: bottom;
