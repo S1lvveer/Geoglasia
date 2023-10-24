@@ -108,7 +108,7 @@
                         <p>Start date: <span>%s</span></p>
                         <p>End date: <span>%s (Trip lasts %s days) </span> </p>
                         <p>Participants: <span>%s/%s </span> </p>
-                        <p>Price per day: <span>%s PLN </span> </p>
+                        <p>Price per day: <span>%s USD </span> </p>
                         
                     </div>", $city, $reservation_date, $start_date, $end_date, $trip_length, $participants, $max_participants, $pricePerDay);
                 }
