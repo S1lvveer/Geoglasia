@@ -148,7 +148,7 @@
                     $stmt->bind_param("sss", $user_id, $book_id, $book_date);
                     $stmt->execute();
 
-                    $userPosition = $amount + $max_participants;
+                    $userPosition = $amount + 1;
                     popup("success", "You are position $userPosition/$max_participants.");
                 } else {
                     array_push($errors, "The booking is filled. ($max_participants/$max_participants participants)");

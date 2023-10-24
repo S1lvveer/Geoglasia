@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 24 Paź 2023, 14:47
+-- Czas generowania: 24 Paź 2023, 00:45
 -- Wersja serwera: 10.4.22-MariaDB
 -- Wersja PHP: 8.0.13
 
@@ -30,23 +30,11 @@ SET time_zone = "+00:00";
 CREATE TABLE `booking` (
   `book_id` int(11) NOT NULL,
   `place_id` int(11) NOT NULL,
-  `max_participants` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `book_date` date NOT NULL,
   `book_start` date NOT NULL,
   `book_end` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
-
---
--- Zrzut danych tabeli `booking`
---
-
-INSERT INTO `booking` (`book_id`, `place_id`, `max_participants`, `book_start`, `book_end`) VALUES
-(1, 3, 6, '2023-11-07', '2023-11-17'),
-(2, 43, 4, '2023-10-29', '2023-11-17'),
-(3, 44, 6, '2023-11-08', '2023-11-27'),
-(4, 45, 8, '2023-11-16', '2023-11-25'),
-(12, 11, 5, '2023-11-16', '2023-11-22'),
-(13, 12, 4, '2023-11-21', '2023-12-11'),
-(14, 9, 6, '2023-10-27', '2023-11-09');
 
 -- --------------------------------------------------------
 
@@ -176,24 +164,16 @@ CREATE TABLE `sessions` (
 
 INSERT INTO `sessions` (`token`, `user_id`, `expires_at`) VALUES
 ('0413ddcf23b63c790c5b4132be4724c4ab91fcddb150d8d44de0d6a719eab079', 9, 1698087251),
-('19335964897a808ec486bbf5f358e9ded2fe9bccf0e746a50170c48a4a1c9423', 2, 1698324347),
-('2dea873580fdc12ff8ef72a954a439d0fba7be2cb1dad5f5129252bdfd3325a8', 1, 1698313339),
 ('2f85d670e319c64e61db7dd5856acacda49278ccc08aebded836f281b8c6245b', 1, 1698249758),
 ('3c5f6d3214888918809e1c7eb8c860148c4ea8d3075a20aba3fab2b0f49259b3', 1, 1698262736),
 ('40143d811796410feafc4cb5419d330b9a05add5cea85e1f469e178d363a97ae', 1, 1698248345),
 ('5e8f72728fe4d725b737eb9e62a06a0dfcff3e9463d10f8807dd728a4d9a21ef', 1, 1698238924),
 ('645185e0758944febc863a5aae72fda4f0e7a8cec25d414820e9c53ae2144c35', 1, 1698237639),
-('76a8783597825d66b9eaaef557052ecea1d460efd3e6546a5ddee95ca1a16252', 1, 1698322952),
 ('79271cabe5c3528963222bd9c165f85bd3ad364ef8b1755e0d7eee008a9641b7', 1, 1698094040),
-('84c62369e9321bf356f889d548d49592ab57922643e35d90d94e6402dfb985f5', 1, 1698308653),
 ('8cb58cf4c21a971107b8e1b7f0f9806f7f3c4cca249fa8b575b5f898e33f966a', 2, 1698236195),
-('8cc3bd99d45ed5deb5ed0c6a2735f3ac5ff0a6408f59f28f154dae159bfa50d5', 1, 1698308185),
 ('8e1a3a3b2407a30e919f45e0979497a94b37eb2f5071f59e3d1f38179d28a3ca', 1, 1698237727),
 ('988ba891a306797a9cf0e4af4bffb419cd413c1e2cef47e2196756c09287c2e9', 1, 1698224536),
 ('9a182a3eadc8311a2f613bb8a34d2c97b4d8eaee4b8c9c7ada8e6db9df589e70', 1, 1698086206),
-('9b0b2d3942c08b2c4c34be3d6bdf398e0df79fa3551daced6b84f7c24727d3a9', 1, 1698309497),
-('9c86f9b2b54db88def2ef006b17498fc250bc58d40afcbc1079c8903a56c14dd', 1, 1698316555),
-('aac9c1c2df05a5f6f366e7b05c928e1097325ed2cd6b2a9ab57b9f9665a69c9a', 1, 1698318018),
 ('b2a520d6beb63004f5041f74424f6941ba0797c51f5b2c9afc47d4bdd97ffd41', 1, 1698273718),
 ('b4dcae91d2ac6a9968aaa1c6cb3f493ce55c418fa0853495d76594142590799b', 1, 1698260326),
 ('c185eb25e0bcff1cc82ad7d2a1ba1360ac351ee6f42adbde526a40fb83735794', 1, 1698256822),
@@ -238,23 +218,8 @@ INSERT INTO `users` (`user_id`, `login`, `email`, `password`, `name`, `surname`,
 
 CREATE TABLE `user_bookings` (
   `user_id` int(11) DEFAULT NULL,
-  `book_id` int(11) DEFAULT NULL,
-  `book_date` date NOT NULL
+  `book_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_polish_ci;
-
---
--- Zrzut danych tabeli `user_bookings`
---
-
-INSERT INTO `user_bookings` (`user_id`, `book_id`, `book_date`) VALUES
-(1, 1, '2023-10-24'),
-(1, 2, '2023-10-24'),
-(1, 3, '2023-10-24'),
-(1, 4, '2023-10-24'),
-(1, 12, '2023-10-24'),
-(1, 13, '2023-10-24'),
-(1, 14, '2023-10-24'),
-(2, 4, '2023-10-24');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -265,7 +230,8 @@ INSERT INTO `user_bookings` (`user_id`, `book_id`, `book_date`) VALUES
 --
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`book_id`),
-  ADD KEY `place_id` (`place_id`);
+  ADD KEY `place_id` (`place_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indeksy dla tabeli `countries`
@@ -308,7 +274,7 @@ ALTER TABLE `user_bookings`
 -- AUTO_INCREMENT dla tabeli `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT dla tabeli `places`
@@ -330,7 +296,8 @@ ALTER TABLE `users`
 -- Ograniczenia dla tabeli `booking`
 --
 ALTER TABLE `booking`
-  ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`place_id`) REFERENCES `places` (`place_id`);
+  ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`place_id`) REFERENCES `places` (`place_id`),
+  ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Ograniczenia dla tabeli `places`
