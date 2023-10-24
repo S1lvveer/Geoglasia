@@ -12,6 +12,7 @@ $db = new mysqli($db_host, $db_user, $db_password, $db_name);
 if ($db->connect_errno) {
     echo "<div class='db-error-alert'> ERROR: Not connected to database. </div>";
 }
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 function getUser() {
     global $db;

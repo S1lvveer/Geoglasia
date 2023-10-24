@@ -1,5 +1,10 @@
 /* CSS for "home.php" - automatically linked in <head> php code */
 
+:root {
+    --booking-bg: rgb(145, 199, 134);
+    --booking-bg-s: rgb(120, 182, 108);
+}
+
 .map {
     position: absolute;
     top: 0;
@@ -21,13 +26,13 @@
 
 .reservation{
     width: 60%;
-    background-color:#59a570;
-    height: 400PX;
-    border-radius: 25px;
-    
-    margin-top: 40%; /* this one is temp - when map is finished - it'll change/disappera */
-    padding: 1.5%;
-    margin-right: 3%;
+    background-color:var(--booking-bg);
+    border: 1em solid var(--booking-bg-s);
+    padding: 1em;
+    height: 400px;
+    border-radius: 2em;
+
+    overflow-y: auto;
 }
 h3{
     text-align: center;
