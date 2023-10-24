@@ -219,17 +219,18 @@
 
                     $allprice = $trip_length * $pricePerDay;
                     // Display all the info about the trip!
+                    //var_dump($city, $reservation_date, $start_date, $end_date, $trip_length, $num_participants, $max_participants, $pricePerDay, $allprice);
                     printf(
                     "<div class='result'>
                         <h2> > Reservation for <span class='placename'>%s</span> <</h2>
                         <p>Reservation date: <span>%s</span></p>
                         <p>Start date: <span>%s</span></p>
                         <p>End date: <span>%s (Trip lasts %s days) </span> </p>
-                        <p>Participants: <span>%s/%s </span> </p>
+                        <p>Participants: <span>%s/%s </span> [users: %s] </p>
                         <p>Price per day: <span>%s USD </span></p>
                         <p>Whole price: <span>%s USD</span></p>
                         
-                    </div>", $city, $reservation_date, $start_date, $end_date, $trip_length, $participants, $max_participants, $pricePerDay, $allprice);
+                    </div>", $city, $reservation_date, $start_date, $end_date, $trip_length, $num_participants, $max_participants, $participantNames, $pricePerDay, $allprice);
                 }
 
                 $stmt->close();
