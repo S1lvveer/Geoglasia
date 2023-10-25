@@ -54,12 +54,14 @@
 
                 // Get today's date
                 $today = date("Y-m-d");
+                $user_id = $user['user_id'];
 
                 // Get past, in progress, and future reservations
                 $all_sql = "SELECT * 
                 FROM user_bookings
                 JOIN booking ON user_bookings.book_id = booking.book_id
-                WHERE %s";
+                WHERE %s
+                AND user_bookings.user_id = $user_id";
 
                 $active_sql = sprintf($all_sql, "booking.book_start <= '$today' AND booking.book_end >= '$today'");
                 $expired_sql = sprintf($all_sql, "booking.book_end < '$today'");
