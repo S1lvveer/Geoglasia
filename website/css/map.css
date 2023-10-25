@@ -88,10 +88,13 @@
     overflow-y: auto;
 }
 .trip-info {
-    flex: 1;
+    flex: 1.25;
 
     color: white;
     font-weight: 600;
+}
+.trip-info > p {
+    margin:1px;
 }
 
 #submit {
